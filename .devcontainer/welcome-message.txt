@@ -1,0 +1,10 @@
+👋 Willkommen im SYBIT Coding Camp Codespace!
+
+🛠️  Deine Umgebung ist vollständig eingerichtet und verfügt über die gesamte erforderliche Software.
+
+🔍 Um alle Möglichkeiten von VS Code voll auszuschöpfen, nutze die Befehlspalette (Cmd/Strg + Umschalt + P oder F1) für die Suche.
+
+
+🛫 Um die Anwendung zu starten, gib folgendes ein: npm start
+
+---------------------------------------------------------------------------------------------------
