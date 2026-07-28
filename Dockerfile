@@ -1,13 +1,12 @@
 FROM node:lts AS build-stage
 
-ARG environment=staging
 WORKDIR /app
 
 COPY package*.json ./
 RUN npm ci --ignore-scripts
 
 COPY . .
-RUN npm run build -- --mode ${environment}
+RUN npm run build
 
 FROM nginx:stable AS production-stage
 
