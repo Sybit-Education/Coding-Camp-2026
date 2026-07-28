@@ -1,0 +1,27 @@
+mettnau:
+  image: 'registry.gitlab.sybit.dev/sybit/education/sybit-edu/mettnau:latest'
+  container_name: 'mettnau'
+  restart: unless-stopped
+  networks:
+    - traefik_net
+  environment:
+      - NGINX_SCHEME=https
+      - NGINX_HOST=mettnau.sybit.education
+      - NGINX_PORT=443
+  labels:
+    - com.centurylinklabs.watchtower.enable=true
+    - io.portainer.accesscontrol.teams=azubis
+    - traefik.enable=true
+    - traefik.docker.network=traefik_net
+    - traefik.http.routers.mettnau.entrypoints=web-secure
+    - traefik.http.routers.mettnau.rule=Host(`mettnau.sybit.education`)
+    - traefik.http.routers.mettnau.tls=true
+    - traefik.http.routers.mettnau.service=mettnau
+    - traefik.http.services.mettnau.loadbalancer.server.port=80
+    - traefik.http.services.mettnau.loadbalancer.server.scheme=http
+
+
+
+networks:
+  traefik_net:
+    external: true
