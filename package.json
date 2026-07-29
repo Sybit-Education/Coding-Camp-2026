@@ -35,7 +35,7 @@
     "eslint-plugin-vue": "~10.9.2",
     "jiti": "^2.7.0",
     "jsdom": "^29.1.1",
-    "npm-run-all2": "^9.0.2",
+    "npm-run-all2": "^9.0.3",
     "oxfmt": "^0.61.0",
     "oxlint": "~1.76.0",
     "typescript": "~6.0.3",
