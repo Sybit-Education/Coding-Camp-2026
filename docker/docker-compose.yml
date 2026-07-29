@@ -1,5 +1,5 @@
 mettnau:
-  image: 'registry.gitlab.sybit.dev/sybit/education/sybit-edu/mettnau:latest'
+  image: ghcr.io/sybit-education/coding-camp-2026:main
   container_name: 'mettnau'
   restart: unless-stopped
   networks:
