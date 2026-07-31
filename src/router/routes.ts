@@ -1,4 +1,4 @@
-import HomeView from '@/features/HomeView.vue'
+import HomeView from '@/views/HomeView.vue'
 import type { RouteRecordRaw } from 'vue-router'
 import { ROUTE_NAMES } from './route-names'
 
