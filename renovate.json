@@ -1,8 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "schedule": [
-    "at any time"
-  ],
+  "schedule": ["at any time"],
   "lockFileMaintenance": {
     "enabled": true
   },
@@ -15,24 +13,14 @@
   "packageRules": [
     {
       "groupName": "Angular",
-      "matchPackageNames": [
-        "@angular"
-      ],
+      "matchPackageNames": ["@angular"],
       "major": {
         "enabled": false
       }
     },
     {
-      "groupName": "eslint",
-      "matchPackageNames": [
-        "/eslint/"
-      ]
-    },
-    {
       "groupName": "karma",
-      "matchPackageNames": [
-        "/karma/"
-      ]
+      "matchPackageNames": ["/karma/"]
     }
   ],
   "patch": {

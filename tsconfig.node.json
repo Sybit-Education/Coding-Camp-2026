@@ -5,8 +5,7 @@
     "vite.config.*",
     "vitest.config.*",
     "cypress.config.*",
-    "playwright.config.*",
-    "eslint.config.*"
+    "playwright.config.*"
   ],
   "compilerOptions": {
     // Most tools use transpilation instead of Node.js's native type-stripping.
