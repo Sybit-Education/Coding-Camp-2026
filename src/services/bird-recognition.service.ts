@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://cc26-microservice.sybit.education'
+import { environment } from "@/environments/environment"
 
 export interface BirdRecognitionConfig {
   extensions: string[]
@@ -98,7 +98,7 @@ export class BirdRecognitionService {
     let response: Response
 
     try {
-      response = await fetch(`${API_BASE_URL}${path}`, init)
+      response = await fetch(`${environment.birdREcognitionMicroServiceBaseUrl}${path}`, init)
     } catch {
       // Network failures do not provide an HTTP response body to parse.
       throw new Error('Der Erkennungsservice ist momentan nicht erreichbar.')
