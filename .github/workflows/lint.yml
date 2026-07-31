@@ -25,8 +25,5 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Oxlint Action
-        uses: oxc-project/oxlint-action@v1
-
       - name: Lint
         run: npm run lint
