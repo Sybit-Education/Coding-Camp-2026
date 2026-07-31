@@ -4,6 +4,8 @@
 	"name": "Node.js & TypeScript",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"image": "mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm",
+	
+	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
 		"ghcr.io/devcontainers-extra/features/vue-cli:2": {
 			"version": "latest"
@@ -18,19 +20,49 @@
 		"git-lfs": "latest"
 	},
 
-	// Features to add to the dev container. More info: https://containers.dev/features.
-	// "features": {},
-
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
+	"forwardPorts": [5173],
+	"portsAttributes": {
+		"5173": {
+		"label": "Vite Dev Server",
+		"onAutoForward": "openPreview"
+		}
+	},
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "npm install",
+	"postCreateCommand": "npm install -g npm@latest && npm install",
 	"onCreateCommand": "sudo cp .devcontainer/welcome-message.txt /usr/local/etc/vscode-dev-containers/first-run-notice.txt",
 	"waitFor": "postCreateCommand",
 
 	// Configure tool-specific properties.
-	// "customizations": {},
+	"customizations": {
+		"vscode": {
+			"settings": {
+				// Nutzt Prettier weiterhin als Standard-Formatter (da der Oxc-Formatter für Vue SFCs noch reift)
+        		"editor.defaultFormatter": "esbenp.prettier-vscode",
+        		"editor.formatOnSave": true,
+				// Führt Oxlint- und ESLint-Fixes automatisch beim Speichern aus
+				"editor.codeActionsOnSave": {
+				"source.fixAll.oxlint": "explicit",
+				"source.fixAll.eslint": "explicit"
+				},	
+				// Optimierung für Vue 3 (Volar)
+				"vue.server.hybridMode": true,
+				"html.format.enable": false										
+			},
+			// Add the IDs of extensions you want installed when the container is created in the array below.
+			"extensions": [
+				"Vue.volar",
+				"vitest.explorer",
+				"dbaeumer.vscode-eslint",
+				"EditorConfig.EditorConfig",
+				"oxc.oxc-vscode",
+				"antfu.vite",
+				"esbenp.prettier-vscode",
+				"bradlc.vscode-tailwindcss"
+			]
+		}
+	},
 
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"
