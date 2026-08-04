@@ -2,8 +2,8 @@
 
 <template>
   <div>
-    <div class="impressum">
-      <h1>Impressum</h1>
+    <div>
+      <h1 class="font-bold text-xl">Impressum</h1>
 
       <p><strong>Angaben gemäß § 5 DDG</strong></p>
 
@@ -61,11 +61,3 @@
     </div>
   </div>
 </template>
-
-<style scoped>
-.impressum {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 2rem;
-}
-</style>
