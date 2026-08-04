@@ -35,14 +35,17 @@ const open = ref(false)
         v-if="open"
         class="absolute bottom-14 left-1/2 mb-2 -translate-x-1/2 origin-bottom flex flex-col gap-2 rounded-lg bg-secondary/90 p-2 shadow-lg"
       >
+        <!-- About us -->
         <RouterLink to="/">
           <button class="btn btn-primary w-full">About Us</button>
         </RouterLink>
 
+        <!-- Impressum -->
         <RouterLink to="/">
           <button class="btn btn-primary w-full">Impressum</button>
         </RouterLink>
 
+        <!-- Data-protection -->
         <RouterLink to="/">
           <button class="btn btn-primary w-full">Datenschutz</button>
         </RouterLink>
