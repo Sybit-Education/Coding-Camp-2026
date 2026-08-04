@@ -10,18 +10,26 @@ export class LexiconService {
 
   async getLexiconEntriesList(): Promise<LexiconListEntry[]> {
     const lexiconEntries = await this.getAllLexiconEntries()
-    return Promise.all(
+    const result = await Promise.all(
       lexiconEntries.map(async (entry) => ({
-        collectionId: entry.collectionId,
+        id: entry.id,
         name: entry.name,
         description: entry.description,
         imageUrl: entry.media ? await this.resolveImageUrl(entry, entry.media) : undefined,
       })),
     )
+    console.log('getLexiconEntriesList', result)
+    return result
   }
 
   async getLexiconEntryById(id: string): Promise<LexiconEntry> {
-    return await this.pocketBaseService.getById('lexiconEntries', id)
+    const entry = await this.pocketBaseService.getById('lexiconEntries', id)
+    const result: LexiconEntry = {
+      ...entry,
+      imageUrl: entry.media ? await this.resolveImageUrl(entry, entry.media) : undefined,
+    }
+    return result
+
   }
 
   private async getAllLexiconEntries(): Promise<LexiconEntry[]> {

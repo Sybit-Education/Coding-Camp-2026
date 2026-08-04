@@ -1,14 +1,14 @@
 import type { RecordModel } from 'pocketbase'
 
 export type LexiconListEntry = {
-  collectionId: string
+  id: string
   name: string
   description: string
   imageUrl?: string
 }
 
 export type LexiconEntry = RecordModel & {
-  collectionId: string
+  id: string
   categoryId: string
   name: string
   description: string
