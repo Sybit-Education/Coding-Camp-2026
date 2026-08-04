@@ -1,6 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
+  <RouterLink to="/home"> Zurück zur Startseite </RouterLink>
   <div>
     <div>
       <h1 class="font-bold text-xl">Impressum</h1>
