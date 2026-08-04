@@ -1,10 +1,6 @@
 <template>
   <div class="flex flex-row lg:flex-row p-4">
-    <img
-      src="../assets/Haubentaucher.jpg"
-      alt="Ein Haubentaucher."
-      class="aspect-square rounded-lg w-32"
-    />
+    <img :src="imagePath" :alt="imageDescription" class="aspect-square rounded-lg w-32" />
     <div class="p-8">
       <h1 class="text-xl font-bold">{{ title }}</h1>
       <p>{{ description }}</p>
