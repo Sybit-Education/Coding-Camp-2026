@@ -4,4 +4,6 @@
 
   <button class="btn btn-primary">Zur Karte</button>
   <button class="btn btn-secondary">Infos</button>
+
+  <RouterLink to="/impressum"> Impressum </RouterLink>
 </template>
