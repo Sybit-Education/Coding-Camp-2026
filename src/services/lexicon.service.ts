@@ -3,11 +3,7 @@ import type { PocketBaseService } from './pocket-base.service'
 
 export class LexiconService {
   constructor(readonly pocketBaseService: PocketBaseService) {}
-
-  async getLexiconEntries(): Promise<LexiconEntry[]> {
-    return await this.getAllLexiconEntries()
-  }
-
+  
   async getLexiconEntriesList(): Promise<LexiconListEntry[]> {
     const lexiconEntries = await this.getAllLexiconEntries()
     const result = await Promise.all(
@@ -23,7 +19,7 @@ export class LexiconService {
   }
 
   async getLexiconEntryById(id: string): Promise<LexiconEntry> {
-    const entry = await this.pocketBaseService.getById('lexiconEntries', id)
+    const entry = await this.pocketBaseService.getById<LexiconEntry>('lexiconEntries', id)
     const result: LexiconEntry = {
       ...entry,
       imageUrl: entry.media ? await this.resolveImageUrl(entry, entry.media) : undefined,
