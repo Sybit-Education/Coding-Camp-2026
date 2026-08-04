@@ -1,15 +1,18 @@
 <template>
   <div class="flex flex-row lg:flex-row p-4">
-    <img :src="imagePath" :alt="imageDescription" class="aspect-square rounded-lg w-32" />
+    <img :src="entry.imageUrl" :alt="entry.name" class="aspect-square rounded-lg w-32" />
     <div class="p-8">
-      <h1 class="text-xl font-bold">{{ title }}</h1>
-      <p>{{ description }}</p>
+      <h1 class="text-xl font-bold">{{ entry.name }}</h1>
+      <p>{{ entry.description }}</p>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-const title = 'Haubentaucher'
-const description = 'Der Haubentaucher ist eine Vogelart aus der Familie der Lappentaucher.'
-const imagePath = '../assets/Haubentaucher.jpg'
-const imageDescription = 'Ein Haubentaucher.'
+import type { LexiconListEntry } from '@/types/lexicon.types'
+import { onMounted } from 'vue'
+
+const props = defineProps<{ entry: LexiconListEntry }>()
+onMounted(() => {
+  console.log('LexiconListItem mounted')
+})
 </script>

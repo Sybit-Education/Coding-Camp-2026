@@ -15,7 +15,7 @@ export class LexiconService {
         collectionId: entry.collectionId,
         name: entry.name,
         description: entry.description,
-        imageUrl: entry.imageUrl ? await this.resolveImageUrl(entry, entry.imageUrl) : undefined,
+        imageUrl: entry.media ? await this.resolveImageUrl(entry, entry.media) : undefined,
       })),
     )
   }

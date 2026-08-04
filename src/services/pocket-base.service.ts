@@ -18,6 +18,8 @@ export class PocketBaseService {
   }
 
   async getImageUrl<T extends RecordModel>(entry: T, imagePath: string): Promise<string> {
-    return await this.pb.files.getURL(entry, imagePath)
+    const result = await this.pb.files.getURL(entry, imagePath)
+    console.log('getImageUrl', result)
+    return result
   }
 }
