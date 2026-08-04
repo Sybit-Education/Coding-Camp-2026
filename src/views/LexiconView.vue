@@ -1,5 +1,4 @@
 <template>
-  <h1 class="text-3xl font-bold underline">Lexikon</h1>
   <div v-for="entry in test" :key="entry.id">
     <LexiconListItem :entry="entry" />
   </div>
