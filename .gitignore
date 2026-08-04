@@ -141,3 +141,7 @@ vite.config.ts.timestamp-*
 
 # graphify-axet
 .graphify/
+
+# JetBrains IDEs
+.idea
+.idea/*
