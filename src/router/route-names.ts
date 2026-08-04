@@ -1,6 +1,6 @@
 export const ROUTE_NAMES = {
   HOME: 'home',
-  IMPRESSUM: 'imprint',
+  IMPRINT: 'imprint',
   DATA_PROTECTION: 'data-protection',
   LEXICON: 'lexicon',
   LEXICON_DETAILS: 'Lexicon Detail',
