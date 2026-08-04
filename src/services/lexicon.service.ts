@@ -14,7 +14,6 @@ export class LexiconService {
         imageUrl: entry.media ? await this.resolveImageUrl(entry, entry.media) : undefined,
       })),
     )
-    console.log('getLexiconEntriesList', result)
     return result
   }
 

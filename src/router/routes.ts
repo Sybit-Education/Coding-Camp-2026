@@ -26,4 +26,10 @@ export const routes: RouteRecordRaw[] = [
     name: ROUTE_NAMES.LEXICON_DETAILS,
     component: LexiconDetail,
   },
+
+  /*FallBack !!!DO NOT REMOVE!!!*/
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/',
+  }
 ]
