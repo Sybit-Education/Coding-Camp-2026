@@ -59,7 +59,4 @@
       </p>
     </div>
   </div>
-
-  <!-- Navbar -->
-  <Navbar />
 </template>

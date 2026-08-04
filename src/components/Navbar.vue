@@ -41,12 +41,12 @@ const open = ref(false)
         </RouterLink>
 
         <!-- Impressum -->
-        <RouterLink to="/impressum">
+        <RouterLink to="/imprint">
           <button class="btn btn-primary w-full">Impressum</button>
         </RouterLink>
 
         <!-- Data-protection -->
-        <RouterLink to="/">
+        <RouterLink to="/dataprotection">
           <button class="btn btn-primary w-full">Datenschutz</button>
         </RouterLink>
       </div>

@@ -12,8 +12,13 @@ export const routes: RouteRecordRaw[] = [
     component: HomeView,
   },
   {
-    path: '/impressum',
+    path: '/imprint',
     name: ROUTE_NAMES.IMPRESSUM,
+    component: ImpressumView,
+  },
+  {
+    path: '/dataprotection',
+    name: ROUTE_NAMES.DATA_PROTECTION,
     component: ImpressumView,
   },
   {
