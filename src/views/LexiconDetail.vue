@@ -1,8 +1,11 @@
 <template>
-<div>
-  <img src="../assets/logo.svg" alt="" class="rounded-xl p-4">
+<div class="p-4">
+  <img src="../assets/Haubentaucher.jpg" alt="" class="rounded-xl">
+  <div class="pt-4">
 <h1 class="text-3xl font-bold text-center">{{title}}</h1>
-<p class="p-4">{{description}}</p>
+<p class="pt-4"">{{description}}</p>
+  </div>
+
 </div>
 
 </template>
