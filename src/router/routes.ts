@@ -3,6 +3,8 @@ import LexiconView from '@/views/LexiconView.vue'
 import type { RouteRecordRaw } from 'vue-router'
 import { ROUTE_NAMES } from './route-names'
 import LexiconDetail from '@/views/LexiconDetail.vue'
+import DataProtectionView from '@/views/DataProtectionView.vue'
+import ImprintView from '@/views/ImprintView.vue'
 
 export const routes: RouteRecordRaw[] = [
   {
@@ -11,12 +13,29 @@ export const routes: RouteRecordRaw[] = [
     component: HomeView,
   },
   {
+    path: '/imprint',
+    name: ROUTE_NAMES.IMPRINT,
+    component: ImprintView,
+  },
+  {
+    path: '/dataprotection',
+    name: ROUTE_NAMES.DATA_PROTECTION,
+    component: DataProtectionView,
+  },
+  {
     path: '/lexicon',
     name: ROUTE_NAMES.LEXICON,
     component: LexiconView,
   },
-  { path: '/lexiconDetail/:id',
+  {
+    path: '/lexiconDetail/:id',
     name: ROUTE_NAMES.LEXICON_DETAILS,
-    component: LexiconDetail
+    component: LexiconDetail,
+  },
+
+  /*FallBack !!!DO NOT REMOVE!!!*/
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/',
   },
 ]
