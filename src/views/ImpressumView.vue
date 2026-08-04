@@ -1,8 +1,6 @@
-<script setup lang="ts"></script>
-
 <template>
   <RouterLink to="/home"> Zurück zur Startseite </RouterLink>
-  <div>
+  <div class="p-2">
     <div>
       <h1 class="font-bold text-xl">Impressum</h1>
 
@@ -61,4 +59,7 @@
       </p>
     </div>
   </div>
+
+  <!-- Navbar -->
+  <Navbar />
 </template>

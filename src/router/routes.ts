@@ -24,6 +24,6 @@ export const routes: RouteRecordRaw[] = [
   {
     path: '/lexiconDetail/:id',
     name: ROUTE_NAMES.LEXICON_DETAILS,
-    component: LexiconDetail
+    component: LexiconDetail,
   },
 ]
