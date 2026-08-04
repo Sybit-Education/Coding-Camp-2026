@@ -1,9 +1,14 @@
 @import 'tailwindcss';
 
-:root {
+@theme {
   --color-background: #ffffff;
   --color-background-soft: #f8f8f8;
   --color-background-mute: #f2f2f2;
+  --color-primary: #2a944d;
+  --color-secondary: #1a5b30;
+
+  --color-primary-hover: #247f42;
+  --color-secondary-hover: #10381d;
 
   --color-border: rgba(60, 60, 60, 0.12);
   --color-border-hover: rgba(60, 60, 60, 0.29);
@@ -12,6 +17,31 @@
   --color-text: #2c3e50;
 
   --section-gap: 160px;
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex
+    items-center
+    justify-center
+    p-3 rounded-2xl
+    font-medium
+    transition
+    cursor-pointer
+    select-none
+    text-white
+    shadow-xs
+    shadow-black
+    hover:scale-[1.01];
+  }
+
+  .btn-primary {
+    @apply bg-primary hover:bg-primary-hover;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary hover:bg-secondary-hover;
+  }
 }
 
 body {
