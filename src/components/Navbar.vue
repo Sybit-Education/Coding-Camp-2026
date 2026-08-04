@@ -41,7 +41,7 @@ const open = ref(false)
         </RouterLink>
 
         <!-- Impressum -->
-        <RouterLink to="/">
+        <RouterLink to="/impressum">
           <button class="btn btn-primary w-full">Impressum</button>
         </RouterLink>
 
