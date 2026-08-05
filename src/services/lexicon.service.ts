@@ -1,9 +1,14 @@
 import type { Label, LexiconEntry, LexiconListEntry } from '@/shared/types/lexicon.types'
 import type { PocketBaseService } from './pocket-base.service'
 import { sanatizeTextLength } from '@/shared/utils/sanitizer'
+import { useLabelsStore } from '@/stores/labels.store'
 
 export class LexiconService {
-  constructor(readonly pocketBaseService: PocketBaseService) {}
+  private labelStore = useLabelsStore()
+
+  constructor(readonly pocketBaseService: PocketBaseService) {
+    this.labelStore.loadLabels(pocketBaseService)
+  }
 
   async getLexiconEntriesList(): Promise<LexiconListEntry[]> {
     const lexiconEntries = await this.getAllLexiconEntries()
@@ -40,8 +45,8 @@ export class LexiconService {
   }
 
   private async resolveLabelName(labelId: string): Promise<string> {
-      const label = await this.pocketBaseService.getById<Label>('label', labelId)
-    return label.name
+    const label = await this.labelStore.getLabelById(labelId)
+    return label!.name
   }
 
   private async getAllLexiconEntries(): Promise<LexiconEntry[]> {
