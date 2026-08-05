@@ -141,3 +141,10 @@ vite.config.ts.timestamp-*
 
 # graphify-axet
 .graphify/
+.opencode/
+*Zone.Identifier
+.claude/
+.cline/
+.codex/
+.cursor/
+.copilot/
