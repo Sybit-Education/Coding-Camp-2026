@@ -1,6 +1,3 @@
-import type { LexiconListEntry } from '@/types/lexicon.types' import { SkullIcon } from
-'@lucide/vue' import type { LexiconListEntry } from '@/types/lexicon.types' import { LeafIcon } from
-'@lucide/vue'
 <template>
   <RouterLink :to="`/lexiconDetail/${entry.id}`">
     <div class="p-4">
@@ -69,7 +66,9 @@ import type { LexiconListEntry } from '@/types/lexicon.types' import { SkullIcon
   </RouterLink>
 </template>
 <script setup lang="ts">
-import type { LexiconListEntry } from '@/types/lexicon.types'
 
+import { SkullIcon } from '@lucide/vue'
+import type { LexiconListEntry } from '@/types/lexicon.types'
+import { LeafIcon } from '@lucide/vue'
 const props = defineProps<{ entry: LexiconListEntry }>()
 </script>
