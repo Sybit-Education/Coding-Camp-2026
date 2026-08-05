@@ -52,7 +52,7 @@
 </template>
 
 <script setup lang="ts">
-import { ListFilter, Search } from 'lucide-vue-next'
+import { Search, ListFilter } from '@lucide/vue'
 import { LexiconService } from '@/services/lexicon.service.ts'
 import LexiconListItem from '../components/LexiconListItem.vue'
 import { computed, inject, onBeforeUnmount, onMounted, ref } from 'vue'
