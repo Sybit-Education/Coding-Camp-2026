@@ -29,7 +29,7 @@
 import { LexiconService } from '@/services/lexicon.service.ts'
 import LexiconListItem from '../components/LexiconListItem.vue'
 import { inject, onMounted, ref, computed } from 'vue'
-import type { LexiconListEntry } from '@/types/lexicon.types.ts'
+import type { LexiconListEntry } from '@/shared/types/lexicon.types.ts'
 
 const lexiconService = inject('lexiconService') as LexiconService
 

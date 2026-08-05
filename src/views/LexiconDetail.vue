@@ -14,7 +14,7 @@
 </template>
 <script setup lang="ts">
 import type { LexiconService } from '@/services/lexicon.service'
-import type { LexiconEntry } from '@/types/lexicon.types'
+import type { LexiconEntry } from '@/shared/types/lexicon.types'
 import { computed, inject, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 

@@ -19,7 +19,7 @@
   </RouterLink>
 </template>
 <script setup lang="ts">
-import type { LexiconListEntry } from '@/types/lexicon.types'
+import type { LexiconListEntry } from '@/shared/types/lexicon.types'
 
 const props = defineProps<{ entry: LexiconListEntry }>()
 </script>
