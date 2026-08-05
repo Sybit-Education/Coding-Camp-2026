@@ -25,12 +25,14 @@
 </template>
 <script setup lang="ts">
 import type { LexiconService } from '@/services/lexicon.service'
+import type { AudioService } from '@/services/audio.service'
 import type { AnimalAudioEntry, LexiconEntry } from '@/types/lexicon.types'
 import { computed, inject, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
 // Service
 const lexiconService = inject('lexiconService') as LexiconService
+const audioService = inject('audioService') as AudioService
 
 // Gets id
 const id = computed(() => {
@@ -52,6 +54,6 @@ onMounted(async () => {
 
   // Loads data
   entry.value = await lexiconService.getLexiconEntryById(id.value)
-  soundID.value = await lexiconService.getyAudioIDByAnimalID(id.value)
+  soundID.value = await audioService.getyAudioIDByAnimalID(id.value)
 })
 </script>

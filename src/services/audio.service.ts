@@ -1,0 +1,15 @@
+import type { AnimalAudioEntry } from '@/types/lexicon.types'
+import type { PocketBaseService } from './pocket-base.service'
+
+export class AudioService {
+  constructor(readonly pocketBaseService: PocketBaseService) {}
+
+  // Gets audio entries by lexikon id
+  async getyAudioIDByAnimalID(id: string): Promise<AnimalAudioEntry[]> {
+    return await this.pocketBaseService.getRefrences<AnimalAudioEntry>(
+      'audio_reference',
+      'relation',
+      id,
+    )
+  }
+}
