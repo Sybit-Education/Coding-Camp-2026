@@ -3,6 +3,7 @@ import type { PocketBaseService } from './pocket-base.service'
 import { sanatizeTextLength } from '@/shared/utils/sanitizer'
 import { useLabelsStore } from '@/stores/labels.store'
 
+//Lexicon export
 export class LexiconService {
   private labelStore = useLabelsStore()
 
