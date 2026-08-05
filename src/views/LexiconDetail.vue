@@ -1,18 +1,23 @@
 <template>
   <main class="mx-auto w-full max-w-md px-4 py-4">
-    <article
+    <div
       v-if="entry"
       class="overflow-hidden rounded-xl border border-border bg-background shadow-sm"
     >
       <img :src="entry.imageUrl" :alt="entry.name" class="aspect-square w-full object-cover" />
-      <div class="p-5">
+      <AutoTextToSpeech
+          :targetSelector="'article'"
+          lang="de-DE"
+        />
+      <article class="p-5">
         <h1 class="text-2xl font-bold text-heading">{{ entry.name }}</h1>
         <p class="mt-3 text-text">{{ entry.description }}</p>
-      </div>
-    </article>
+      </article>
+    </div>
   </main>
 </template>
 <script setup lang="ts">
+import AutoTextToSpeech from '@/components/AutoTextToSpeech.vue'
 import type { LexiconService } from '@/services/lexicon.service'
 import type { LexiconEntry } from '@/shared/types/lexicon.types'
 import { computed, inject, onMounted, ref } from 'vue'
