@@ -3,10 +3,14 @@
     <div class="p-4">
       <h1 class="text-3xl font-bold text-center">Bird Recognition</h1>
     </div>
-    <button class="btn btn-secondary w-32 h-32 aspect-square" @click="startRecording()">
-      <RatIcon v-if="currentlyRecording"></RatIcon>
+    <button
+      class="btn btn-secondary w-32 h-32 aspect-square"
+      @click="isRecording ? stopRecording() : startRecording()"
+    >
+      <RatIcon></RatIcon>
+      {{ isRecording ? 'Stoppen' : 'Aufnehmen' }}
     </button>
-    <audio controls src="../assets/bird.mp3" class="bg-primary" ref="audio"></audio>
+    <audio v-if="recordingUrl" controls :src="recordingUrl" class="bg-primary"></audio>
     <button class="btn btn-primary">Abschicken</button>
   </div>
 </template>
@@ -25,7 +29,8 @@ let mediaRecorder: MediaRecorder | null = null
 let audioStream: MediaStream | null = null
 let recordedChunks: Blob[] = []
 let recordingTimer: ReturnType<typeof setInterval> | null = null
-let currentlyRecording = true
+const recordingFile = ref<File | null>(null)
+const recordingUrl = ref('')
 
 onMounted(async () => {
   config.value = await birdRecognitionService.getConfig()
@@ -60,7 +65,6 @@ function getRecordingSettings(): { mimeType: string; extension: string } {
 }
 
 async function startRecording(): Promise<void> {
-  currentlyRecording = false
   audioStream = await navigator.mediaDevices.getUserMedia({ audio: true })
   const recordingSettings = getRecordingSettings()
 
@@ -74,12 +78,13 @@ async function startRecording(): Promise<void> {
     }
   })
 
-  mediaRecorder.addEventListener('stop', async () => {
-    const recording = new File(
+  mediaRecorder.addEventListener('stop', () => {
+    recordingFile.value = new File(
       recordedChunks,
       `vogelstimme-${new Date().toISOString()}.${recordingSettings.extension}`,
       { type: recordingSettings.mimeType },
     )
+    recordingUrl.value = URL.createObjectURL(recordingFile.value)
     releaseMicrophone()
   })
 
