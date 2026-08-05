@@ -18,6 +18,8 @@ export const routes: RouteRecordRaw[] = [
     path: '/bird-recognition',
     name: ROUTE_NAMES.BIRD_RECOGNITION,
     component: BirdRecognitionView,
+  },
+  {
     path: '/map',
     name: ROUTE_NAMES.MAP,
     component: MapView,
