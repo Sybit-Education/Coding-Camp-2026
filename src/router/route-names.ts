@@ -4,4 +4,5 @@ export const ROUTE_NAMES = {
   DATA_PROTECTION: 'data-protection',
   LEXICON: 'lexicon',
   LEXICON_DETAILS: 'Lexicon Detail',
+  BirdRecognition: 'bird-recognition',
 } as const
