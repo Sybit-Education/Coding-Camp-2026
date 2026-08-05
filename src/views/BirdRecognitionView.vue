@@ -7,17 +7,22 @@
       class="btn btn-secondary w-32 h-32 aspect-square"
       @click="isRecording ? stopRecording() : startRecording()"
     >
-      {{ isRecording ? '<Play />' : '<Square />' }}
+      {{ isRecording ? 'Stoppen' : 'Aufnehmen' }}
     </button>
     <audio v-if="recordedFile" controls :src="recordedFileUrl" class="bg-primary"></audio>
     <button class="btn btn-primary" @click="analyzeRecording()">Abschicken</button>
-    <p>{{}}</p>
+    <a :href="`/lexiconDetail/${animalID}`">
+      {{ animalName }}
+    </a>
   </div>
 </template>
 <script setup lang="ts">
 import type { BirdRecognitionConfig, BirdRecognitionJob } from '@/services/bird-recognition.service'
-import { ref, onMounted, onUnmounted, inject, computed } from 'vue'
+import { ref, onMounted, onUnmounted, inject } from 'vue'
 import { BirdRecognitionService } from '@/services/bird-recognition.service'
+import { LexiconService } from '@/services/lexicon.service'
+import { PocketBaseService } from '@/services/pocket-base.service'
+import { PlayIcon, SquareIcon } from '@lucide/vue'
 
 const birdRecognitionService = inject<BirdRecognitionService>('birdRecognitionService')!
 
@@ -31,14 +36,14 @@ const recordingDurationSeconds = ref(0)
 const recordedFile = ref<File | null>(null)
 const recordedFileUrl = ref('')
 const job = ref<BirdRecognitionJob | null>(null)
+const animalName = ref<string>('')
+const animalID = ref<string>('')
 
 let mediaRecorder: MediaRecorder | null = null
 let audioStream: MediaStream | null = null
 let recordedChunks: Blob[] = []
 let recordingTimer: ReturnType<typeof setInterval> | null = null
 let pollingTimeout: ReturnType<typeof setTimeout> | null = null
-
-const detections = computed(() => job.value?.result?.detections ?? [])
 
 onMounted(async () => {
   config.value = await birdRecognitionService.getConfig()
@@ -165,6 +170,19 @@ async function pollJob(jobId: string): Promise<void> {
       pollingTimeout = setTimeout(async () => {
         await pollJob(jobId)
       }, jobPollingIntervalMs)
+    }
+
+    if (currentJob.status === 'done') {
+      animalName.value = currentJob.result?.detections[0]!.species_localized!
+      const lex = new LexiconService(new PocketBaseService())
+      const entries = await lex.getLexiconEntriesList()
+      for (let entry of entries) {
+        if (entry.name.toLowerCase() == animalName.value.toLowerCase()) {
+          animalID.value = entry.id
+          console.log(animalID.value)
+          console.log(entry.id)
+        }
+      }
     }
   } catch (error) {
     console.error(error)
