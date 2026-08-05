@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { PlayOff, Play } from '@lucide/vue'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { useSpeechSynthesis } from '@vueuse/core'
 
 // Props erlauben es, den Bereich optional einzuschränken
@@ -33,6 +33,9 @@ onMounted(() => {
     extractedText.value = document.body.innerText
   }
 })
+onUnmounted(() => {
+  stop();
+});
 </script>
 
 <template>
