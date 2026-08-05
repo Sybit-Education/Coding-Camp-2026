@@ -1,6 +1,6 @@
 import type { LexiconEntry, LexiconListEntry } from '@/types/lexicon.types'
 import type { PocketBaseService } from './pocket-base.service'
-
+//Lexicon export
 export class LexiconService {
   constructor(readonly pocketBaseService: PocketBaseService) {}
 
