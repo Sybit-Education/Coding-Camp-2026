@@ -1,18 +1,21 @@
 import L from 'leaflet'
 
+// Default contig
 const METTNAU_CENTER: L.LatLngTuple = [47.728558, 9.000175]
 const METTNAU_DEFAULT_ZOOM = 14
 
+// Map bounds
 const MAP_BOUNDS = {
   southWest: [47.7, 8.95] as L.LatLngTuple,
   northEast: [47.75, 9.05] as L.LatLngTuple,
 }
 
+// Infos
 const TILE_LAYER_URL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 const TILE_LAYER_ATTRIBUTION = '&copy; OpenStreetMap contributors'
 
-//Zoom Border
-const TILE_LAYER_MAX_ZOOM = 19 //Nicht >19, weil Nachladeproblem
+// Zoom Border
+const TILE_LAYER_MAX_ZOOM = 19 // Dont go over 19x, because loading issues occurs
 const TILE_LAYER_MIN_ZOOM = 10
 
 export class MapService {
