@@ -10,7 +10,7 @@ export type LexiconListEntry = {
 
 export type LexiconEntry = RecordModel & {
   id: string
-  categoryId: string
+  label: string
   name: string
   description: string
   imageUrl?: string

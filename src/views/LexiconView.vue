@@ -22,10 +22,7 @@
         class="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-md shadow-lg z-50 py-1"
       >
         <button
-          @click="
-            selectedCategory = ''
-            isMenuOpen = false
-          "
+          @click="((selectedCategory = ''), (isMenuOpen = false))"
           class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
         >
           Alle anzeigen
@@ -34,10 +31,7 @@
         <button
           v-for="cat in categories"
           :key="cat.id"
-          @click="
-            selectedCategory = cat.id
-            isMenuOpen = false
-          "
+          @click="((selectedCategory = cat.id), (isMenuOpen = false))"
           class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
           :class="{ 'font-bold text-blue-600 bg-blue-50': selectedCategory === cat.id }"
         >
@@ -90,4 +84,9 @@ const filteredTest = computed(() => {
 onMounted(async () => {
   test.value = await lexiconService.getLexiconEntriesList()
 })
+
+function FilterToggle(Category: string) {
+  selectedCategory.value = Category
+  isMenuOpen.value = false
+}
 </script>

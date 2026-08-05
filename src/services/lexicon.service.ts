@@ -7,11 +7,13 @@ export class LexiconService {
 
   async getLexiconEntriesList(): Promise<LexiconListEntry[]> {
     const lexiconEntries = await this.getAllLexiconEntries()
+
+    console.log(lexiconEntries)
     const result = await Promise.all(
       lexiconEntries.map(async (entry) => ({
         id: entry.id,
         name: entry.name,
-        label: await this.resolveLabelName(entry.categoryId),
+        label: await this.resolveLabelName(entry.label),
         description: sanatizeTextLength(entry.description, 100),
         imageUrl: entry.media ? await this.resolveImageUrl(entry, entry.media) : undefined,
       })),
@@ -37,8 +39,8 @@ export class LexiconService {
     )
   }
 
-  private async resolveLabelName(categoryId: string): Promise<string> {
-    const label = await this.pocketBaseService.getById<Label>('categories', categoryId)
+  private async resolveLabelName(labelId: string): Promise<string> {
+      const label = await this.pocketBaseService.getById<Label>('label', labelId)
     return label.name
   }
 
