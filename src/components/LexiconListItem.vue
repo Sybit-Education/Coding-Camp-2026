@@ -18,8 +18,9 @@
 
             <span
               v-if="entry.isPoisonous"
-              class="bg-red-600 text-white text-xs px-2 py-1 rounded-full"
+              class="bg-red-600 text-white text-xs px-2 py-1 rounded-full flex gap-2 items-center"
             >
+              <SkullIcon />
               Giftig
             </span>
           </div>
@@ -32,6 +33,7 @@
 </template>
 <script setup lang="ts">
 import type { LexiconListEntry } from '@/types/lexicon.types'
+import { SkullIcon } from '@lucide/vue'
 
 const props = defineProps<{ entry: LexiconListEntry }>()
 </script>
