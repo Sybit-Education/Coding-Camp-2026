@@ -33,8 +33,9 @@
               <h2 class="text-xl font-bold text-heading">{{ entry.name }}</h2>
               <span
                 v-if="entry.isProtected"
-                class="rounded-full bg-green-600 px-2 py-1 text-xs text-white"
+                class="flex items-center gap-1 rounded-full bg-green-600 px-2 py-1 text-xs text-white"
               >
+                <LeafIcon :size="14" aria-hidden="true" />
                 Geschützt
               </span>
               <span
@@ -63,7 +64,7 @@
 <script setup lang="ts">
 import fallbackImage from '@/assets/logo.svg'
 import type { LexiconListEntry } from '@/shared/types/lexicon.types'
-import { SkullIcon } from '@lucide/vue'
+import { LeafIcon, SkullIcon } from '@lucide/vue'
 import { ref } from 'vue'
 
 defineProps<{
