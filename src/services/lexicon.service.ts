@@ -15,7 +15,7 @@ export class LexiconService {
         imageUrl: entry.media ? await this.resolveImageUrl(entry, entry.media) : undefined,
       })),
     )
-    return result
+    return result.sort((a, b) => a.name.localeCompare(b.name, 'de', { sensitivity: 'base' }))
   }
 
   async getLexiconEntryById(id: string): Promise<LexiconEntry> {
