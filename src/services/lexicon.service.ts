@@ -12,10 +12,15 @@ export class LexiconService {
         name: entry.name,
         description: entry.description,
         imageUrl: entry.media ? await this.resolveImageUrl(entry, entry.media) : undefined,
+
+        isProtected: entry.isProtected,
+        isPoisonous: entry.isPoisonous,
       })),
     )
     return result
   }
+
+
 
   async getLexiconEntryById(id: string): Promise<LexiconEntry> {
     const entry = await this.pocketBaseService.getById<LexiconEntry>('lexiconEntries', id)

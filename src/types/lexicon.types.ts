@@ -5,6 +5,9 @@ export type LexiconListEntry = {
   name: string
   description: string
   imageUrl?: string
+
+  isPoisonous?: boolean
+  isProtected?: boolean
 }
 
 export type LexiconEntry = RecordModel & {
@@ -14,4 +17,7 @@ export type LexiconEntry = RecordModel & {
   description: string
   imageUrl?: string
   latinName?: string
+
+  isProtected?: boolean
+  isPoisonous?:boolean
 }

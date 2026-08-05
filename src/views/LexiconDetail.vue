@@ -1,9 +1,21 @@
 <template>
   <div class="p-4">
     <img :src="entry?.imageUrl" alt="" class="rounded-xl" />
-    <div class="pt-4">
-      <h1 class="text-3xl font-bold text-center">{{ entry?.name }}</h1>
-      <p class="pt-4">{{ entry?.description }}</p>
+    <h1 class="text-3xl font-bold text-center">
+      {{ entry?.name }}
+    </h1>
+
+    <div class="flex justify-center gap-2 mt-2">
+      <span
+        v-if="entry?.isProtected"
+        class="bg-green-600 text-white text-xs px-2 py-1 rounded-full"
+      >
+        Geschützt
+      </span>
+
+      <span v-if="entry?.isPoisonous" class="bg-red-600 text-white text-xs px-2 py-1 rounded-full">
+        Giftig
+      </span>
     </div>
   </div>
 </template>
