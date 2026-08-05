@@ -148,3 +148,7 @@ vite.config.ts.timestamp-*
 .codex/
 .cursor/
 .copilot/
+
+# JetBrains IDEs
+.idea
+.idea/*
