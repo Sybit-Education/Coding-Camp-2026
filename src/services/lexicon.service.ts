@@ -1,4 +1,4 @@
-import type { Label, LexiconEntry, LexiconListEntry } from '@/shared/types/lexicon.types'
+import type { LexiconEntry, LexiconListEntry } from '@/shared/types/lexicon.types'
 import type { PocketBaseService } from './pocket-base.service'
 import { sanatizeTextLength } from '@/shared/utils/sanitizer'
 import { useLabelsStore } from '@/stores/labels.store'

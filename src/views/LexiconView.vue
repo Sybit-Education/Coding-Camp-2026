@@ -1,49 +1,54 @@
 <template>
-  <div
-    class="relative max-w-md w-full m-3 flex items-center gap-1 sm bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm"
-  >
-    <Search class="text-gray-400 m-1" />
-    <input type="search" placeholder="Suchen..." class="w-full pl-10 pr-4 py-2 text-" />
-    <div class="relative text-left" ref="menuRef">
-      <button
-        @click="isMenuOpen = !isMenuOpen"
-        class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors"
-      >
-        <ListFilter class="w-4 h-4 text-gray-400"> </ListFilter>
-        <span
-          >{{
-            selectedCategory ? categories.find((c) => c.id === selectedCategory)?.label : 'Alle'
-          }}
-        </span>
-      </button>
-
-      <div
-        v-if="isMenuOpen"
-        class="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-md shadow-lg z-50 py-1"
-      >
+  <main class="mx-auto w-full max-w-md space-y-4 px-4 py-4 pb-24">
+    <div
+      class="relative flex w-full items-center gap-1 rounded-lg border border-gray-300 bg-white p-1 shadow-sm focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500"
+    >
+      <Search class="m-1 shrink-0 text-gray-400" />
+      <input
+        v-model="searchQuery"
+        type="search"
+        placeholder="Suchen..."
+        class="min-w-0 flex-1 py-2 text-sm outline-none"
+      />
+      <div ref="menuRef" class="relative shrink-0 text-left">
         <button
-          @click="((selectedCategory = ''), (isMenuOpen = false))"
-          class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+          class="flex items-center gap-2 rounded-md bg-gray-100 px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200"
+          @click="isMenuOpen = !isMenuOpen"
         >
-          Alle anzeigen
+          <ListFilter class="h-4 w-4 text-gray-400" />
+          <span>
+            {{ selectedLabel || 'Alle' }}
+          </span>
         </button>
 
-        <button
-          v-for="cat in categories"
-          :key="cat.id"
-          @click="((selectedCategory = cat.id), (isMenuOpen = false))"
-          class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-          :class="{ 'font-bold text-blue-600 bg-blue-50': selectedCategory === cat.id }"
+        <div
+          v-if="isMenuOpen"
+          class="absolute right-0 z-50 mt-2 w-40 rounded-md border border-gray-200 bg-white py-1 shadow-lg"
         >
-          {{ cat.label }}
-        </button>
+          <button
+            class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
+            @click="((selectedLabel = ''), (isMenuOpen = false))"
+          >
+            Alle anzeigen
+          </button>
+
+          <button
+            v-for="label in labels"
+            :key="label"
+            class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
+            :class="{ 'bg-blue-50 font-bold text-blue-600': selectedLabel === label }"
+            @click="((selectedLabel = label), (isMenuOpen = false))"
+          >
+            {{ label }}
+          </button>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div v-for="entry in filteredTest" :key="entry.id">
-    <LexiconListItem :entry="entry" />
-  </div>
+    <section class="space-y-4" aria-label="Lexikoneinträge">
+      <LexiconListItem v-for="entry in filteredTest" :key="entry.id" :entry="entry" />
+    </section>
+  </main>
 </template>
 
 <script setup lang="ts">
@@ -58,24 +63,24 @@ defineOptions({
 })
 
 const isMenuOpen = ref(false)
-const selectedCategory = ref<string>('')
+const selectedLabel = ref('')
 const menuRef = ref(null)
 const searchQuery = ref('')
 const test = ref<LexiconListEntry[]>([])
 
-const categories = [
-  { id: 'voegel', label: 'Vögel' },
-  { id: 'pflanzen', label: 'Pflanzen' },
-  { id: 'orte', label: 'Orte' },
-]
+const labels = computed(() =>
+  [...new Set(test.value.map((entry) => entry.label))].sort((first, second) =>
+    first.localeCompare(second),
+  ),
+)
 
 const lexiconService = inject('lexiconService') as LexiconService
 
 const filteredTest = computed(() => {
   let result = lexiconService.filterLexiconEntries(test.value, searchQuery.value)
 
-  if (selectedCategory.value) {
-    result = result.filter((entry) => (entry as any).category === selectedCategory.value)
+  if (selectedLabel.value) {
+    result = result.filter((entry) => entry.label === selectedLabel.value)
   }
 
   return result
@@ -85,8 +90,4 @@ onMounted(async () => {
   test.value = await lexiconService.getLexiconEntriesList()
 })
 
-function FilterToggle(Category: string) {
-  selectedCategory.value = Category
-  isMenuOpen.value = false
-}
 </script>
