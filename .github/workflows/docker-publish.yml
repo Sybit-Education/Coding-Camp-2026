@@ -108,7 +108,7 @@ jobs:
           username: ${{ secrets.PROD_SSH_USER }}
           key: ${{ secrets.PROD_SSH_PRIVATE_KEY }}
           script: |
-            cd /opt/coding-camp-2026
+            cd ${{ secrets.PROD_PROJECT_PATH }}
             docker compose pull
             docker compose up -d
             docker image prune -f
