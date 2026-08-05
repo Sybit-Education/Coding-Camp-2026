@@ -60,6 +60,6 @@ onMounted(async () => {
 
   // Loads data
   entry.value = await lexiconService.getLexiconEntryById(id.value)
-  soundID.value = await audioService.getyAudioIDByAnimalID(id.value)
+  soundID.value = await audioService.getAudioIdsForLexiconEntry(id.value)
 })
 </script>

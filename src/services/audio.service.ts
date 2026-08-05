@@ -5,7 +5,7 @@ export class AudioService {
   constructor(readonly pocketBaseService: PocketBaseService) {}
 
   // Gets audio entries by lexikon id
-  async getyAudioIDByAnimalID(id: string): Promise<AnimalAudioListEntry[]> {
+  async getAudioIdsForLexiconEntry(id: string): Promise<AnimalAudioListEntry[]> {
     return await this.pocketBaseService.getRefrences<AnimalAudioEntry>(
       'audio_reference',
       'relation',
