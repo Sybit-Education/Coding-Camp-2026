@@ -1,4 +1,4 @@
-import type { AnimalAudioEntry, AnimalAudioListEntry } from '@/types/lexicon.types'
+import type { AnimalAudioEntry, AnimalAudioListEntry } from '@/shared/types/lexicon.types'
 import type { PocketBaseService } from './pocket-base.service'
 
 export class AudioService {
