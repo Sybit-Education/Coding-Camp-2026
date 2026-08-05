@@ -1,3 +1,16 @@
+<template>
+  <div
+    ref="mapContainer"
+    class="bg-black h-dvh"
+    style="
+      .map-container {
+        width: 100%;
+        min-height: 400px;
+      }
+    "
+  ></div>
+</template>
+
 <script setup lang="ts">
 import { ref, inject, onMounted } from 'vue'
 import type { MapService } from '@/services/map.service'
@@ -11,16 +24,3 @@ onMounted(async () => {
   }
 })
 </script>
-
-<template>
-  <div
-    ref="mapContainer"
-    class="bg-black h-dvh"
-    style="
-      .map-container {
-        width: 100%;
-        min-height: 400px;
-      }
-    "
-  ></div>
-</template>

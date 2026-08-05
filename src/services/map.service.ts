@@ -1,6 +1,4 @@
 import L from 'leaflet'
-import type { DiscoveryCard } from '@/types/card.types'
-import { PinService } from './pin.service'
 
 const METTNAU_CENTER: L.LatLngTuple = [47.728558, 9.000175]
 const METTNAU_DEFAULT_ZOOM = 14
@@ -28,17 +26,17 @@ export class MapService {
     this.map = null
   }
 
-  fitToConfiguredBounds(): void {
-    const map = this.requireMap()
-    const bounds = L.latLngBounds(MAP_BOUNDS.southWest, MAP_BOUNDS.northEast)
-    map.fitBounds(bounds, { padding: [24, 24] })
-  }
+  // fitToConfiguredBounds(): void {
+  //   const map = this.requireMap()
+  //   const bounds = L.latLngBounds(MAP_BOUNDS.southWest, MAP_BOUNDS.northEast)
+  //   map.fitBounds(bounds, { padding: [24, 24] })
+  // }
 
-  setAllowedBounds(bounds: L.LatLngBoundsExpression): void {
-    const map = this.requireMap()
-    map.setMaxBounds(bounds)
-    map.panInsideBounds(bounds, { animate: true })
-  }
+  // setAllowedBounds(bounds: L.LatLngBoundsExpression): void {
+  //   const map = this.requireMap()
+  //   map.setMaxBounds(bounds)
+  //   map.panInsideBounds(bounds, { animate: true })
+  // }
 
   private addTileLayer(): void {
     if (!this.map) {
@@ -50,18 +48,18 @@ export class MapService {
     }).addTo(this.map)
   }
 
-  private addDiscoveryPins(discoveries: DiscoveryCard[]): void {
-    if (!this.map) {
-      return
-    }
-    const pinService = new PinService(this.map)
-    pinService.addMultiple(discoveries)
-  }
+  // private addDiscoveryPins(discoveries: DiscoveryCard[]): void {
+  //   if (!this.map) {
+  //     return
+  //   }
+  //   const pinService = new PinService(this.map)
+  //   pinService.addMultiple(discoveries)
+  // }
 
-  private requireMap(): L.Map {
-    if (!this.map) {
-      throw new Error('MapService wurde noch nicht initialisiert.')
-    }
-    return this.map
-  }
+  // private requireMap(): L.Map {
+  //   if (!this.map) {
+  //     throw new Error('MapService wurde noch nicht initialisiert.')
+  //   }
+  //   return this.map
+  // }
 }
