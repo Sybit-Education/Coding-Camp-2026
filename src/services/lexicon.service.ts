@@ -1,5 +1,6 @@
-import type { LexiconEntry, LexiconListEntry } from '@/types/lexicon.types'
+import type { LexiconEntry, LexiconListEntry } from '@/shared/types/lexicon.types'
 import type { PocketBaseService } from './pocket-base.service'
+import { sanatizeTextLength } from '@/shared/utils/sanitizer'
 
 export class LexiconService {
   constructor(readonly pocketBaseService: PocketBaseService) {}
@@ -10,7 +11,7 @@ export class LexiconService {
       lexiconEntries.map(async (entry) => ({
         id: entry.id,
         name: entry.name,
-        description: entry.description,
+        description: sanatizeTextLength(entry.description, 100),
         imageUrl: entry.media ? await this.resolveImageUrl(entry, entry.media) : undefined,
       })),
     )
@@ -24,6 +25,15 @@ export class LexiconService {
       imageUrl: entry.media ? await this.resolveImageUrl(entry, entry.media) : undefined,
     }
     return result
+  }
+
+  filterLexiconEntries(entries: LexiconListEntry[], searchTerm: string): LexiconListEntry[] {
+    const lowerCaseSearchTerm = searchTerm.toLowerCase()
+    return entries.filter(
+      (entry) =>
+        entry.name.toLowerCase().includes(lowerCaseSearchTerm) ||
+        entry.description.toLowerCase().includes(lowerCaseSearchTerm),
+    )
   }
 
   private async getAllLexiconEntries(): Promise<LexiconEntry[]> {

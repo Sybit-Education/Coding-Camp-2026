@@ -7,14 +7,14 @@ const open = ref(false)
 </script>
 
 <template>
-  <div class="flex justify-evenly inset-x-0 bottom-0 p-3 bg-secondary/85 fixed">
+  <div class="flex justify-evenly inset-x-0 bottom-0 p-3 bg-secondary/85 fixed z-50">
     <!-- Home page -->
     <RouterLink to="/">
       <button class="btn btn-primary"><InfoIcon /></button>
     </RouterLink>
 
     <!-- Map -->
-    <RouterLink to="/">
+    <RouterLink to="/map">
       <button class="btn btn-primary"><MapIcon /></button>
     </RouterLink>
 

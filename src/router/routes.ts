@@ -2,6 +2,7 @@ import HomeView from '@/views/HomeView.vue'
 import LexiconView from '@/views/LexiconView.vue'
 import type { RouteRecordRaw } from 'vue-router'
 import { ROUTE_NAMES } from './route-names'
+import MapView from '@/views/MapView.vue'
 import LexiconDetail from '@/views/LexiconDetail.vue'
 import DataProtectionView from '@/views/DataProtectionView.vue'
 import ImprintView from '@/views/ImprintView.vue'
@@ -17,6 +18,9 @@ export const routes: RouteRecordRaw[] = [
     path: '/bird-recognition',
     name: ROUTE_NAMES.BIRD_RECOGNITION,
     component: BirdRecognitionView,
+    path: '/map',
+    name: ROUTE_NAMES.MAP,
+    component: MapView,
   },
   {
     path: '/imprint',
