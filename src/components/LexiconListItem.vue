@@ -69,5 +69,7 @@ import type { LexiconListEntry } from '@/types/lexicon.types' import { SkullIcon
   </RouterLink>
 </template>
 <script setup lang="ts">
+import type { LexiconListEntry } from '@/types/lexicon.types'
+
 const props = defineProps<{ entry: LexiconListEntry }>()
 </script>
