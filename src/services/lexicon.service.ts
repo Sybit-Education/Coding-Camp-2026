@@ -26,6 +26,15 @@ export class LexiconService {
     return result
   }
 
+   filterLexiconEntries(entries: LexiconListEntry[], searchTerm: string): LexiconListEntry[] {
+    const lowerCaseSearchTerm = searchTerm.toLowerCase()
+    return entries.filter(
+      (entry) =>
+        entry.name.toLowerCase().includes(lowerCaseSearchTerm) ||
+        entry.description.toLowerCase().includes(lowerCaseSearchTerm),
+    )
+  }
+
   private async getAllLexiconEntries(): Promise<LexiconEntry[]> {
     return await this.pocketBaseService.getAll('lexiconEntries')
   }
