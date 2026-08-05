@@ -7,7 +7,7 @@ const open = ref(false)
 </script>
 
 <template>
-  <div class="flex justify-evenly absolute inset-x-0 bottom-0 p-3 bg-secondary/85">
+  <div class="flex justify-evenly inset-x-0 bottom-0 p-3 bg-secondary/85 fixed">
     <!-- Home page -->
     <RouterLink to="/">
       <button class="btn btn-primary"><InfoIcon /></button>
@@ -19,7 +19,7 @@ const open = ref(false)
     </RouterLink>
 
     <!-- Lexicon -->
-    <RouterLink to="/">
+    <RouterLink to="/lexicon">
       <button class="btn btn-primary"><BookOpenTextIcon /></button>
     </RouterLink>
 
@@ -41,12 +41,12 @@ const open = ref(false)
         </RouterLink>
 
         <!-- Impressum -->
-        <RouterLink to="/">
+        <RouterLink to="/imprint">
           <button class="btn btn-primary w-full">Impressum</button>
         </RouterLink>
 
         <!-- Data-protection -->
-        <RouterLink to="/">
+        <RouterLink to="/dataprotection">
           <button class="btn btn-primary w-full">Datenschutz</button>
         </RouterLink>
       </div>
