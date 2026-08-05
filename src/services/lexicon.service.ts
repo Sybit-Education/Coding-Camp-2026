@@ -20,8 +20,6 @@ export class LexiconService {
     return result
   }
 
-
-
   async getLexiconEntryById(id: string): Promise<LexiconEntry> {
     const entry = await this.pocketBaseService.getById<LexiconEntry>('lexiconEntries', id)
     const result: LexiconEntry = {
