@@ -26,7 +26,7 @@
 <script setup lang="ts">
 import type { LexiconService } from '@/services/lexicon.service'
 import type { AudioService } from '@/services/audio.service'
-import type { AnimalAudioEntry, LexiconEntry } from '@/types/lexicon.types'
+import type { AnimalAudioListEntry, LexiconEntry } from '@/types/lexicon.types'
 import { computed, inject, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
@@ -42,7 +42,7 @@ const id = computed(() => {
 
 // Entry info
 const entry = ref<LexiconEntry>()
-const soundID = ref<AnimalAudioEntry[]>([])
+const soundID = ref<AnimalAudioListEntry[]>([])
 
 // On mount
 onMounted(async () => {

@@ -16,8 +16,13 @@ export type LexiconEntry = RecordModel & {
   latinName?: string
 }
 
-export type AnimalAudioEntry = RecordModel & {
+export type AnimalAudioListEntry = {
   id: string
   xenocanto_id: string
 }
 
+export type AnimalAudioEntry = RecordModel & {
+  id: string
+  relation: LexiconEntry
+  xenocanto_id: string
+}
