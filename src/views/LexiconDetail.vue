@@ -33,7 +33,8 @@
 <script setup lang="ts">
 import type { AudioService } from '@/services/audio.service'
 import type { LexiconService } from '@/services/lexicon.service'
-import type { AnimalAudioListEntry, LexiconEntry } from '@/shared/types/lexicon.types'
+import type { AnimalAudioListEntry } from '@/shared/types/audio.types'
+import type { LexiconEntry } from '@/shared/types/lexicon.types'
 import { computed, inject, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
