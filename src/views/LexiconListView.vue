@@ -1,5 +1,4 @@
 <template>
-  <main class="mx-auto w-full max-w-sm space-y-4 px-4 py-4 pb-24">
     <div class="relative">
       <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
         <svg class="h-5 w-5 text-text/60" fill="none" stroke="currentColor" aria-hidden="true">
@@ -23,7 +22,7 @@
     <section class="space-y-4" aria-label="Lexikoneinträge">
       <LexiconListItem v-for="entry in filteredTest" :key="entry.id" :entry="entry" />
     </section>
-  </main>
+
 </template>
 <script setup lang="ts">
 import { LexiconService } from '@/services/lexicon.service.ts'

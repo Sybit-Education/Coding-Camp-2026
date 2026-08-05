@@ -1,9 +1,9 @@
 import HomeView from '@/views/HomeView.vue'
-import LexiconView from '@/views/LexiconView.vue'
+import LexiconListView from '@/views/LexiconListView.vue'
 import type { RouteRecordRaw } from 'vue-router'
 import { ROUTE_NAMES } from './route-names'
 import MapView from '@/views/MapView.vue'
-import LexiconDetail from '@/views/LexiconDetail.vue'
+import LexiconDetail from '@/views/LexiconDetailView.vue'
 import DataProtectionView from '@/views/DataProtectionView.vue'
 
 export const routes: RouteRecordRaw[] = [
@@ -25,7 +25,7 @@ export const routes: RouteRecordRaw[] = [
   {
     path: '/lexicon',
     name: ROUTE_NAMES.LEXICON,
-    component: LexiconView,
+    component: LexiconListView,
   },
   {
     path: '/lexiconDetail/:id',

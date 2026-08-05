@@ -1,14 +1,8 @@
 <template>
   <div
     ref="mapContainer"
-    class="bg-black h-dvh"
-    style="
-      .map-container {
-        width: 100%;
-        min-height: 400px;
-        z-index: 0;
-      }
-    "
+    class="w-full h-full"
+    role="region"
   ></div>
 </template>
 

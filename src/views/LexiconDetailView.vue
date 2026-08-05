@@ -1,5 +1,4 @@
 <template>
-  <main class="mx-auto w-full max-w-md px-4 py-4">
     <!-- Card -->
     <article
       v-if="entry"
@@ -25,7 +24,6 @@
         :darkBackground="false"
       />
     </div>
-  </main>
 </template>
 <script setup lang="ts">
 import type { AudioService } from '@/services/audio.service'
