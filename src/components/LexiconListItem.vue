@@ -25,10 +25,25 @@
       >
         <img :src="fallbackImage" alt="" class="h-1/2 w-1/2 grayscale opacity-50" />
       </div>
+
       <div class="min-w-0 flex-1">
         <div class="flex items-start justify-between gap-3">
           <div>
-            <h2 class="text-xl font-bold text-heading">{{ entry.name }}</h2>
+            <div class="flex flex-wrap items-center gap-2">
+              <h2 class="text-xl font-bold text-heading">{{ entry.name }}</h2>
+              <span
+                v-if="entry.isProtected"
+                class="rounded-full bg-green-600 px-2 py-1 text-xs text-white"
+              >
+                Geschützt
+              </span>
+              <span
+                v-if="entry.isPoisonous"
+                class="rounded-full bg-red-600 px-2 py-1 text-xs text-white"
+              >
+                Giftig
+              </span>
+            </div>
             <p v-if="scientificName" class="text-sm text-text/60">{{ scientificName }}</p>
           </div>
           <span
@@ -43,6 +58,7 @@
     </article>
   </RouterLink>
 </template>
+
 <script setup lang="ts">
 import fallbackImage from '@/assets/logo.svg'
 import type { LexiconListEntry } from '@/shared/types/lexicon.types'

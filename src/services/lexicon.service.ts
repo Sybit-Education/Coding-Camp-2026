@@ -3,7 +3,7 @@ import type { PocketBaseService } from './pocket-base.service'
 import { sanatizeTextLength } from '@/shared/utils/sanitizer'
 import { useLabelsStore } from '@/stores/labels.store'
 
-//Lexicon export
+// Lexicon export
 export class LexiconService {
   private labelStore = useLabelsStore()
 
@@ -21,8 +21,11 @@ export class LexiconService {
         description: sanatizeTextLength(entry.description, 100),
         imageUrl: entry.media ? await this.resolveImageUrl(entry, entry.media) : undefined,
         latinName: entry.latinName,
+        isProtected: entry.isProtected,
+        isPoisonous: entry.isPoisonous,
       })),
     )
+
     return result.sort((a, b) => a.name.localeCompare(b.name, 'de'))
   }
 
@@ -32,11 +35,13 @@ export class LexiconService {
       ...entry,
       imageUrl: entry.media ? await this.resolveImageUrl(entry, entry.media) : undefined,
     }
+
     return result
   }
 
   filterLexiconEntries(entries: LexiconListEntry[], searchTerm: string): LexiconListEntry[] {
     const lowerCaseSearchTerm = searchTerm.toLowerCase()
+
     return entries.filter(
       (entry) =>
         entry.name.toLowerCase().includes(lowerCaseSearchTerm) ||
