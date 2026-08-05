@@ -1,7 +1,7 @@
 <template>
-  <div v-for="entry in test" :key="entry.id">
-    <LexiconListItem :entry="entry" />
-  </div>
+  <section class="mx-auto w-full max-w-md space-y-3 px-4 py-4">
+    <LexiconListItem v-for="entry in test" :key="entry.id" :entry="entry" />
+  </section>
 </template>
 <script setup lang="ts">
 import type { LexiconService } from '@/services/lexicon.service.ts'

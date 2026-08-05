@@ -1,14 +1,21 @@
 <template>
-  <RouterLink :to="`/lexiconDetail/${entry.id}`">
-    <div class="p-4">
-      <div class="flex flex-row p-4 object-fit items-center justify-center border-2 rounded-lg">
-        <img :src="entry.imageUrl" :alt="entry.name" class="rounded-lg aspect-square w-32 h-32" />
-        <div class="pl-8">
-          <h1 class="text-xl font-bold">{{ entry.name }}</h1>
-          <p>{{ entry.description }}</p>
-        </div>
+  <RouterLink
+    :to="`/lexiconDetail/${entry.id}`"
+    class="group block rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-2"
+  >
+    <article
+      class="flex items-center gap-5 rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition duration-200 ease-out group-hover:-translate-y-0.5 group-hover:border-emerald-200 group-hover:shadow-md"
+    >
+      <img
+        :src="entry.imageUrl"
+        :alt="entry.name"
+        class="aspect-square h-24 w-24 shrink-0 rounded-lg object-cover"
+      />
+      <div class="min-w-0">
+        <h2 class="text-xl font-bold text-slate-900">{{ entry.name }}</h2>
+        <p class="mt-1 text-slate-600">{{ entry.description }}</p>
       </div>
-    </div>
+    </article>
   </RouterLink>
 </template>
 <script setup lang="ts">

@@ -10,7 +10,7 @@ export class LexiconService {
       lexiconEntries.map(async (entry) => ({
         id: entry.id,
         name: entry.name,
-        description: entry.description,
+        description: this.sanatizeTextLength(entry.description, 100),
         imageUrl: entry.media ? await this.resolveImageUrl(entry, entry.media) : undefined,
       })),
     )
@@ -32,5 +32,19 @@ export class LexiconService {
 
   private async resolveImageUrl(entry: LexiconEntry, imagePath: string): Promise<string> {
     return await this.pocketBaseService.getImageUrl(entry, imagePath)
+  }
+
+  private sanatizeTextLength(text: string, maxLength: number): string {
+    if (text.length <= maxLength) {
+      return text
+    }
+    let sanitizedText = text.substring(0, maxLength)
+    const lastSpaceIndex = sanitizedText.lastIndexOf(' ')
+    if (lastSpaceIndex > 0) {
+      sanitizedText = sanitizedText.substring(0, lastSpaceIndex)
+    }
+
+    sanitizedText = sanitizedText.replace(/[,:.]+$/, '')
+    return sanitizedText + ' ...'
   }
 }
