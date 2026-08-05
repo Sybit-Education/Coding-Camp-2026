@@ -1,4 +1,4 @@
-import type { LexiconEntry, LexiconListEntry } from '@/types/lexicon.types'
+import type { AnimalAudioEntry, LexiconEntry, LexiconListEntry } from '@/types/lexicon.types'
 import type { PocketBaseService } from './pocket-base.service'
 
 export class LexiconService {
@@ -32,5 +32,14 @@ export class LexiconService {
 
   private async resolveImageUrl(entry: LexiconEntry, imagePath: string): Promise<string> {
     return await this.pocketBaseService.getImageUrl(entry, imagePath)
+  }
+
+  // Gets audio entries by lexikon id
+  async getyAudioIDByAnimalID(id: string): Promise<AnimalAudioEntry[]> {
+    return await this.pocketBaseService.getRefrences<AnimalAudioEntry>(
+      'audio_reference',
+      'relation',
+      id,
+    )
   }
 }

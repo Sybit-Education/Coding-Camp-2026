@@ -15,3 +15,9 @@ export type LexiconEntry = RecordModel & {
   imageUrl?: string
   latinName?: string
 }
+
+export type AnimalAudioEntry = RecordModel & {
+  id: string
+  xenocanto_id: string
+}
+
