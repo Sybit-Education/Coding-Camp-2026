@@ -39,8 +39,9 @@
               </span>
               <span
                 v-if="entry.isPoisonous"
-                class="rounded-full bg-red-600 px-2 py-1 text-xs text-white"
+                class="flex items-center gap-1 rounded-full bg-red-600 px-2 py-1 text-xs text-white"
               >
+                <SkullIcon :size="14" aria-hidden="true" />
                 Giftig
               </span>
             </div>
@@ -62,6 +63,7 @@
 <script setup lang="ts">
 import fallbackImage from '@/assets/logo.svg'
 import type { LexiconListEntry } from '@/shared/types/lexicon.types'
+import { SkullIcon } from '@lucide/vue'
 import { ref } from 'vue'
 
 defineProps<{
