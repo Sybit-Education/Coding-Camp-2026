@@ -177,6 +177,7 @@ async function pollJob(jobId: string): Promise<void> {
       const lex = new LexiconService(new PocketBaseService())
       const entries = await lex.getLexiconEntriesList()
       for (let entry of entries) {
+        console.log(entry)
         if (entry.name.toLowerCase() == animalName.value.toLowerCase()) {
           animalID.value = entry.id
           console.log(animalID.value)
