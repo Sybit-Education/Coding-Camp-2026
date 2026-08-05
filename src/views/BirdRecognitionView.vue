@@ -7,23 +7,25 @@
       class="btn btn-secondary w-32 h-32 aspect-square"
       @click="isRecording ? stopRecording() : startRecording()"
     >
-      <RatIcon></RatIcon>
-      {{ isRecording ? 'Stoppen' : 'Aufnehmen' }}
+      {{ isRecording ? '<Play />' : '<Square />' }}
     </button>
     <audio v-if="recordingUrl" controls :src="recordingUrl" class="bg-primary"></audio>
-    <button class="btn btn-primary">Abschicken</button>
+    <button class="btn btn-primary" @click="analyzeRecording(recordingFile)">Abschicken</button>
+    <p>{{}}</p>
   </div>
 </template>
 <script setup lang="ts">
 import type { BirdRecognitionConfig } from '@/services/bird-recognition.service'
-import { RatIcon } from '@lucide/vue'
+import { Play, Square } from '@lucide/vue'
 import { ref, onMounted, onUnmounted, inject } from 'vue'
 import { BirdRecognitionService } from '@/services/bird-recognition.service'
+import type { BirdRecognitionJob } from '@/services/bird-recognition.service'
 
 const birdRecognitionService = inject<BirdRecognitionService>('birdRecognitionService')!
 const config = ref<BirdRecognitionConfig | null>(null)
 const isLoadingMeta = ref(true)
 const isRecording = ref(false)
+const isSubmitting = ref(false)
 const recordingDurationSeconds = ref(0)
 let mediaRecorder: MediaRecorder | null = null
 let audioStream: MediaStream | null = null
@@ -31,6 +33,7 @@ let recordedChunks: Blob[] = []
 let recordingTimer: ReturnType<typeof setInterval> | null = null
 const recordingFile = ref<File | null>(null)
 const recordingUrl = ref('')
+const job = ref()
 
 onMounted(async () => {
   config.value = await birdRecognitionService.getConfig()
@@ -113,5 +116,32 @@ function releaseMicrophone(): void {
   audioStream?.getTracks().forEach((track) => track.stop())
   audioStream = null
   mediaRecorder = null
+}
+
+async function analyzeRecording(recording: File): Promise<void> {
+  isSubmitting.value = true
+
+  const location = await birdRecognitionService.getLocation()
+  const createdJob = await birdRecognitionService.createJob(recording, {
+    latitude: location?.latitude,
+    longitude: location?.longitude,
+    week: birdRecognitionService.getCurrentWeek(),
+    language: 'de',
+  })
+
+  job.value = {
+    job_id: createdJob.job_id,
+    status: 'queued',
+    stage: 'Die Analyse wird vorbereitet.',
+    progress: 0,
+  }
+  await pollJob(createdJob.job_id)
+  isSubmitting.value = false
+}
+
+// Refreshes the asynchronous analysis job until it completes or fails.
+async function pollJob(jobId: string): Promise<void> {
+  const currentJob = await birdRecognitionService.getJob(jobId)
+  job.value = currentJob
 }
 </script>

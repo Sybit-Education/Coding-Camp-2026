@@ -12,6 +12,52 @@ export interface BirdRecognitionLanguages {
   default: string
 }
 
+export interface CreateBirdRecognitionJobOptions {
+  latitude?: number
+  longitude?: number
+  week?: number
+  language?: string
+}
+
+export interface BirdDetection {
+  species: string
+  species_code: string
+  confidence: number
+  start: number
+  end: number
+  species_localized: string | null
+  scientific_name: string | null
+}
+
+export interface BirdRecognitionResult {
+  meta: {
+    filename: string | null
+    lat: number | null
+    lon: number | null
+    week: number | null
+    lang: string
+  }
+  detections: BirdDetection[]
+}
+
+export interface BirdRecognitionJobCreated {
+  job_id: string
+}
+
+export interface BirdRecognitionJob {
+  job_id: string
+  status: 'queued' | 'processing' | 'done' | 'error'
+  stage: string
+  progress: number
+  result?: BirdRecognitionResult | null
+  error?: string | null
+}
+
+export interface BirdRecognitionLocation {
+  latitude: number
+  longitude: number
+}
+
 export class BirdRecognitionService {
   // Sending an Request
   private async request<T>(path: string, init?: RequestInit): Promise<T> {
@@ -43,13 +89,58 @@ export class BirdRecognitionService {
   }
 
   // Start a recognition job
-  async createJob() {
-    // To be developed
+  async createJob(
+    file: File,
+    { latitude, longitude, week, language }: CreateBirdRecognitionJobOptions = {},
+  ): Promise<BirdRecognitionJobCreated> {
+    // Let the browser set the required multipart boundary for the audio upload.
+    const formData = new FormData()
+    formData.append('file', file)
+
+    if (latitude !== undefined) {
+      formData.append('lat', String(latitude))
+    }
+    if (longitude !== undefined) {
+      formData.append('lon', String(longitude))
+    }
+    if (week !== undefined) {
+      formData.append('week', String(week))
+    }
+    if (language) {
+      formData.append('lang', language)
+    }
+
+    return this.request<BirdRecognitionJobCreated>('/api/jobs', {
+      method: 'POST',
+      body: formData,
+    })
   }
 
   // Poll the jobs result
-  async getJob() {
-    // To be developed
+  async getJob(jobId: string): Promise<BirdRecognitionJob> {
+    // Job IDs are opaque values and must be safe when used as a URL path segment.
+    return this.request<BirdRecognitionJob>(`/api/jobs/${encodeURIComponent(jobId)}`)
+  }
+
+  async getLocation(): Promise<BirdRecognitionLocation> {
+    return {
+      latitude: 47.7275,
+      longitude: 9.004444,
+    }
+  }
+
+  getCurrentWeek(): number {
+    const targetDate = new Date()
+    targetDate.setHours(0, 0, 0, 0)
+    const DayNr = (targetDate.getDay() + 6) % 7
+    targetDate.setDate(targetDate.getDate() - DayNr + 3)
+    const firstThursday = targetDate.getTime()
+    targetDate.setMonth(0, 4)
+
+    const startDayNr = (targetDate.getDay() + 6) % 7
+    targetDate.setDate(targetDate.getDate() - startDayNr + 3)
+    const weekDiff = (firstThursday - targetDate.getTime()) / 604800000
+    return 1 + Math.ceil(weekDiff)
   }
 
   // Error handling
