@@ -12,6 +12,15 @@ export interface BirdRecognitionLanguages {
   default: string
 }
 
+export interface BirdRecognitionJob {
+  job_id: string
+  status: 'queued' | 'processing' | 'done' | 'error'
+  stage: string
+  progress: number
+  result?: BirdRecognitionResult | null
+  error?: string | null
+}
+
 export interface CreateBirdRecognitionJobOptions {
   latitude?: number
   longitude?: number

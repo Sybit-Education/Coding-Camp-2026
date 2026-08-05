@@ -9,31 +9,36 @@
     >
       {{ isRecording ? '<Play />' : '<Square />' }}
     </button>
-    <audio v-if="recordingUrl" controls :src="recordingUrl" class="bg-primary"></audio>
-    <button class="btn btn-primary" @click="analyzeRecording(recordingFile)">Abschicken</button>
+    <audio v-if="recordedFile" controls :src="recordedFileUrl" class="bg-primary"></audio>
+    <button class="btn btn-primary" @click="analyzeRecording()">Abschicken</button>
     <p>{{}}</p>
   </div>
 </template>
 <script setup lang="ts">
-import type { BirdRecognitionConfig } from '@/services/bird-recognition.service'
-import { Play, Square } from '@lucide/vue'
-import { ref, onMounted, onUnmounted, inject } from 'vue'
+import type { BirdRecognitionConfig, BirdRecognitionJob } from '@/services/bird-recognition.service'
+import { ref, onMounted, onUnmounted, inject, computed } from 'vue'
 import { BirdRecognitionService } from '@/services/bird-recognition.service'
-import type { BirdRecognitionJob } from '@/services/bird-recognition.service'
 
 const birdRecognitionService = inject<BirdRecognitionService>('birdRecognitionService')!
+
+const jobPollingIntervalMs = 3_000
+
 const config = ref<BirdRecognitionConfig | null>(null)
 const isLoadingMeta = ref(true)
 const isRecording = ref(false)
 const isSubmitting = ref(false)
 const recordingDurationSeconds = ref(0)
+const recordedFile = ref<File | null>(null)
+const recordedFileUrl = ref('')
+const job = ref<BirdRecognitionJob | null>(null)
+
 let mediaRecorder: MediaRecorder | null = null
 let audioStream: MediaStream | null = null
 let recordedChunks: Blob[] = []
 let recordingTimer: ReturnType<typeof setInterval> | null = null
-const recordingFile = ref<File | null>(null)
-const recordingUrl = ref('')
-const job = ref()
+let pollingTimeout: ReturnType<typeof setTimeout> | null = null
+
+const detections = computed(() => job.value?.result?.detections ?? [])
 
 onMounted(async () => {
   config.value = await birdRecognitionService.getConfig()
@@ -82,12 +87,12 @@ async function startRecording(): Promise<void> {
   })
 
   mediaRecorder.addEventListener('stop', () => {
-    recordingFile.value = new File(
+    recordedFile.value = new File(
       recordedChunks,
       `vogelstimme-${new Date().toISOString()}.${recordingSettings.extension}`,
       { type: recordingSettings.mimeType },
     )
-    recordingUrl.value = URL.createObjectURL(recordingFile.value)
+    recordedFileUrl.value = URL.createObjectURL(recordedFile.value)
     releaseMicrophone()
   })
 
@@ -118,7 +123,13 @@ function releaseMicrophone(): void {
   mediaRecorder = null
 }
 
-async function analyzeRecording(recording: File): Promise<void> {
+async function analyzeRecording(): Promise<void> {
+  const recording = recordedFile.value
+
+  if (!recording) {
+    return
+  }
+
   isSubmitting.value = true
 
   const location = await birdRecognitionService.getLocation()
@@ -141,7 +152,22 @@ async function analyzeRecording(recording: File): Promise<void> {
 
 // Refreshes the asynchronous analysis job until it completes or fails.
 async function pollJob(jobId: string): Promise<void> {
-  const currentJob = await birdRecognitionService.getJob(jobId)
-  job.value = currentJob
+  try {
+    const currentJob = await birdRecognitionService.getJob(jobId)
+    job.value = currentJob
+
+    if (currentJob.status === 'error') {
+      console.log(currentJob.error || 'Die Aufnahme konnte nicht analysiert werden.')
+      return
+    }
+
+    if (currentJob.status !== 'done') {
+      pollingTimeout = setTimeout(async () => {
+        await pollJob(jobId)
+      }, jobPollingIntervalMs)
+    }
+  } catch (error) {
+    console.error(error)
+  }
 }
 </script>
