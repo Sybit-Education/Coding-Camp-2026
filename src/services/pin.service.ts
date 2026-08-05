@@ -1,5 +1,5 @@
 import L from 'leaflet'
-import type { DiscoveryCard, NatureCategory } from '@/types/card.types'
+import type { DiscoveryCard, NatureCategory } from '@/shared/types/card.types'
 
 const PIN_COLORS: Record<NatureCategory, string> = {
   Vogel: '#ff00ff',

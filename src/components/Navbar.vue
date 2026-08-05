@@ -41,9 +41,9 @@ const open = ref(false)
         </RouterLink>
 
         <!-- Impressum -->
-        <RouterLink to="/imprint">
+        <a href="https://www.sybit.com/de/impressum" target="_blank" rel="noopener noreferrer">
           <button class="btn btn-primary w-full">Impressum</button>
-        </RouterLink>
+        </a>
 
         <!-- Data-protection -->
         <RouterLink to="/dataprotection">
