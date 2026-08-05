@@ -13,10 +13,6 @@
 </template>
 <script setup lang="ts">
 import type { LexiconListEntry } from '@/types/lexicon.types'
-import { onMounted } from 'vue'
 
 const props = defineProps<{ entry: LexiconListEntry }>()
-onMounted(() => {
-  console.log('LexiconListItem mounted')
-})
 </script>

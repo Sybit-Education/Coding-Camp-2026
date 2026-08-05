@@ -4,6 +4,8 @@ import type { RouteRecordRaw } from 'vue-router'
 import { ROUTE_NAMES } from './route-names'
 import MapView from '@/views/MapView.vue'
 import LexiconDetail from '@/views/LexiconDetail.vue'
+import DataProtectionView from '@/views/DataProtectionView.vue'
+import ImprintView from '@/views/ImprintView.vue'
 
 export const routes: RouteRecordRaw[] = [
   {
@@ -17,6 +19,16 @@ export const routes: RouteRecordRaw[] = [
     component: MapView,
   },
   {
+    path: '/imprint',
+    name: ROUTE_NAMES.IMPRINT,
+    component: ImprintView,
+  },
+  {
+    path: '/dataprotection',
+    name: ROUTE_NAMES.DATA_PROTECTION,
+    component: DataProtectionView,
+  },
+  {
     path: '/lexicon',
     name: ROUTE_NAMES.LEXICON,
     component: LexiconView,
@@ -24,6 +36,12 @@ export const routes: RouteRecordRaw[] = [
   {
     path: '/lexiconDetail/:id',
     name: ROUTE_NAMES.LEXICON_DETAILS,
-    component: LexiconDetail
+    component: LexiconDetail,
+  },
+
+  /*FallBack !!!DO NOT REMOVE!!!*/
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/',
   },
 ]

@@ -17,7 +17,6 @@ const lexiconService = inject('lexiconService') as LexiconService
 
 const id = computed(() => {
   const route = useRoute()
-  console.log(route.params.id)
   return route.params.id?.toString()
 })
 
