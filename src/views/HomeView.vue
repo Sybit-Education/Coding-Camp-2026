@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Navbar from '@/components/Navbar.vue'
+import BirdAudio from '@/components/BirdAudio.vue'
 </script>
 
 <template>
@@ -10,4 +11,5 @@ import Navbar from '@/components/Navbar.vue'
   <button class="btn btn-secondary">Infos</button>
 
   <Navbar />
+  <BirdAudio />
 </template>
