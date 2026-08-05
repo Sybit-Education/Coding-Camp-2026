@@ -38,6 +38,7 @@ import type { LexiconEntry } from '@/shared/types/lexicon.types'
 import { computed, inject, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import XenoPlayer from '@/components/XenoPlayer.vue'
+import type { AudioService } from '@/services/audio.service'
 
 // Service
 const lexiconService = inject('lexiconService') as LexiconService

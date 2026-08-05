@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { PlayOff, Play } from '@lucide/vue'
 import { ref, onMounted } from 'vue'
 import { useSpeechSynthesis } from '@vueuse/core'
@@ -26,7 +26,7 @@ const { speak, stop, isPlaying } = useSpeechSynthesis(extractedText, {
 onMounted(() => {
   const targetElement = document.querySelector(props.targetSelector)
 
-  if (targetElement) {
+  if (targetElement instanceof HTMLElement) {
     extractedText.value = targetElement.innerText
   } else {
     // Fallback
@@ -57,7 +57,7 @@ onMounted(() => {
       <span aria-hidden="true" class="inline-flex items-center justify-center">
         <component :is="isPlaying ? PlayOff : Play" />
       </span>
-      <span class="inline-block min-w-[4.5rem] text-left">
+      <span class="inline-block min-w-18 text-left">
         {{ isPlaying ? 'Stoppen' : 'Vorlesen' }}
       </span>
     </button>
