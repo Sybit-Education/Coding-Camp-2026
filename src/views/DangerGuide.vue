@@ -1,5 +1,5 @@
 <template>
-  <h1>What to do when danger</h1>
+  <h1>Gefahrenanleitung</h1>
   <p>
     Bei Verdacht auf eine Vergiftung durch Pflanzen sofort den Mundraum <br />
     des Kindes kontrollieren und Pflanzenreste entfernen. <br />
