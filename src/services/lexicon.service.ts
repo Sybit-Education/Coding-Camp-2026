@@ -12,8 +12,6 @@ export class LexiconService {
 
   async getLexiconEntriesList(): Promise<LexiconListEntry[]> {
     const lexiconEntries = await this.getAllLexiconEntries()
-
-    console.log(lexiconEntries)
     const result = await Promise.all(
       lexiconEntries.map(async (entry) => ({
         id: entry.id,

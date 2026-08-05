@@ -15,7 +15,6 @@ export const useLabelsStore = defineStore('labels', {
   actions: {
     async loadLabels(pocketbase: PocketBaseService) {
       const labels = await pocketbase.getAll<Label>('label')
-      console.log('Loaded labels:', labels)
       this.labels = labels
     },
   },

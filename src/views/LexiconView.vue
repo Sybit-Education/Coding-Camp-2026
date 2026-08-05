@@ -55,7 +55,7 @@
 import { ListFilter, Search } from 'lucide-vue-next'
 import { LexiconService } from '@/services/lexicon.service.ts'
 import LexiconListItem from '../components/LexiconListItem.vue'
-import { inject, onMounted, ref, computed } from 'vue'
+import { computed, inject, onBeforeUnmount, onMounted, ref } from 'vue'
 import type { LexiconListEntry } from '@/shared/types/lexicon.types.ts'
 
 defineOptions({
@@ -64,7 +64,7 @@ defineOptions({
 
 const isMenuOpen = ref(false)
 const selectedLabel = ref('')
-const menuRef = ref(null)
+const menuRef = ref<HTMLElement | null>(null)
 const searchQuery = ref('')
 const test = ref<LexiconListEntry[]>([])
 
@@ -86,8 +86,18 @@ const filteredTest = computed(() => {
   return result
 })
 
+function closeMenuOnOutsideClick(event: PointerEvent) {
+  if (menuRef.value && event.target instanceof Node && !menuRef.value.contains(event.target)) {
+    isMenuOpen.value = false
+  }
+}
+
 onMounted(async () => {
+  document.addEventListener('pointerdown', closeMenuOnOutsideClick)
   test.value = await lexiconService.getLexiconEntriesList()
 })
 
+onBeforeUnmount(() => {
+  document.removeEventListener('pointerdown', closeMenuOnOutsideClick)
+})
 </script>
