@@ -1,25 +1,25 @@
 <template>
-  <main class="mx-auto w-full max-w-md px-4 py-4">
-    <!-- Card -->
+  <main class="mx-auto w-full max-w-sm space-y-4 px-4 py-4 pb-24">
     <article
       v-if="entry"
       class="overflow-hidden rounded-xl border border-border bg-background shadow-sm"
     >
       <img :src="entry.imageUrl" :alt="entry.name" class="aspect-square w-full object-cover" />
-      <div class="p-5">
+      <div class="p-4">
         <h1 class="text-2xl font-bold text-heading">{{ entry.name }}</h1>
-        <div class="flex justify-center gap-2 mt-2">
+        <div class="mt-2 flex flex-wrap gap-2">
           <span
-            v-if="entry?.isProtected"
-            class="bg-green-600 text-white text-xs px-2 py-1 rounded-full"
+            v-if="entry.isProtected"
+            class="flex w-fit items-center gap-1 rounded-full bg-green-600 px-2 py-1 text-xs text-white"
           >
+            <LeafIcon :size="14" />
             Geschützt
           </span>
-
           <span
-            v-if="entry?.isPoisonous"
-            class="bg-red-600 text-white text-xs px-2 py-1 rounded-full"
+            v-if="entry.isPoisonous"
+            class="flex w-fit items-center gap-1 rounded-full bg-red-600 px-2 py-1 text-xs text-white"
           >
+            <SkullIcon :size="14" />
             Giftig
           </span>
         </div>
@@ -27,19 +27,21 @@
       </div>
     </article>
 
-    <!-- Audio Title -->
-    <h1 v-if="soundID.length !== 0" class="text-xl font-bold mt-4">Sounds</h1>
-
-    <!-- Audio container -->
-    <div class="mb-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <!-- Audio -->
-      <XenoPlayer
-        v-for="item in soundID"
-        :key="item.id"
-        :id="item.xenocanto_id"
-        :darkBackground="false"
-      />
-    </div>
+    <section
+      v-if="soundID.length"
+      class="space-y-3 rounded-xl border border-border bg-background p-4 shadow-sm"
+      aria-labelledby="sounds-heading"
+    >
+      <h2 id="sounds-heading" class="text-xl font-bold text-heading">Sounds</h2>
+      <div class="space-y-3">
+        <XenoPlayer
+          v-for="item in soundID"
+          :key="item.id"
+          :id="item.xenocanto_id"
+          :darkBackground="false"
+        />
+      </div>
+    </section>
   </main>
 </template>
 <script setup lang="ts">
@@ -50,6 +52,7 @@ import type { LexiconEntry } from '@/shared/types/lexicon.types'
 import { computed, inject, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import XenoPlayer from '@/components/XenoPlayer.vue'
+import { LeafIcon, SkullIcon } from '@lucide/vue'
 
 // Service
 const lexiconService = inject('lexiconService') as LexiconService
