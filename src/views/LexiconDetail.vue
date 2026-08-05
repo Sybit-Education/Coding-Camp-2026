@@ -18,15 +18,7 @@
     <!-- Audio container -->
     <div class="mb-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       <!-- Audio -->
-      <iframe
-        v-for="item in soundID"
-        :key="item.id"
-        :src="`https://xeno-canto.org/${item.xenocanto_id}/embed`"
-        scrolling="no"
-        frameborder="0"
-        class="w-full"
-        height="220"
-      />
+      <XenoPlayer v-for="item in soundID" :key="item.id" :id="item.id" :darkBackground="false"/>
     </div>
   </main>
 </template>
@@ -37,6 +29,7 @@ import type { AnimalAudioListEntry } from '@/shared/types/audio.types'
 import type { LexiconEntry } from '@/shared/types/lexicon.types'
 import { computed, inject, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
+import XenoPlayer from '@/components/XenoPlayer.vue'
 
 // Service
 const lexiconService = inject('lexiconService') as LexiconService
