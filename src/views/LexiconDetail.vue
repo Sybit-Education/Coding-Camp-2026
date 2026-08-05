@@ -18,7 +18,12 @@
     <!-- Audio container -->
     <div class="mb-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       <!-- Audio -->
-      <XenoPlayer v-for="item in soundID" :key="item.id" :id="item.id" :darkBackground="false"/>
+      <XenoPlayer
+        v-for="item in soundID"
+        :key="item.id"
+        :id="item.xenocanto_id"
+        :darkBackground="false"
+      />
     </div>
   </main>
 </template>
