@@ -131,6 +131,7 @@ export class BirdRecognitionService {
     return this.request<BirdRecognitionJob>(`/api/jobs/${encodeURIComponent(jobId)}`)
   }
 
+  // Auf Mettnau gehard-coded
   async getLocation(): Promise<BirdRecognitionLocation> {
     return {
       latitude: 47.7275,
