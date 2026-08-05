@@ -1,28 +1,29 @@
 <template>
-  <div class="relative max-w-md w-full m-2.5">
-    <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-      <!-- Lupe / Such-Icon -->
+  <main class="mx-auto w-full max-w-sm space-y-4 px-4 py-4 pb-24">
+    <div class="relative">
+      <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+        <svg class="h-5 w-5 text-text/60" fill="none" stroke="currentColor" aria-hidden="true">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+          ></path>
+        </svg>
+      </span>
+      <input
+        v-model="searchQuery"
+        type="search"
+        placeholder="Suchen..."
+        aria-label="Lexikon durchsuchen"
+        class="w-full rounded-xl border border-border bg-background py-2.5 pr-4 pl-10 text-sm text-text shadow-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/25"
+      />
+    </div>
 
-      <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor">
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-        ></path>
-      </svg>
-    </span>
-    <input
-      type="search"
-      placeholder="Suchen..."
-      class="w-full pl-10 pr-4 py-2 text-sm bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm"
-      v-model="searchQuery"
-    />
-  </div>
-
-  <div v-for="entry in filteredTest" :key="entry.id">
-    <LexiconListItem :entry="entry" />
-  </div>
+    <section class="space-y-4" aria-label="Lexikoneinträge">
+      <LexiconListItem v-for="entry in filteredTest" :key="entry.id" :entry="entry" />
+    </section>
+  </main>
 </template>
 <script setup lang="ts">
 import { LexiconService } from '@/services/lexicon.service.ts'
