@@ -8,7 +8,7 @@
         <div>
           <p class="text-4xl font-bold">{{ weather.temperature }}°C</p>
 
-          <p class="text-muted-foreground">
+          <p>
             {{ weatherCondition }}
           </p>
         </div>
@@ -18,12 +18,12 @@
 
       <div class="grid grid-cols-2 gap-4 border-t pt-4 text-sm">
         <div>
-          <p class="text-muted-foreground">Wind</p>
+          <p>Wind</p>
           <p>{{ weather.wind_speed_10 }} km/h</p>
         </div>
 
         <div>
-          <p class="text-muted-foreground">Niederschlag</p>
+          <p>Niederschlag</p>
           <p>{{ weather.precipitation_10 }} mm</p>
         </div>
       </div>
@@ -34,12 +34,9 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 
-import {
-  getCurrentWeather,
-  getWeatherIcon,
-  translateWeatherCondition,
-} from '@/services/weather.service'
+import { getCurrentWeather } from '@/services/weather.service'
 import type { CurrentWeather } from '@/shared/types/weather.types'
+import { getWeatherIcon, translateWeatherCondition } from '@/shared/utils/weatherTranslation'
 
 const weather = ref<CurrentWeather | null>(null)
 const loading = ref(true)
