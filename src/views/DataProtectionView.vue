@@ -1,6 +1,5 @@
-
 <template>
-  <div class="min-h-screen bg-gray-100 py-8 pb-32">
+  <div class="min-h-screen bg-background-soft py-8 pb-32">
     <div class="mx-auto max-w-2xl px-4 text-gray-700">
       <h1 class="mb-8 text-4xl font-bold text-green-700">Datenschutzerklärung</h1>
 
