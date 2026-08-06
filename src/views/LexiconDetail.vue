@@ -13,10 +13,10 @@
             entry.attributionLicense &&
             !hasImageError
           "
-          class="absolute bottom-0 right-0 text-sm bg-black/60 text-white text-right"
+          class="flex items-center nowrap absolute bottom-0 right-0 text-sm bg-black/60 text-white text-right px-1"
         >
-          &copy; {{ entry.attributionAuthor }}, {{ entry.attributionLicense }},
-          <a :href="entry.attributionURL"> {{ entry.attributionURL }}</a>
+          <CopyrightIcon/> {{ entry.attributionAuthor }}, {{ entry.attributionLicense }},
+          <a :href="entry.attributionURL"> link</a>
         </p>
         <img
           v-if="entry.imageUrl && !hasImageError"
@@ -90,7 +90,7 @@ import type { AudioService } from '@/services/audio.service'
 import type { LexiconService } from '@/services/lexicon.service'
 import type { AnimalAudioListEntry } from '@/shared/types/audio.types'
 import type { LexiconEntry } from '@/shared/types/lexicon.types'
-import { LeafIcon, SkullIcon } from '@lucide/vue'
+import { CopyrightIcon, LeafIcon, SkullIcon } from '@lucide/vue'
 import { computed, inject, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
