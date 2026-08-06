@@ -1,3 +1,4 @@
+import { environment } from '@/environments/environment'
 import type {
   BirdRecognitionConfig,
   BirdRecognitionLanguages,
@@ -7,7 +8,7 @@ import type {
   BirdRecognitionLocation,
 } from '@/shared/types/bird-recognition.types'
 
-const API_BASE_URL = 'https://cc26-microservice.sybit.education'
+const API_BASE_URL = environment.birdRecognitionBaseAddress
 
 export class BirdRecognitionService {
   // Sending an Request

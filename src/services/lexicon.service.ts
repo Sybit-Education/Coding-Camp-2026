@@ -8,7 +8,6 @@ import { sanatizeTextLength } from '@/shared/utils/sanitizer'
 import { useLabelsStore } from '@/stores/labels.store'
 import { useToxicityStore } from '@/stores/toxicity.store'
 
-// Lexicon export
 export class LexiconService {
   private labelStore = useLabelsStore()
   private toxicityStore = useToxicityStore()
@@ -47,7 +46,7 @@ export class LexiconService {
       toxicityLevel:
         typeof entry.toxicityLevel === 'string'
           ? await this.getToxicityLevelById(entry.toxicityLevel)
-          : entry.toxicityLevel,
+          : undefined,
     }
 
     return result
