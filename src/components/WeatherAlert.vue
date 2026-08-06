@@ -32,11 +32,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
-
-import { getCurrentWeather } from '@/services/weather.service'
+import { computed, inject, onMounted, ref } from 'vue'
 import type { CurrentWeather } from '@/shared/types/weather.types'
 import { getWeatherIcon, translateWeatherCondition } from '@/shared/utils/weatherTranslation'
+import type { WeatherService } from '@/services/weather.service'
+
+const weatherService = inject('weatherService') as WeatherService
 
 const weather = ref<CurrentWeather | null>(null)
 const loading = ref(true)
@@ -57,7 +58,7 @@ const weatherCondition = computed(() => {
 
 onMounted(async () => {
   try {
-    weather.value = await getCurrentWeather()
+    weather.value = await weatherService.getCurrentWeather()
   } catch (error) {
     console.error(error)
   } finally {
