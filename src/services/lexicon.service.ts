@@ -3,10 +3,10 @@ import {
   type LexiconListEntry,
   type ToxicityLevel,
 } from '@/shared/types/lexicon.types'
+import type { PocketBaseService } from './pocket-base.service'
 import { sanatizeTextLength } from '@/shared/utils/sanitizer'
 import { useLabelsStore } from '@/stores/labels.store'
 import { useToxicityStore } from '@/stores/toxicity.store'
-import type { PocketBaseService } from './pocket-base.service'
 
 // Lexicon export
 export class LexiconService {

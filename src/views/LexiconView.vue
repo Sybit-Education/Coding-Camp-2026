@@ -61,6 +61,7 @@
 <script setup lang="ts">
 import LexiconListItem from '@/components/LexiconListItem.vue'
 import { LexiconService } from '@/services/lexicon.service'
+import { useLabelsStore } from '@/stores/labels.store'
 import { useToxicityStore } from '@/stores/toxicity.store'
 import type { LexiconListEntry } from '@/shared/types/lexicon.types'
 import { ListFilter, Search } from '@lucide/vue'
@@ -71,18 +72,19 @@ defineOptions({
 })
 
 const lexiconService = inject('lexiconService') as LexiconService
+const labelsStore = useLabelsStore()
 const toxicityStore = useToxicityStore()
 
+const entries = ref<LexiconListEntry[]>([])
 const isMenuOpen = ref(false)
 const selectedLabel = ref('')
 const menuRef = ref<HTMLElement | null>(null)
 const searchQuery = ref('')
-const entries = ref<LexiconListEntry[]>([])
 
 const labels = computed(() =>
-  [...new Set(entries.value.map((entry) => entry.label))].sort((first, second) =>
-    first.localeCompare(second),
-  ),
+  labelsStore.getLabels
+    .map((label) => label.name)
+    .sort((first, second) => first.localeCompare(second)),
 )
 
 const filteredEntries = computed(() => {
