@@ -4,7 +4,7 @@ import { RouterLink } from 'vue-router'
 </script>
 
 <template>
-  <div class="p-6 pb-32 max-w-4xl mx-auto">
+  <main>
     <h1 class="text-3xl font-bold text-primary mb-6">Gefahrenanleitung</h1>
 
     <div class="space-y-4">
@@ -62,14 +62,5 @@ import { RouterLink } from 'vue-router'
       </ul>
     </div>
 
-    <div class="mt-8 flex gap-4">
-      <RouterLink to="/map">
-        <button class="btn btn-primary">Zurück zur Karte</button>
-      </RouterLink>
-
-      <RouterLink to="/">
-        <button class="btn btn-primary">Zurück zur Startseite</button>
-      </RouterLink>
-    </div>
-  </div>
+  </main>
 </template>

@@ -1,5 +1,5 @@
 <template>
-    <div
+    <main
       class="relative flex w-full items-center gap-1 rounded-lg border border-gray-300 bg-white p-1 shadow-sm focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500"
     >
       <Search class="m-1 shrink-0 text-gray-400" />
@@ -39,21 +39,22 @@
           </button>
         </div>
       </div>
-    </div>
 
-    <details class="rounded-xl border border-border bg-background p-3 text-sm text-text">
-      <summary class="cursor-pointer font-semibold text-heading">Giftigkeitsstufen</summary>
-      <dl class="mt-3 space-y-2">
-        <div v-for="level in toxicityReferences" :key="level.id" class="flex gap-2">
-          <dt class="min-w-10 font-bold text-red-700">{{ level.type }}</dt>
-          <dd class="font-medium">{{ level.description }}</dd>
-        </div>
-      </dl>
-    </details>
 
-    <section class="space-y-4" aria-label="Lexikoneinträge">
-      <LexiconListItem v-for="entry in filteredEntries" :key="entry.id" :entry="entry" />
-    </section>
+      <details class="rounded-xl border border-border bg-background p-3 text-sm text-text">
+        <summary class="cursor-pointer font-semibold text-heading">Giftigkeitsstufen</summary>
+        <dl class="mt-3 space-y-2">
+          <div v-for="level in toxicityReferences" :key="level.id" class="flex gap-2">
+            <dt class="min-w-10 font-bold text-red-700">{{ level.type }}</dt>
+            <dd class="font-medium">{{ level.description }}</dd>
+          </div>
+        </dl>
+      </details>
+
+      <section class="space-y-4" aria-label="Lexikoneinträge">
+        <LexiconListItem v-for="entry in filteredEntries" :key="entry.id" :entry="entry" />
+      </section>
+    </main>
 
 </template>
 

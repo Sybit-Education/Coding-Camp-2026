@@ -1,10 +1,10 @@
 <template>
-  <div class="space-y-8">
-    <h1 class="text-3xl font-bold underline text-primary">Mettnau</h1>
+  <main class="space-y-8">
+    <h1 class="text-3xl font-bold text-primary">Mettnau</h1>
 
-    <!-- Simple Import -->
+    <hr />
     <WeatherAlert />
-  </div>
+  </main>
 </template>
 
 <script setup lang="ts">

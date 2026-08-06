@@ -1,5 +1,5 @@
 <template>
-    <!-- Card -->
+    <main>
     <article
       v-if="entry"
       class="overflow-hidden rounded-xl border border-border bg-background shadow-sm"
@@ -81,6 +81,7 @@
         />
       </div>
     </section>
+  </main>
 </template>
 
 <script setup lang="ts">

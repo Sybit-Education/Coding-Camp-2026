@@ -1,7 +1,7 @@
 <template>
   <div
     ref="mapContainer"
-    class="w-full h-full"
+    class="map"
     role="region"
   ></div>
 </template>
@@ -19,3 +19,13 @@ onMounted(async () => {
   }
 })
 </script>
+
+<style lang="postcss">
+  .map {
+    @apply w-screen h-dvh fixed;
+  }
+  .map:focus-visible {
+    @apply outline-3 outline-offset-[-3px];
+    outline-color: var(--color-primary);
+  }
+</style>

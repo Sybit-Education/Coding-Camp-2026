@@ -22,8 +22,13 @@
 }
 
 @layer components {
-  .flex-sm {
-    @apply flex gap-2;
+  main {
+    @apply pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)];
+    @apply px-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)];
+    @apply flex flex-col justify-center items-center;
+    @apply w-auto mx-auto;
+    @apply container w-auto;
+    @apply mb-25;
   }
 
   .btn {

@@ -1,7 +1,6 @@
 <script setup lang="ts"></script>
 <template>
-  <div>
-    <div class="Datenschutzerklärung">
+  <main>
       <h1>Datenschutzerklärung</h1>
 
       <p>
@@ -259,8 +258,7 @@
         Seiten, Referrer, Browsertyp, Gerätetyp, Betriebssystem, Land (basierend auf IP,
         anonymisiert), sowie Datum und Uhrzeit des Zugriffs.
       </p>
-    </div>
-  </div>
+  </main>
 </template>
 
 <style scoped>

@@ -152,3 +152,4 @@ vite.config.ts.timestamp-*
 # JetBrains IDEs
 .idea
 .idea/*
+megalinter-reports/
