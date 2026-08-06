@@ -5,6 +5,7 @@ import { PocketBaseService } from '@/services/pocket-base.service'
 import { LexiconService } from '@/services/lexicon.service'
 import { BirdRecognitionService } from '@/services/bird-recognition.service'
 import { AudioService } from '@/services/audio.service'
+import { WeatherService } from '@/services/weather.service'
 
 export function createAppServices(_router: Router) {
   const mapService = new MapService()
@@ -12,6 +13,7 @@ export function createAppServices(_router: Router) {
   const lexiconService = new LexiconService(pocketBaseService)
   const birdRecognitionService = new BirdRecognitionService()
   const audioService = new AudioService(pocketBaseService)
+  const weatherService = new WeatherService()
 
   return {
     pocketBaseService,
@@ -19,6 +21,7 @@ export function createAppServices(_router: Router) {
     lexiconService,
     birdRecognitionService,
     audioService,
+    weatherService,
   }
 }
 
@@ -30,4 +33,5 @@ export function provideAppServices(app: App, services: AppServices): void {
   app.provide('lexiconService', services.lexiconService)
   app.provide('birdRecognitionService', services.birdRecognitionService)
   app.provide('audioService', services.audioService)
+  app.provide('weatherService', services.weatherService)
 }
