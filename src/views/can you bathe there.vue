@@ -2,7 +2,7 @@
 import type { UserRoundCheck } from '@lucide/vue'
 </script>
 <template>
-  <!-- das ist das icon-->
+
   <Ban />Erlaubt: Das Schwimmen im Bodensee ist auf der Mettnau ausschließlich <br />
   in den dafür vorgesehenen, bewachten Zonen gestattet:<br />
   Strandbad Mettnau: Der größte offizielle Badebereich mit großen Liegewiesen, einem flachen
@@ -21,7 +21,6 @@ import type { UserRoundCheck } from '@lucide/vue'
     import type { Ban } from '@lucide/vue'
   </script>
 
-  <!-- das ist das icon-->
   <Ban />Verboten: Laut der städtischen Umweltschutz-Verordnung herrscht am gesamten restlichen<br />
   Uferbereich ein allgemeines Badeverbot.<br />
   Verstöße können mit einem Bußgeld geahndet werden.<br />

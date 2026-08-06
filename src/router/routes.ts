@@ -34,7 +34,7 @@ export const routes: RouteRecordRaw[] = [
     component: LexiconDetail,
   },
   {
-    path: '/lexiconDetail/:id',
+    path: '/bathingSpots',
     name: ROUTE_NAMES.BATHING_SPOTS,
     component: bathingSpots,
   },

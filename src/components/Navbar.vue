@@ -40,10 +40,6 @@ const open = ref(false)
           <button class="btn btn-primary w-full">About Us</button>
         </RouterLink>
 
-        <!-- bathing spots -->
-        <RouterLink to="/">
-          <button class="btn btn-primary w-full">bathing spots</button>
-        </RouterLink>
         <!-- Impressum -->
         <a href="https://www.sybit.com/de/impressum" target="_blank" rel="noopener noreferrer">
           <button class="btn btn-primary w-full">Impressum</button>
