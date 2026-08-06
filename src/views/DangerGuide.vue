@@ -1,3 +1,11 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import { MapIcon, InfoIcon, BookOpenTextIcon, MenuIcon, TriangleAlert } from '@lucide/vue'
+import { RouterLink } from 'vue-router'
+
+const open = ref(false)
+</script>
+
 <template>
   <div class="p-6 pb-32 max-w-4xl mx-auto">
     <h1 class="text-3xl font-bold text-primary mb-6">Gefahrenanleitung</h1>
@@ -58,11 +66,11 @@
     </div>
 
     <div class="mt-8 flex gap-4">
-      <button class="btn btn-primary">Zur Karte</button>
+      <RouterLink to="/map">
+        <button class="btn btn-primary">Zurück zur Karte</button>
+      </RouterLink>
 
       <button class="btn btn-secondary">Infos</button>
     </div>
   </div>
 </template>
-
-
