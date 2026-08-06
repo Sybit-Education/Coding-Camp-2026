@@ -6,4 +6,5 @@ export const ROUTE_NAMES = {
   LEXICON: 'lexicon',
   LEXICON_DETAILS: 'Lexicon Detail',
   BIRD_RECOGNITION: 'bird-recognition',
+  DANGER_GUIDE: 'DangerGuide'
 } as const

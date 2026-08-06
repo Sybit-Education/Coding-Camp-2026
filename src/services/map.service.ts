@@ -1,26 +1,36 @@
 import L from 'leaflet'
 
+// Default contig
 const METTNAU_CENTER: L.LatLngTuple = [47.728558, 9.000175]
 const METTNAU_DEFAULT_ZOOM = 14
 
+// Map bounds
 const MAP_BOUNDS = {
   southWest: [47.7, 8.95] as L.LatLngTuple,
   northEast: [47.75, 9.05] as L.LatLngTuple,
 }
 
+// Infos
 const TILE_LAYER_URL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 const TILE_LAYER_ATTRIBUTION = '&copy; OpenStreetMap contributors'
-const TILE_LAYER_MAX_ZOOM = 20
+
+// Zoom Border
+const TILE_LAYER_MAX_ZOOM = 19 // Dont go over 19x, because loading issues occurs
+const TILE_LAYER_MIN_ZOOM = 10
 
 export class MapService {
   private map: L.Map | null = null
 
   initialize(container: HTMLDivElement): void {
-    this.map = L.map(container, {}).setView(METTNAU_CENTER, METTNAU_DEFAULT_ZOOM)
+    this.map = L.map(container, {
+      minZoom: TILE_LAYER_MIN_ZOOM,
+      maxZoom: TILE_LAYER_MAX_ZOOM,
+    }).setView(METTNAU_CENTER, METTNAU_DEFAULT_ZOOM)
+
     this.addTileLayer()
+
     this.map.fitBounds(L.latLngBounds(MAP_BOUNDS.southWest, MAP_BOUNDS.northEast))
   }
-
   destroy(): void {
     this.map?.remove()
     this.map = null
@@ -45,6 +55,7 @@ export class MapService {
     L.tileLayer(TILE_LAYER_URL, {
       attribution: TILE_LAYER_ATTRIBUTION,
       maxZoom: TILE_LAYER_MAX_ZOOM,
+      minZoom: TILE_LAYER_MIN_ZOOM,
     }).addTo(this.map)
   }
 

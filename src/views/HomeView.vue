@@ -4,4 +4,5 @@
 
   <button class="btn btn-primary">Zur Karte</button>
   <button class="btn btn-secondary">Infos</button>
+  <RouterLink to="/DangerGuide" class="btn btn-primary"> Danger Guide </RouterLink>
 </template>
