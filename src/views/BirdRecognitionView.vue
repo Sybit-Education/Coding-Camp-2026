@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col items-center gap-8 p-4 pb-24">
     <div class="p-4">
-      <h1 class="text-center text-3xl font-bold">Bird Recognition</h1>
+      <h1 class="text-center text-3xl font-bold">Vogel Erkennung</h1>
       <p class="mt-2 text-center text-base-content/70">
         Nimm eine Vogelstimme auf und lasse sie analysieren.
       </p>
@@ -22,8 +22,8 @@
           :disabled="isAnalyzing"
           @click="isRecording ? finishRecording() : startRecording()"
         >
-          <span v-if="isRecording">Stoppen</span>
-          <span v-else>Aufnehmen</span>
+          <SquareIcon v-if="isRecording" class="size-10 fill-current" />
+          <MicIcon v-else class="size-10" />
         </button>
 
         <p v-if="isRecording" class="font-medium text-error" aria-live="polite">
@@ -35,21 +35,21 @@
 
           <div class="flex flex-wrap justify-center gap-3">
             <button
-              v-if="job?.status !== 'done'"
-              class="btn btn-primary"
+              v-if="job?.status !== 'done' && !isAnalyzing"
+              class="btn btn-primary flex-sm"
               :disabled="isAnalyzing"
               @click="submitRecording"
             >
-              {{ isAnalyzing ? 'Analyse läuft …' : 'Abschicken' }}
+              <SendIcon class="size-5" /> Abschicken
             </button>
-            <button class="btn btn-secondary" :disabled="isAnalyzing" @click="reset">
-              Neue Aufnahme
+            <button class="btn btn-secondary flex-sm" :disabled="isAnalyzing" @click="reset">
+              <RotateCwIcon class="size-5" /> Neue Aufnahme
             </button>
           </div>
         </div>
 
         <div v-if="isAnalyzing" class="flex items-center gap-3" aria-live="polite">
-          <span class="loading loading-spinner loading-md text-primary"></span>
+          <LoaderCircleIcon class="animate-spin" />
           <span>Analyse läuft …</span>
         </div>
 
@@ -108,6 +108,7 @@ import type {
 } from '@/services/bird-recognition.service'
 import type { LexiconService } from '@/services/lexicon.service'
 import type { LexiconListEntry } from '@/shared/types/lexicon.types'
+import { LoaderCircleIcon, MicIcon, RotateCwIcon, SendIcon, SquareIcon } from '@lucide/vue'
 import { computed, inject, onMounted, onUnmounted, ref } from 'vue'
 
 const birdRecognitionService = inject<BirdRecognitionService>('birdRecognitionService')
@@ -447,6 +448,6 @@ function formatDuration(seconds: number): string {
 }
 
 function formatConfidence(confidence: number): string {
-  return `${Math.round(confidence * 100)} %`
+  return `${Math.round(confidence * 100)}%`
 }
 </script>
