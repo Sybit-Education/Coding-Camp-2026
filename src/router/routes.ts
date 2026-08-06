@@ -5,6 +5,7 @@ import { ROUTE_NAMES } from './route-names'
 import MapView from '@/views/MapView.vue'
 import LexiconDetail from '@/views/LexiconDetail.vue'
 import DataProtectionView from '@/views/DataProtectionView.vue'
+import BathingSpotsView from '@/views/BathingSpotsView.vue'
 
 
 export const routes: RouteRecordRaw[] = [
@@ -36,9 +37,8 @@ export const routes: RouteRecordRaw[] = [
   {
     path: '/bathingSpots',
     name: ROUTE_NAMES.BATHING_SPOTS,
-    component: bathingSpots,
+    component: BathingSpotsView,
   },
-
 
   /*FallBack !!!DO NOT REMOVE!!!*/
   {
