@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { TriangleAlert } from '@lucide/vue'
 import { RouterLink } from 'vue-router'
 </script>
 
