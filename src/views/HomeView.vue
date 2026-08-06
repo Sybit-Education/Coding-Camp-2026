@@ -10,6 +10,7 @@
       <button class="btn btn-secondary">Infos</button>
     </div>
 
+    <!-- Simple Import -->
     <WeatherAlert />
   </div>
 </template>
