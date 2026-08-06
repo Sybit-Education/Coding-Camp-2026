@@ -7,6 +7,7 @@ import LexiconDetail from '@/views/LexiconDetail.vue'
 import DataProtectionView from '@/views/DataProtectionView.vue'
 import ImprintView from '@/views/ImprintView.vue'
 import BirdRecognitionView from '@/views/BirdRecognitionView.vue'
+import DangerGuide from '@/views/DangerGuide.vue'
 
 export const routes: RouteRecordRaw[] = [
   {
@@ -25,11 +26,6 @@ export const routes: RouteRecordRaw[] = [
     component: MapView,
   },
   {
-    path: '/imprint',
-    name: ROUTE_NAMES.IMPRINT,
-    component: ImprintView,
-  },
-  {
     path: '/dataprotection',
     name: ROUTE_NAMES.DATA_PROTECTION,
     component: DataProtectionView,
@@ -43,6 +39,11 @@ export const routes: RouteRecordRaw[] = [
     path: '/lexiconDetail/:id',
     name: ROUTE_NAMES.LEXICON_DETAILS,
     component: LexiconDetail,
+  },
+  {
+    path: '/DangerGuide',
+    name: ROUTE_NAMES.DANGER_GUIDE,
+    component: DangerGuide,
   },
 
   /*FallBack !!!DO NOT REMOVE!!!*/
