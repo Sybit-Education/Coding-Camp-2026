@@ -20,8 +20,20 @@
       />
     </div>
 
+    <details class="rounded-xl border border-border bg-background p-3 text-sm text-text">
+      <summary class="cursor-pointer font-semibold text-heading">Giftigkeitsstufen</summary>
+      <dl class="mt-3 space-y-2">
+        <div v-for="level in toxicityReferences" :key="level.id" class="flex gap-2">
+          <dt class="min-w-10 font-bold text-red-700">{{ level.type }}</dt>
+          <dd>
+            <span class="font-medium">{{ level.description }}</span>
+          </dd>
+        </div>
+      </dl>
+    </details>
+
     <section class="space-y-4" aria-label="Lexikoneinträge">
-      <LexiconListItem v-for="entry in filteredTest" :key="entry.id" :entry="entry" />
+      <LexiconListItem v-for="entry in filteredEntries" :key="entry.id" :entry="entry" />
     </section>
   </main>
 </template>
@@ -29,15 +41,21 @@
 import { LexiconService } from '@/services/lexicon.service.ts'
 import LexiconListItem from '../components/LexiconListItem.vue'
 import { inject, onMounted, ref, computed } from 'vue'
-import type { LexiconListEntry } from '@/shared/types/lexicon.types.ts'
+import { type LexiconListEntry } from '@/shared/types/lexicon.types.ts'
+import { useToxicityStore } from '@/stores/toxicity.store.ts'
 
 const lexiconService = inject('lexiconService') as LexiconService
+const toxicityStore = useToxicityStore()
 
-const test = ref<LexiconListEntry[]>([])
+const entries = ref<LexiconListEntry[]>([])
 
 const searchQuery = ref('')
-const filteredTest = computed(() => {
-  return lexiconService.filterLexiconEntries(test.value, searchQuery.value)
+const filteredEntries = computed(() => {
+  return lexiconService.filterLexiconEntries(entries.value, searchQuery.value)
+})
+
+const toxicityReferences = computed(() => {
+  return toxicityStore.getAllToxicityLevels
 })
 
 defineOptions({
@@ -45,6 +63,6 @@ defineOptions({
 })
 
 onMounted(async () => {
-  test.value = await lexiconService.getLexiconEntriesList()
+  entries.value = await lexiconService.getLexiconEntriesList()
 })
 </script>

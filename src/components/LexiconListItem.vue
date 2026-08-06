@@ -23,11 +23,13 @@
           </span>
 
           <span
-            v-if="entry.isPoisonous"
-            class="bg-red-600 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1 w-fit"
+            v-if="toxicityReference"
+            class="flex w-fit items-center gap-1 rounded-full bg-red-600 px-2 py-1 text-xs text-white"
+            :aria-label="`Giftigkeit: ${toxicityReference.label}`"
+            :title="toxicityReference.label"
           >
             <SkullIcon :size="14" />
-            Giftig
+            {{ toxicityReference.type }}
           </span>
         </div>
         <p class="mt-1 text-text">{{ entry.description }}</p>
@@ -36,9 +38,16 @@
   </RouterLink>
 </template>
 <script setup lang="ts">
-import type { LexiconListEntry } from '@/shared/types/lexicon.types'
+import {
+  type LexiconListEntry,
+} from '@/shared/types/lexicon.types'
 import { SkullIcon } from '@lucide/vue'
 import { LeafIcon } from '@lucide/vue'
+import { computed } from 'vue'
 
 const props = defineProps<{ entry: LexiconListEntry }>()
+
+const toxicityReference = computed(() => {
+  return props.entry.toxicityLevel
+})
 </script>

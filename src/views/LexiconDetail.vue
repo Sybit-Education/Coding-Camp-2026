@@ -16,13 +16,18 @@
             Geschützt
           </span>
           <span
-            v-if="entry.isPoisonous"
+            v-if="toxicityReference"
             class="flex w-fit items-center gap-1 rounded-full bg-red-600 px-2 py-1 text-xs text-white"
+            :aria-label="`Giftigkeit: ${toxicityReference.label}`"
+            :title="toxicityReference.label"
           >
             <SkullIcon :size="14" />
-            Giftig
+            {{ toxicityReference.type }}
           </span>
         </div>
+        <p v-if="toxicityReference" class="mt-2 text-sm text-text">
+          {{ toxicityReference.description }}
+        </p>
         <p class="mt-3 text-text">{{ entry.description }}</p>
       </div>
     </article>
@@ -48,11 +53,11 @@
 import type { AudioService } from '@/services/audio.service'
 import type { LexiconService } from '@/services/lexicon.service'
 import type { AnimalAudioListEntry } from '@/shared/types/audio.types'
-import type { LexiconEntry } from '@/shared/types/lexicon.types'
 import { computed, inject, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import XenoPlayer from '@/components/XenoPlayer.vue'
 import { LeafIcon, SkullIcon } from '@lucide/vue'
+import type { LexiconEntry } from '@/shared/types/lexicon.types'
 
 // Service
 const lexiconService = inject('lexiconService') as LexiconService
@@ -67,6 +72,15 @@ const id = computed(() => {
 // Entry info
 const entry = ref<LexiconEntry>()
 const soundID = ref<AnimalAudioListEntry[]>([])
+
+const toxicityReference = computed(() => {
+  if (entry.value?.toxicityLevel && typeof entry.value.toxicityLevel === 'string') {
+    return undefined
+  } else if (entry.value?.toxicityLevel && typeof entry.value.toxicityLevel === 'object') {
+    return entry.value.toxicityLevel
+  }
+  return undefined
+})
 
 // On mount
 onMounted(async () => {
