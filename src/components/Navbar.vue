@@ -36,11 +36,11 @@ const open = ref(false)
         class="absolute bottom-14 left-1/2 mb-2 -translate-x-1/2 origin-bottom flex flex-col gap-2 rounded-lg bg-secondary/90 p-2 shadow-lg"
       >
         <!-- About us -->
-        <RouterLink to="/">
+        <RouterLink to="/about">
           <button class="btn btn-primary w-full">About Us</button>
         </RouterLink>
 
-        <RouterLink to="/DangerGuide">
+        <RouterLink to="/dangerguide">
           <button class="btn btn-primary">Gefahrenanleitung</button>
         </RouterLink>
 

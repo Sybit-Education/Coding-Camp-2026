@@ -36,15 +36,15 @@
   }
 
   .h1 {
-    @apply text-3xl font-bold text-primary mb-6;
+    @apply text-3xl font-bold text-primary mb-6 items-center;
   }
 
   .h2 {
-    @apply text-2xl font-semibold text-secondary mb-4;
+    @apply text-2xl font-semibold text-secondary mb-4 items-center;
   }
 
   .h3 {
-    @apply text-xl font-medium text-secondary mb-2;
+    @apply text-xl font-medium text-secondary mb-2 items-center;
   }
 
   .card {

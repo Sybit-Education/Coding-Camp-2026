@@ -4,13 +4,13 @@
       <h1 class="h1 mb-0">About</h1>
 
       <!-- The team -->
-      <h2 class="flex-md h2 items-center mb-0"><UsersIcon /> Das Team</h2>
+      <h2 class="flex-md h2 mb-0"><UsersIcon /> Das Team</h2>
       <div class="flex items-center justify-center border rounded-sm m-0">
         <p>*Hier schönes Bild einfügen*</p>
       </div>
 
       <!-- Below Image -->
-      <h2 class="flex-md h2 items-center mb-0"><InfoIcon /> Infos</h2>
+      <h2 class="flex-md h2 mb-0"><InfoIcon /> Infos</h2>
       <div class="flex-sm flex-col md:flex-row">
         <!-- Left -->
         <div class="flex-1 card">
@@ -20,10 +20,10 @@
             Talenten, die mit Neugier und Kreativität ihre ersten Schritte in der professionellen
             Softwareentwicklung gegangen sind. Unser Ziel war es, nicht nur Code zu schreiben,
             sondern etwas Sinnvolles zu erschaffen, das funktioniert, nützlich ist und unsere Ideen
-            sichtbar macht. Ein besonderer Dank gilt allen Teilnehmern, die mit Leidenschaft,
-            Teamgeist und Ausdauer an diesem Projekt gearbeitet haben. Jede Komponente, jede Zeile
-            Code und jede Entscheidung dahinter spiegelt den Lernprozess und das Engagement aller
-            Beteiligten wider.
+            sichtbar macht. Einen besonderen Dank gilt all umserem Teilnehmern, die mit
+            Leidenschaft, Teamgeist und Ausdauer an diesem Projekt gearbeitet haben. Jede
+            Komponente, jede Zeile Code und jede Entscheidung dahinter spiegelt den Lernprozess und
+            das Engagement aller Beteiligten wieder.
           </p>
         </div>
         <!-- Right -->
@@ -31,14 +31,17 @@
           <!-- Participant -->
           <div class="card flex-1">
             <h3 class="h3">Teilnehmer</h3>
-            <p>Felix irgendwas, idk</p>
+            <p>
+              Carlton Gauthier, Elias Wieland, Felix Riedinger, Jannick Hüttel, Lars Klopfer, Pan
+              Walser, Patrick Burberg, Pino Hirsch
+            </p>
           </div>
           <!-- Coaches -->
           <div class="card flex-1">
             <h3 class="h3">Coaches von SYBIT</h3>
             <p>
-              Elias Frank, Fiona Krause, Jimmy Bergstaedt, Stephan Strittmatter, Thiara Adrian,
-              Tobias Jentzsch, Yannik Schwarz
+              Elias Frank, Fiona Krause, Franz Strittmatter, Jimmy Bergstaedt, Stephan Strittmatter,
+              Thiara Adrian, Tobias Jentzsch, Yannik Schwarz
             </p>
           </div>
         </div>
