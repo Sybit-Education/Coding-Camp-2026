@@ -20,6 +20,9 @@ export type LexiconEntry = RecordModel & {
   latinName?: string
   isProtected?: boolean
   toxicityLevel?: ToxicityLevel | string
+  attributionURL?: string
+  attributionAuthor?: string
+  attributionLicense?: string
 }
 
 export type ToxicityLevel = RecordModel & {

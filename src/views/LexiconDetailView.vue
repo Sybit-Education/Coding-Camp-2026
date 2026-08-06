@@ -4,19 +4,36 @@
       v-if="entry"
       class="overflow-hidden rounded-xl border border-border bg-background shadow-sm"
     >
-      <img
-        v-if="entry.imageUrl && !hasImageError"
-        :src="entry.imageUrl"
-        :alt="entry.name"
-        class="aspect-square w-full object-cover"
-        @error="hasImageError = true"
-      />
-      <div
-        v-else
-        class="flex aspect-square w-full items-center justify-center bg-background-mute"
-        :aria-label="`${entry.name}: kein Bild verfügbar`"
-      >
-        <img :src="fallbackImage" alt="" class="h-1/2 w-1/2 grayscale opacity-50" />
+      <div class="relative">
+        <a
+          :href="entry.attributionURL"
+          target="_blank"
+          v-if="
+            entry.imageUrl &&
+            entry.attributionURL &&
+            entry.attributionAuthor &&
+            entry.attributionLicense &&
+            !hasImageError
+          "
+          class="flex items-center flex-sm nowrap absolute bottom-0 right-0 text-sm bg-black/60 text-white text-right px-1"
+        >
+          <CopyrightIcon class="size-4" /> {{ entry.attributionAuthor }},
+          {{ entry.attributionLicense }}
+        </a>
+        <img
+          v-if="entry.imageUrl && !hasImageError"
+          :src="entry.imageUrl"
+          :alt="entry.name"
+          class="aspect-square w-full object-cover"
+          @error="hasImageError = true"
+        />
+        <div
+          v-else
+          class="flex aspect-square w-full items-center justify-center bg-background-mute"
+          :aria-label="`${entry.name}: kein Bild verfügbar`"
+        >
+          <img :src="fallbackImage" alt="" class="h-1/2 w-1/2 grayscale opacity-50" />
+        </div>
       </div>
 
       <AutoTextToSpeech :targetSelector="'article'" lang="de-DE" />
@@ -74,7 +91,7 @@ import type { AudioService } from '@/services/audio.service'
 import type { LexiconService } from '@/services/lexicon.service'
 import type { AnimalAudioListEntry } from '@/shared/types/audio.types'
 import type { LexiconEntry } from '@/shared/types/lexicon.types'
-import { LeafIcon, SkullIcon } from '@lucide/vue'
+import { CopyrightIcon, LeafIcon, LinkIcon, SkullIcon } from '@lucide/vue'
 import { computed, inject, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
