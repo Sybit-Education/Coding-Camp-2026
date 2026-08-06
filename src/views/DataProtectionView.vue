@@ -1,4 +1,4 @@
-<script setup lang="ts"></script>
+
 <template>
   <div class="min-h-screen bg-gray-100 py-8 pb-32">
     <div class="mx-auto max-w-2xl px-4 text-gray-700">
