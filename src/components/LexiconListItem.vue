@@ -39,13 +39,6 @@
                 Geschützt
               </span>
               <span
-                v-if="entry.isPoisonous"
-                class="flex items-center gap-1 rounded-full bg-red-600 px-2 py-1 text-xs text-white"
-              >
-                <SkullIcon :size="14" aria-hidden="true" />
-                Giftig
-              </span>
-              <span
                 v-if="entry.toxicityLevel"
                 class="flex items-center gap-1 rounded-full bg-red-600 px-2 py-1 text-xs text-white"
                 :aria-label="`Giftigkeit: ${entry.toxicityLevel.description}`"

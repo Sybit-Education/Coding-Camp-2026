@@ -29,7 +29,6 @@ export class LexiconService {
         imageUrl: entry.media ? await this.resolveImageUrl(entry, entry.media) : undefined,
         latinName: entry.latinName,
         isProtected: entry.isProtected,
-        isPoisonous: entry.isPoisonous,
         toxicityLevel:
           typeof entry.toxicityLevel === 'string'
             ? await this.getToxicityLevelById(entry.toxicityLevel)
