@@ -6,8 +6,8 @@
     >
       <div class="relative">
         <a
-          target="_link"
           :href="entry.attributionURL"
+          target="_blank"
           v-if="
             entry.imageUrl &&
             entry.attributionURL &&
