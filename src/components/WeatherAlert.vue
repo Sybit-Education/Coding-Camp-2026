@@ -1,52 +1,68 @@
 <template>
-  <article class="rounded-xl border border-border bg-background p-5 shadow-sm">
-    <h2 class="mb-4 text-xl font-bold">Aktuelle Wetterlage</h2>
+  <article class="rounded-lg border border-border bg-background p-6">
+    <!-- Messages -->
+    <p v-if="loading">Lädt...</p>
+    <p v-else-if="!weather" class="text-destructive">Wetterdaten konnten nicht geladen werden.</p>
 
-    <p v-if="loading">Wetterdaten werden geladen...</p>
+    <!-- Data  -->
+    <div v-else class="space-y-6">
+      <!-- Left -->
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-4xl font-bold">{{ weather.temperature }}°C</p>
 
-    <div v-else-if="weather">
-      <div class="text-4xl font-bold">{{ weather.temperature }} °C</div>
+          <p>
+            {{ weatherCondition }}
+          </p>
+        </div>
 
-      <p class="mt-2 text-lg">
-        {{ weather.condition }}
-      </p>
-
-      <div class="mt-4 space-y-2">
-        <p>
-          🌬 Wind:
-          {{ weather.wind_speed }} km/h
-        </p>
-
-        <p>
-          🌧 Niederschlag:
-          {{ weather.precipitation }} mm
-        </p>
+        <component :is="weatherIcon" class="h-12 w-12" />
       </div>
 
-      <img
-        v-if="weather.icon"
-        :src="`https://brightsky.dev/images/weather_icons/${weather.icon}.png`"
-        alt="Wettersymbol"
-        class="mt-4 h-16 w-16"
-      />
-    </div>
+      <!-- Right -->
+      <div class="grid grid-cols-2 gap-4 border-t pt-4 text-sm">
+        <div>
+          <p>Wind</p>
+          <p>{{ weather.wind_speed_10 }} km/h</p>
+        </div>
 
-    <p v-else class="text-red-500">Wetterdaten konnten nicht geladen werden.</p>
+        <div>
+          <p>Niederschlag</p>
+          <p>{{ weather.precipitation_10 }} mm</p>
+        </div>
+      </div>
+    </div>
   </article>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-
-import { getCurrentWeather } from '@/services/weather.service'
+import { computed, inject, onMounted, ref } from 'vue'
 import type { CurrentWeather } from '@/shared/types/weather.types'
+import { getWeatherIcon, translateWeatherCondition } from '@/shared/utils/weatherTranslation'
+import type { WeatherService } from '@/services/weather.service'
+
+const weatherService = inject('weatherService') as WeatherService
 
 const weather = ref<CurrentWeather | null>(null)
 const loading = ref(true)
 
+const weatherIcon = computed(() => {
+  if (!weather.value) {
+    return getWeatherIcon('')
+  }
+
+  return getWeatherIcon(weather.value.icon)
+})
+
+const weatherCondition = computed(() => {
+  if (!weather.value) return ''
+
+  return translateWeatherCondition(weather.value.condition)
+})
+
 onMounted(async () => {
   try {
-    weather.value = await getCurrentWeather()
+    weather.value = await weatherService.getCurrentWeather()
   } catch (error) {
     console.error(error)
   } finally {

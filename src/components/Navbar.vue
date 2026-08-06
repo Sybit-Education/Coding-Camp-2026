@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { MapIcon, InfoIcon, BookOpenTextIcon, MenuIcon } from '@lucide/vue'
+import { MapIcon, InfoIcon, BookOpenTextIcon, MenuIcon, MicIcon } from '@lucide/vue'
 import { RouterLink } from 'vue-router'
 
 const open = ref(false)
@@ -16,6 +16,11 @@ const open = ref(false)
     <!-- Map -->
     <RouterLink to="/map">
       <button class="btn btn-primary"><MapIcon /></button>
+    </RouterLink>
+
+    <!-- Bird recognition -->
+    <RouterLink to="/bird-recognition">
+      <button class="btn btn-primary"><MicIcon /></button>
     </RouterLink>
 
     <!-- Lexicon -->
@@ -38,6 +43,10 @@ const open = ref(false)
         <!-- About us -->
         <RouterLink to="/">
           <button class="btn btn-primary w-full">About Us</button>
+        </RouterLink>
+
+        <RouterLink to="/DangerGuide">
+          <button class="btn btn-primary">Gefahrenanleitung</button>
         </RouterLink>
 
         <!-- Impressum -->
