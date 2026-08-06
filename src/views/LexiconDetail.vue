@@ -5,7 +5,9 @@
       class="overflow-hidden rounded-xl border border-border bg-background shadow-sm"
     >
       <div class="relative">
-        <p
+        <a
+          target="_link"
+          :href="entry.attributionURL"
           v-if="
             entry.imageUrl &&
             entry.attributionURL &&
@@ -13,11 +15,11 @@
             entry.attributionLicense &&
             !hasImageError
           "
-          class="flex items-center nowrap absolute bottom-0 right-0 text-sm bg-black/60 text-white text-right px-1"
+          class="flex items-center flex-sm nowrap absolute bottom-0 right-0 text-sm bg-black/60 text-white text-right px-1"
         >
-          <CopyrightIcon/> {{ entry.attributionAuthor }}, {{ entry.attributionLicense }},
-          <a :href="entry.attributionURL"> link</a>
-        </p>
+          <CopyrightIcon class="size-4" /> {{ entry.attributionAuthor }},
+          {{ entry.attributionLicense }}
+        </a>
         <img
           v-if="entry.imageUrl && !hasImageError"
           :src="entry.imageUrl"
@@ -90,7 +92,7 @@ import type { AudioService } from '@/services/audio.service'
 import type { LexiconService } from '@/services/lexicon.service'
 import type { AnimalAudioListEntry } from '@/shared/types/audio.types'
 import type { LexiconEntry } from '@/shared/types/lexicon.types'
-import { CopyrightIcon, LeafIcon, SkullIcon } from '@lucide/vue'
+import { CopyrightIcon, LeafIcon, LinkIcon, SkullIcon } from '@lucide/vue'
 import { computed, inject, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
