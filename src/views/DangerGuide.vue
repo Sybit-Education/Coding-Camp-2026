@@ -68,7 +68,7 @@ import { RouterLink } from 'vue-router'
       </RouterLink>
 
       <RouterLink to="/">
-        <button class="btn btn-primary">Züruck zur Startseite</button>
+        <button class="btn btn-primary">Zurück zur Startseite</button>
       </RouterLink>
     </div>
   </div>
