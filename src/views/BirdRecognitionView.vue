@@ -100,13 +100,13 @@
 
 <script setup lang="ts">
 import LexiconListItem from '@/components/LexiconListItem.vue'
+import type { BirdRecognitionService } from '@/services/bird-recognition.service'
+import type { LexiconService } from '@/services/lexicon.service'
 import type {
-  BirdDetection,
   BirdRecognitionConfig,
   BirdRecognitionJob,
-  BirdRecognitionService,
-} from '@/services/bird-recognition.service'
-import type { LexiconService } from '@/services/lexicon.service'
+  BirdDetection,
+} from '@/shared/types/bird-recognition.types'
 import type { LexiconListEntry } from '@/shared/types/lexicon.types'
 import { LoaderCircleIcon, MicIcon, RotateCwIcon, SendIcon, SquareIcon } from '@lucide/vue'
 import { computed, inject, onMounted, onUnmounted, ref } from 'vue'
