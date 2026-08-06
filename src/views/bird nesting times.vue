@@ -11,5 +11,6 @@
   Die Nist- und Brutzeit des Buntspechts beginnt im April und dauert bis Juni oder Juli. Die Nist-
   und Brutzeit des Wiedehopfs findet im Mein schöner Garten von April bis Juli statt. Die Hauptbrut-
   und Nistzeit des Pirols liegt in den Monaten Mai und Juni Die Hauptnist- und Brutzeit des
-  Mittelspechts erstreckt sich in Mitteleuropa von März/April bis Juli,
+  Mittelspechts erstreckt sich in Mitteleuropa von März/April bis Juli, sind noch nicht alle Vögel
+  die restlichen sind in der Datenbank
 </template>
