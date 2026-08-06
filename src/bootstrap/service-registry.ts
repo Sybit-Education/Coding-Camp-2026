@@ -13,7 +13,6 @@ export function createAppServices(_router: Router) {
   const lexiconService = new LexiconService(pocketBaseService)
   const birdRecognitionService = new BirdRecognitionService()
   const audioService = new AudioService(pocketBaseService)
-
   const weatherService = new WeatherService()
 
   return {

@@ -1,9 +1,12 @@
 <template>
   <article class="rounded-lg border border-border bg-background p-6">
+    <!-- Messages -->
     <p v-if="loading">Lädt...</p>
-    <p v-else-if="!weather" class="text-red-500">Wetterdaten konnten nicht geladen werden.</p>
+    <p v-else-if="!weather" class="text-destructive">Wetterdaten konnten nicht geladen werden.</p>
 
+    <!-- Data  -->
     <div v-else class="space-y-6">
+      <!-- Left -->
       <div class="flex items-center justify-between">
         <div>
           <p class="text-4xl font-bold">{{ weather.temperature }}°C</p>
@@ -16,6 +19,7 @@
         <component :is="weatherIcon" class="h-12 w-12" />
       </div>
 
+      <!-- Right -->
       <div class="grid grid-cols-2 gap-4 border-t pt-4 text-sm">
         <div>
           <p>Wind</p>
