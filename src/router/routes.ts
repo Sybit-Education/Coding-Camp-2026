@@ -6,6 +6,7 @@ import MapView from '@/views/MapView.vue'
 import LexiconDetail from '@/views/LexiconDetail.vue'
 import DataProtectionView from '@/views/DataProtectionView.vue'
 
+
 export const routes: RouteRecordRaw[] = [
   {
     path: '/',
@@ -32,6 +33,12 @@ export const routes: RouteRecordRaw[] = [
     name: ROUTE_NAMES.LEXICON_DETAILS,
     component: LexiconDetail,
   },
+  {
+    path: '/lexiconDetail/:id',
+    name: ROUTE_NAMES.BATHING_SPOTS,
+    component: bathingSpots,
+  },
+
 
   /*FallBack !!!DO NOT REMOVE!!!*/
   {

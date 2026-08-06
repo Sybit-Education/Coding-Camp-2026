@@ -5,4 +5,5 @@ export const ROUTE_NAMES = {
   DATA_PROTECTION: 'data-protection',
   LEXICON: 'lexicon',
   LEXICON_DETAILS: 'Lexicon Detail',
+  BATHING_SPOTS: 'bathingSpots',
 } as const
