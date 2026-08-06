@@ -1,6 +1,6 @@
 <template>
   <article class="rounded-lg border border-border bg-background p-6">
-    <p v-if="loading" class="text-muted-foreground">Lädt...</p>
+    <p v-if="loading">Lädt...</p>
     <p v-else-if="!weather" class="text-red-500">Wetterdaten konnten nicht geladen werden.</p>
 
     <div v-else class="space-y-6">
