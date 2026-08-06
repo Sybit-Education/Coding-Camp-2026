@@ -1,7 +1,7 @@
 <template>
   <RouterLink
     :to="`/lexiconDetail/${entry.id}`"
-    :target="openInNewTab ? '_blank' : undefined"
+    :target="openInNewTab ? '_blank' : '_self'"
     :rel="openInNewTab ? 'noopener noreferrer' : undefined"
     class="group block rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
   >
