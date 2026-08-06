@@ -6,7 +6,7 @@ export type LexiconListEntry = {
   description: string
   label: string
   imageUrl?: string
-
+  latinName?: string
   isProtected?: boolean
   toxicityLevel?: ToxicityLevel
 }
@@ -18,7 +18,6 @@ export type LexiconEntry = RecordModel & {
   description: string
   imageUrl?: string
   latinName?: string
-
   isProtected?: boolean
   toxicityLevel?: ToxicityLevel | string
 }

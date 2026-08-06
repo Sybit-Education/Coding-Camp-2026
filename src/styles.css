@@ -21,6 +21,10 @@
 }
 
 @layer components {
+  .flex-sm {
+    @apply flex gap-2;
+  }
+
   .btn {
     @apply inline-flex
     items-center

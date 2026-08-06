@@ -26,6 +26,7 @@ export class LexiconService {
         label: await this.resolveLabelName(entry.label),
         description: sanatizeTextLength(entry.description, 100),
         imageUrl: entry.media ? await this.resolveImageUrl(entry, entry.media) : undefined,
+        latinName: entry.latinName,
         isProtected: entry.isProtected,
         toxicityLevel:
           typeof entry.toxicityLevel === 'string'
@@ -33,6 +34,7 @@ export class LexiconService {
             : undefined,
       })),
     )
+
     return result.sort((a, b) => a.name.localeCompare(b.name, 'de'))
   }
 
@@ -46,11 +48,13 @@ export class LexiconService {
           ? await this.getToxicityLevelById(entry.toxicityLevel)
           : undefined,
     }
+
     return result
   }
 
   filterLexiconEntries(entries: LexiconListEntry[], searchTerm: string): LexiconListEntry[] {
     const lowerCaseSearchTerm = searchTerm.toLowerCase()
+
     return entries.filter(
       (entry) =>
         entry.name.toLowerCase().includes(lowerCaseSearchTerm) ||
