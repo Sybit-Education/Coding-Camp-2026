@@ -10,10 +10,10 @@
     </div>
 
     <!-- Simple Import -->
-    <WeatherAlert />
+    <Warning />
   </div>
 </template>
 
 <script setup lang="ts">
-import WeatherAlert from '@/components/WeatherAlert.vue'
+import Warning from '@/components/Warning.vue'
 </script>
