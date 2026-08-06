@@ -86,11 +86,9 @@
         </section>
 
         <div class="flex flex-wrap gap-3 pt-4">
-          <button
-            class="rounded-xl bg-green-600 px-5 py-2 text-white shadow transition hover:bg-green-700"
-          >
-            Zurück zur Startseite
-          </button>
+          <RouterLink to="/">
+            <button class="btn btn-primary">Zurück zur Startseite</button>
+          </RouterLink>
 
           <a href="https://www.sybit.com/de/impressum" target="_blank" rel="noopener noreferrer">
             <button class="btn btn-primary w-full">Impressum</button>
