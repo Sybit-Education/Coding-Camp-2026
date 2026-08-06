@@ -17,7 +17,7 @@
   "dependencies": {
     "@lucide/vue": "^1.28.0",
     "@tailwindcss/postcss": "^4.3.3",
-    "leaflet": "^1.9.4",    
+    "leaflet": "^1.9.4",
     "pinia": "^4.0.2",
     "pocketbase": "^0.27.1",
     "postcss": "^8.5.25",
