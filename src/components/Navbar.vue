@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { MapIcon, InfoIcon, BookOpenTextIcon, MenuIcon } from '@lucide/vue'
+import { MapIcon, InfoIcon, BookOpenTextIcon, MenuIcon, TriangleAlert } from '@lucide/vue'
 import { RouterLink } from 'vue-router'
 
 const open = ref(false)
@@ -21,6 +21,10 @@ const open = ref(false)
     <!-- Lexicon -->
     <RouterLink to="/lexicon">
       <button class="btn btn-primary"><BookOpenTextIcon /></button>
+    </RouterLink>
+
+    <RouterLink to="/DangerGuide">
+      <button class="btn btn-primary"> <TriangleAlert /></button>
     </RouterLink>
 
     <!-- Dropdown -->
