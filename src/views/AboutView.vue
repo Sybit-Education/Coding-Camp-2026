@@ -16,8 +16,8 @@
         <div class="flex-1 card">
           <h3>Über das Projekt</h3>
           <p>
-            Diese Website wurde im Rahmen des SYBIT Coding Camps 2025 entwickelt ‐ von jungen
-            Talenten, die mit Neugier und Kreativität ihre ersten Schritte in der professionellen
+            Diese Website wurde im Rahmen des SYBIT Coding Camps 2026 entwickelt ‐ von jungen
+            Talenten, die mit Neugier ihre ersten Schritte in der professionellen
             Softwareentwicklung gegangen sind. Unser Ziel war es, nicht nur Code zu schreiben,
             sondern etwas Sinnvolles zu erschaffen, das funktioniert, nützlich ist und unsere Ideen
             sichtbar macht. Einen besonderen Dank gilt all umserem Teilnehmern, die mit
