@@ -13,6 +13,7 @@ export class LexiconService {
         name: entry.name,
         description: sanatizeTextLength(entry.description, 100),
         imageUrl: entry.media ? await this.resolveImageUrl(entry, entry.media) : undefined,
+        latinName: entry.latinName,
       })),
     )
     return result

@@ -5,6 +5,7 @@ export type LexiconListEntry = {
   name: string
   description: string
   imageUrl?: string
+  latinName?: string
 }
 
 export type LexiconEntry = RecordModel & {
