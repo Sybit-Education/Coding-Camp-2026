@@ -45,6 +45,15 @@
                 <SkullIcon :size="14" aria-hidden="true" />
                 Giftig
               </span>
+              <span
+                v-if="entry.toxicityLevel"
+                class="flex items-center gap-1 rounded-full bg-red-600 px-2 py-1 text-xs text-white"
+                :aria-label="`Giftigkeit: ${entry.toxicityLevel.description}`"
+                :title="entry.toxicityLevel.description"
+              >
+                <SkullIcon :size="14" aria-hidden="true" />
+                {{ entry.toxicityLevel.type }}
+              </span>
             </div>
             <p v-if="scientificName" class="text-sm text-text/60">{{ scientificName }}</p>
           </div>

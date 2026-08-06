@@ -38,8 +38,20 @@
             <SkullIcon :size="14" aria-hidden="true" />
             Giftig
           </span>
+          <span
+            v-if="toxicityReference"
+            class="flex w-fit items-center gap-1 rounded-full bg-red-600 px-2 py-1 text-xs text-white"
+            :aria-label="`Giftigkeit: ${toxicityReference.description}`"
+            :title="toxicityReference.description"
+          >
+            <SkullIcon :size="14" aria-hidden="true" />
+            {{ toxicityReference.type }}
+          </span>
         </div>
 
+        <p v-if="toxicityReference" class="mt-2 text-sm text-text">
+          {{ toxicityReference.description }}
+        </p>
         <p class="mt-3 text-text">{{ entry.description }}</p>
       </div>
     </article>
@@ -85,6 +97,14 @@ const id = computed(() => {
 const entry = ref<LexiconEntry>()
 const hasImageError = ref(false)
 const soundID = ref<AnimalAudioListEntry[]>([])
+
+const toxicityReference = computed(() => {
+  if (entry.value?.toxicityLevel && typeof entry.value.toxicityLevel === 'object') {
+    return entry.value.toxicityLevel
+  }
+
+  return undefined
+})
 
 onMounted(async () => {
   if (!id.value || Array.isArray(id.value)) {
