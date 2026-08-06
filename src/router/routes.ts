@@ -5,6 +5,7 @@ import { ROUTE_NAMES } from './route-names'
 import MapView from '@/views/MapView.vue'
 import LexiconDetail from '@/views/LexiconDetail.vue'
 import DataProtectionView from '@/views/DataProtectionView.vue'
+import DangerGuide from '@/views/DangerGuide.vue'
 
 export const routes: RouteRecordRaw[] = [
   {
@@ -31,6 +32,11 @@ export const routes: RouteRecordRaw[] = [
     path: '/lexiconDetail/:id',
     name: ROUTE_NAMES.LEXICON_DETAILS,
     component: LexiconDetail,
+  },
+  {
+    path: '/DangerGuide',
+    name: ROUTE_NAMES.DANGER_GUIDE,
+    component: DangerGuide,
   },
 
   /*FallBack !!!DO NOT REMOVE!!!*/

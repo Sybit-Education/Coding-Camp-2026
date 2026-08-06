@@ -40,6 +40,10 @@ const open = ref(false)
           <button class="btn btn-primary w-full">About Us</button>
         </RouterLink>
 
+        <RouterLink to="/DangerGuide">
+          <button class="btn btn-primary">Gefahrenanleitung</button>
+        </RouterLink>
+
         <!-- Impressum -->
         <a href="https://www.sybit.com/de/impressum" target="_blank" rel="noopener noreferrer">
           <button class="btn btn-primary w-full">Impressum</button>
