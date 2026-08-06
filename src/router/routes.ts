@@ -8,6 +8,7 @@ import DataProtectionView from '@/views/DataProtectionView.vue'
 import BirdRecognitionView from '@/views/BirdRecognitionView.vue'
 import DangerGuide from '@/views/DangerGuide.vue'
 import AboutView from '@/views/AboutView.vue'
+import TourGuidesView from '@/views/TourGuidesView.vue'
 
 export const routes: RouteRecordRaw[] = [
   {
@@ -24,6 +25,11 @@ export const routes: RouteRecordRaw[] = [
     path: '/map',
     name: ROUTE_NAMES.MAP,
     component: MapView,
+  },
+  {
+    path: '/tour-guides',
+    name: ROUTE_NAMES.TOUR_GUIDES,
+    component: TourGuidesView,
   },
   {
     path: '/dataprotection',

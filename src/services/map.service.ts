@@ -36,11 +36,14 @@ export class MapService {
     this.map = null
   }
 
-  // fitToConfiguredBounds(): void {
-  //   const map = this.requireMap()
-  //   const bounds = L.latLngBounds(MAP_BOUNDS.southWest, MAP_BOUNDS.northEast)
-  //   map.fitBounds(bounds, { padding: [24, 24] })
-  // }
+  fitToConfiguredBounds(): void {
+    if (!this.map) {
+      return
+    }
+
+    const bounds = L.latLngBounds(MAP_BOUNDS.southWest, MAP_BOUNDS.northEast)
+    this.map.fitBounds(bounds, { padding: [24, 24] })
+  }
 
   // setAllowedBounds(bounds: L.LatLngBoundsExpression): void {
   //   const map = this.requireMap()
