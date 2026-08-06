@@ -4,7 +4,7 @@ import type { RouteRecordRaw } from 'vue-router'
 import { ROUTE_NAMES } from './route-names'
 import MapView from '@/views/MapView.vue'
 import LexiconDetail from '@/views/LexiconDetailView.vue'
-import DataProtectionView from '@/views/DataProtectionView.vue'
+import PrivacyPolicyView from '@/views/PrivacyPolicyView.vue'
 import BirdRecognitionView from '@/views/BirdRecognitionView.vue'
 import DangerGuide from '@/views/DangerGuide.vue'
 
@@ -17,22 +17,34 @@ export const routes: RouteRecordRaw[] = [
   {
     path: '/bird-recognition',
     name: ROUTE_NAMES.BIRD_RECOGNITION,
-    component: BirdRecognitionView,
+    component: () =>
+      import(
+        /* webpackChunkName: "bird-recognition-view" */ "../views/BirdRecognitionView.vue"
+      ),
   },
   {
     path: '/map',
     name: ROUTE_NAMES.MAP,
-    component: MapView,
+    component: () =>
+      import(
+        /* webpackChunkName: "map-view" */ "../views/MapView.vue"
+      ),
   },
   {
-    path: '/dataprotection',
-    name: ROUTE_NAMES.DATA_PROTECTION,
-    component: DataProtectionView,
+    path: '/privacy-policy',
+    name: ROUTE_NAMES.PRIVACY_POLICY,
+    component: () =>
+      import(
+        /* webpackChunkName: "privacy-policy-view" */ "../views/PrivacyPolicyView.vue"
+      ),
   },
   {
     path: '/lexicon',
     name: ROUTE_NAMES.LEXICON,
-    component: LexiconListView,
+    component: () =>
+      import(
+        /* webpackChunkName: "lexicon-list-view" */ "../views/LexiconListView.vue"
+      ),
   },
   {
     path: '/lexiconDetail/:id',
@@ -42,7 +54,10 @@ export const routes: RouteRecordRaw[] = [
   {
     path: '/DangerGuide',
     name: ROUTE_NAMES.DANGER_GUIDE,
-    component: DangerGuide,
+    component: () =>
+      import(
+        /* webpackChunkName: "danger-guide-view" */ "../views/DangerGuide.vue"
+      ),
   },
 
   /*FallBack !!!DO NOT REMOVE!!!*/
