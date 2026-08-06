@@ -1,7 +1,7 @@
 <template>
-  <div class="min-h-screen bg-background-soft py-8 pb-32">
+  <div class="min-h-screen py-8 pb-32">
     <div class="mx-auto max-w-2xl px-4 text-gray-700">
-      <h1 class="mb-8 text-4xl font-bold text-green-700">Datenschutzerklärung</h1>
+      <h1>Datenschutzerklärung</h1>
 
       <div class="space-y-8">
         <section>
@@ -13,13 +13,9 @@
         </section>
 
         <section>
-          <h2 class="mb-3 text-2xl font-semibold text-green-700">
-            Datenerfassung auf dieser Website
-          </h2>
+          <h2>Datenerfassung auf dieser Website</h2>
 
-          <h3 class="mb-2 text-lg font-semibold">
-            Wer ist verantwortlich für die Datenerfassung auf dieser Website?
-          </h3>
+          <h3>Wer ist verantwortlich für die Datenerfassung auf dieser Website?</h3>
 
           <p class="leading-7">
             Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Dessen
@@ -29,7 +25,7 @@
         </section>
 
         <section>
-          <h3 class="mb-2 text-lg font-semibold">Wie erfassen wir Ihre Daten?</h3>
+          <h3>Wie erfassen wir Ihre Daten?</h3>
 
           <p class="leading-7">
             Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen. Hierbei kann
@@ -44,9 +40,9 @@
         </section>
 
         <section>
-          <h2 class="mb-3 text-2xl font-semibold text-green-700">Verantwortliche Stelle</h2>
+          <h2>Verantwortliche Stelle</h2>
 
-          <div class="rounded-lg border border-gray-300 bg-white p-6 shadow-sm">
+          <div class="card-soft">
             <p class="font-semibold">Sybit GmbH</p>
             <p>Sankt-Johannis-Str. 1-5</p>
             <p>78315 Radolfzell, Germany</p>
@@ -59,9 +55,9 @@
         </section>
 
         <section>
-          <h2 class="mb-3 text-2xl font-semibold text-green-700">Datenschutzbeauftragter</h2>
+          <h2>Datenschutzbeauftragter</h2>
 
-          <div class="rounded-lg border border-gray-300 bg-white p-6 shadow-sm">
+          <div class="card-soft">
             <p class="font-semibold">PROLIANCE GmbH</p>
             <p>Leopoldstraße 21</p>
             <p>80802 München</p>
@@ -71,7 +67,7 @@
         </section>
 
         <section>
-          <h2 class="mb-3 text-2xl font-semibold text-green-700">Ihre Rechte</h2>
+          <h2>Ihre Rechte</h2>
 
           <ul class="list-disc space-y-2 pl-6 leading-7">
             <li>Auskunft über gespeicherte personenbezogene Daten</li>
