@@ -1,7 +1,12 @@
 <template>
-  <h1 class="text-3xl font-bold underline text-primary">Hello world!</h1>
-  <h1 class="text-3xl font-bold underline text-secondary">Hello world2!</h1>
+  <div class="space-y-8">
+    <h1 class="text-3xl font-bold underline text-primary">Mettnau</h1>
 
-  <button class="btn btn-primary">Zur Karte</button>
-  <button class="btn btn-secondary">Infos</button>
+    <!-- Simple Import -->
+    <WeatherAlert />
+  </div>
 </template>
+
+<script setup lang="ts">
+import WeatherAlert from '@/components/WeatherAlert.vue'
+</script>

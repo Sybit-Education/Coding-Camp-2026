@@ -1,49 +1,115 @@
 <template>
-    <div class="relative">
-      <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-        <svg class="h-5 w-5 text-text/60" fill="none" stroke="currentColor" aria-hidden="true">
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-          ></path>
-        </svg>
-      </span>
+    <div
+      class="relative flex w-full items-center gap-1 rounded-lg border border-gray-300 bg-white p-1 shadow-sm focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500"
+    >
+      <Search class="m-1 shrink-0 text-gray-400" />
       <input
         v-model="searchQuery"
         type="search"
         placeholder="Suchen..."
-        aria-label="Lexikon durchsuchen"
-        class="w-full rounded-xl border border-border bg-background py-2.5 pr-4 pl-10 text-sm text-text shadow-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/25"
+        class="min-w-0 flex-1 py-2 text-sm outline-none"
       />
+      <div ref="menuRef" class="relative shrink-0 text-left">
+        <button
+          class="flex items-center gap-2 rounded-md bg-gray-100 px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200"
+          @click="isMenuOpen = !isMenuOpen"
+        >
+          <ListFilter class="h-4 w-4 text-gray-400" />
+          <span>{{ selectedLabel || 'Alle' }}</span>
+        </button>
+
+        <div
+          v-if="isMenuOpen"
+          class="absolute right-0 z-50 mt-2 w-40 rounded-md border border-gray-200 bg-white py-1 shadow-lg"
+        >
+          <button
+            class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
+            @click="((selectedLabel = ''), (isMenuOpen = false))"
+          >
+            Alle anzeigen
+          </button>
+          <button
+            v-for="label in labels"
+            :key="label"
+            class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
+            :class="{ 'bg-blue-50 font-bold text-blue-600': selectedLabel === label }"
+            @click="((selectedLabel = label), (isMenuOpen = false))"
+          >
+            {{ label }}
+          </button>
+        </div>
+      </div>
     </div>
 
+    <details class="rounded-xl border border-border bg-background p-3 text-sm text-text">
+      <summary class="cursor-pointer font-semibold text-heading">Giftigkeitsstufen</summary>
+      <dl class="mt-3 space-y-2">
+        <div v-for="level in toxicityReferences" :key="level.id" class="flex gap-2">
+          <dt class="min-w-10 font-bold text-red-700">{{ level.type }}</dt>
+          <dd class="font-medium">{{ level.description }}</dd>
+        </div>
+      </dl>
+    </details>
+
     <section class="space-y-4" aria-label="Lexikoneinträge">
-      <LexiconListItem v-for="entry in filteredTest" :key="entry.id" :entry="entry" />
+      <LexiconListItem v-for="entry in filteredEntries" :key="entry.id" :entry="entry" />
     </section>
 
 </template>
+
 <script setup lang="ts">
-import { LexiconService } from '@/services/lexicon.service.ts'
-import LexiconListItem from '../components/LexiconListItem.vue'
-import { inject, onMounted, ref, computed } from 'vue'
-import type { LexiconListEntry } from '@/shared/types/lexicon.types.ts'
-
-const lexiconService = inject('lexiconService') as LexiconService
-
-const test = ref<LexiconListEntry[]>([])
-
-const searchQuery = ref('')
-const filteredTest = computed(() => {
-  return lexiconService.filterLexiconEntries(test.value, searchQuery.value)
-})
+import LexiconListItem from '@/components/LexiconListItem.vue'
+import { LexiconService } from '@/services/lexicon.service'
+import { useLabelsStore } from '@/stores/labels.store'
+import { useToxicityStore } from '@/stores/toxicity.store'
+import type { LexiconListEntry } from '@/shared/types/lexicon.types'
+import { ListFilter, Search } from '@lucide/vue'
+import { computed, inject, onBeforeUnmount, onMounted, ref } from 'vue'
 
 defineOptions({
   name: 'LexiconView',
 })
 
+const lexiconService = inject('lexiconService') as LexiconService
+const labelsStore = useLabelsStore()
+const toxicityStore = useToxicityStore()
+
+const entries = ref<LexiconListEntry[]>([])
+const isMenuOpen = ref(false)
+const selectedLabel = ref('')
+const menuRef = ref<HTMLElement | null>(null)
+const searchQuery = ref('')
+
+const labels = computed(() =>
+  labelsStore.getLabels
+    .map((label) => label.name)
+    .sort((first, second) => first.localeCompare(second)),
+)
+
+const filteredEntries = computed(() => {
+  let result = lexiconService.filterLexiconEntries(entries.value, searchQuery.value)
+
+  if (selectedLabel.value) {
+    result = result.filter((entry) => entry.label === selectedLabel.value)
+  }
+
+  return result
+})
+
+const toxicityReferences = computed(() => toxicityStore.getAllToxicityLevels)
+
+function closeMenuOnOutsideClick(event: PointerEvent) {
+  if (menuRef.value && event.target instanceof Node && !menuRef.value.contains(event.target)) {
+    isMenuOpen.value = false
+  }
+}
+
 onMounted(async () => {
-  test.value = await lexiconService.getLexiconEntriesList()
+  document.addEventListener('pointerdown', closeMenuOnOutsideClick)
+  entries.value = await lexiconService.getLexiconEntriesList()
+})
+
+onBeforeUnmount(() => {
+  document.removeEventListener('pointerdown', closeMenuOnOutsideClick)
 })
 </script>
