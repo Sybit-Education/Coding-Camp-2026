@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-center mb-20">
     <div class="p-5 flex-lg flex-col max-w-5xl">
-      <h1 class="h1 mb-0">About</h1>
+      <h1 class="mb-0">About</h1>
 
       <!-- The team -->
       <h2 class="flex-md h2 mb-0"><UsersIcon /> Das Team</h2>
@@ -10,11 +10,11 @@
       </div>
 
       <!-- Below Image -->
-      <h2 class="flex-md h2 mb-0"><InfoIcon /> Infos</h2>
+      <h2 class="flex-md mb-0"><InfoIcon /> Infos</h2>
       <div class="flex-sm flex-col md:flex-row">
         <!-- Left -->
         <div class="flex-1 card">
-          <h3 class="h3">Über das Projekt</h3>
+          <h3>Über das Projekt</h3>
           <p>
             Diese Website wurde im Rahmen des SYBIT Coding Camps 2025 entwickelt ‐ von jungen
             Talenten, die mit Neugier und Kreativität ihre ersten Schritte in der professionellen
@@ -30,7 +30,7 @@
         <div class="flex-1 flex-sm flex-col">
           <!-- Participant -->
           <div class="card flex-1">
-            <h3 class="h3">Teilnehmer</h3>
+            <h3>Teilnehmer</h3>
             <p>
               Carlton Gauthier, Elias Wieland, Felix Riedinger, Jannick Hüttel, Lars Klopfer, Pan
               Walser, Patrick Burberg, Pino Hirsch
@@ -38,7 +38,7 @@
           </div>
           <!-- Coaches -->
           <div class="card flex-1">
-            <h3 class="h3">Coaches von SYBIT</h3>
+            <h3>Coaches von SYBIT</h3>
             <p>
               Elias Frank, Fiona Krause, Franz Strittmatter, Jimmy Bergstaedt, Stephan Strittmatter,
               Thiara Adrian, Tobias Jentzsch, Yannik Schwarz
@@ -52,7 +52,7 @@
 
       <!-- Sybit Coding Camp -->
       <div class="card-sybit">
-        <h1 class="h2 text-white">Das SYBIT Coding Camp – Eine Erfolgsgeschichte</h1>
+        <h2 class="text-white">Das SYBIT Coding Camp – Eine Erfolgsgeschichte</h2>
         <p>
           Das SYBIT Coding Camp – Eine Erfolgsgeschichte Das SYBIT Coding Camp findet seit 2015
           jährlich in der ersten vollen Woche der Sommerferien im Rahmen des Ferienprogramms der
@@ -69,7 +69,7 @@
 
       <!-- Sybit -->
       <div class="card-sybit">
-        <h1 class="h2 text-white">SYBIT GmbH</h1>
+        <h2 class="text-white">SYBIT GmbH</h2>
         <p>
           SYBIT ist Europas führender Full-Service-Anbieter für Customer Experience (CX) mit
           umfassender Expertise in Business Consulting, Process Consulting und Solution Consulting.

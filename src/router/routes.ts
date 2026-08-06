@@ -41,7 +41,7 @@ export const routes: RouteRecordRaw[] = [
     component: LexiconDetail,
   },
   {
-    path: '/DangerGuide',
+    path: '/dangerguide',
     name: ROUTE_NAMES.DANGER_GUIDE,
     component: DangerGuide,
   },
