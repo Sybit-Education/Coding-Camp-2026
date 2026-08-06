@@ -5,7 +5,6 @@ import { ROUTE_NAMES } from './route-names'
 import MapView from '@/views/MapView.vue'
 import LexiconDetail from '@/views/LexiconDetail.vue'
 import DataProtectionView from '@/views/DataProtectionView.vue'
-import ImprintView from '@/views/ImprintView.vue'
 import BirdRecognitionView from '@/views/BirdRecognitionView.vue'
 import DangerGuide from '@/views/DangerGuide.vue'
 

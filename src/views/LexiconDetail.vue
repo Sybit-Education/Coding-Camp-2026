@@ -11,10 +11,6 @@
         class="aspect-square w-full object-cover"
         @error="hasImageError = true"
       />
-      <AutoTextToSpeech
-          :targetSelector="'article'"
-          lang="de-DE"
-        />
       <div
         v-else
         class="flex aspect-square w-full items-center justify-center bg-background-mute"
@@ -22,7 +18,8 @@
       >
         <img :src="fallbackImage" alt="" class="h-1/2 w-1/2 grayscale opacity-50" />
       </div>
-       <article class="p-5">
+      <AutoTextToSpeech :targetSelector="'article'" lang="de-DE" />
+      <article class="p-5">
         <h1 class="text-2xl font-bold text-heading">{{ entry.name }}</h1>
         <p class="mt-3 text-text">{{ entry.description }}</p>
 
