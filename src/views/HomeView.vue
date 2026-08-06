@@ -7,7 +7,6 @@
   >
     <div class="flex flex-col items-center font-head">
       <div class="flex">
-
         <span class="text-3xl font-bold text-primary2">Mettnau</span>
       </div>
       <div class="flex gap-1">
@@ -51,9 +50,7 @@
     </RouterLink>
   </div>
 
-
-  <div>
-    <!-- Simple Import -->
+  <div class="mt-2">
     <WeatherAlert />
   </div>
 </template>
@@ -63,9 +60,3 @@ import WeatherAlert from '@/components/WeatherAlert.vue'
 import map from '@/assets/Map.png'
 import haubentaucher from '@/assets/Haubentaucher.jpg'
 </script>
-
-
-
-
-
-
