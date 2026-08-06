@@ -12,9 +12,8 @@
     <!-- Simple Import -->
     <WeatherAlert />
   </div>
-
 </template>
 
 <script setup lang="ts">
- import WeatherAlert from '@/components/WeatherAlert.vue'
+import WeatherAlert from '@/components/WeatherAlert.vue'
 </script>
