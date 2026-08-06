@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { MapIcon, InfoIcon, BookOpenTextIcon, MenuIcon, TriangleAlert } from '@lucide/vue'
+import { MapIcon, InfoIcon, BookOpenTextIcon, MenuIcon} from '@lucide/vue'
 import { RouterLink } from 'vue-router'
 
 const open = ref(false)
@@ -23,10 +23,6 @@ const open = ref(false)
       <button class="btn btn-primary"><BookOpenTextIcon /></button>
     </RouterLink>
 
-    <RouterLink to="/DangerGuide">
-      <button class="btn btn-primary"> <TriangleAlert /></button>
-    </RouterLink>
-
     <!-- Dropdown -->
     <div class="relative">
       <!-- Hamburger trigger -->
@@ -42,6 +38,10 @@ const open = ref(false)
         <!-- About us -->
         <RouterLink to="/">
           <button class="btn btn-primary w-full">About Us</button>
+        </RouterLink>
+
+        <RouterLink to="/DangerGuide">
+          <button class="btn btn-primary">Gefahrenanleitung</button>
         </RouterLink>
 
         <!-- Impressum -->

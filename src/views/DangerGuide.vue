@@ -1,9 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { MapIcon, InfoIcon, BookOpenTextIcon, MenuIcon, TriangleAlert } from '@lucide/vue'
+import { TriangleAlert } from '@lucide/vue'
 import { RouterLink } from 'vue-router'
-
-const open = ref(false)
 </script>
 
 <template>
@@ -70,7 +67,9 @@ const open = ref(false)
         <button class="btn btn-primary">Zurück zur Karte</button>
       </RouterLink>
 
-      <button class="btn btn-secondary">Infos</button>
+      <RouterLink to="/">
+        <button class="btn btn-primary">Züruck zur Startseite</button>
+      </RouterLink>
     </div>
   </div>
 </template>
