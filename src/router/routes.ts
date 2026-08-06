@@ -5,6 +5,7 @@ import { ROUTE_NAMES } from './route-names'
 import MapView from '@/views/MapView.vue'
 import LexiconDetail from '@/views/LexiconDetail.vue'
 import DataProtectionView from '@/views/DataProtectionView.vue'
+import BirdRecognitionView from '@/views/BirdRecognitionView.vue'
 import DangerGuide from '@/views/DangerGuide.vue'
 
 export const routes: RouteRecordRaw[] = [
@@ -12,6 +13,11 @@ export const routes: RouteRecordRaw[] = [
     path: '/',
     name: ROUTE_NAMES.HOME,
     component: HomeView,
+  },
+  {
+    path: '/bird-recognition',
+    name: ROUTE_NAMES.BIRD_RECOGNITION,
+    component: BirdRecognitionView,
   },
   {
     path: '/map',
