@@ -4,7 +4,7 @@ import { RouterLink } from 'vue-router'
 
 <template>
   <div class="p-6 pb-32 max-w-4xl mx-auto">
-    <h1 class="h1">Gefahrenanleitung</h1>
+    <h1>Gefahrenanleitung</h1>
 
     <div class="space-y-4">
       <p>
