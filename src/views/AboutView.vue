@@ -5,8 +5,8 @@
 
       <!-- The team -->
       <h2 class="flex-md h2 mb-0"><UsersIcon /> Das Team</h2>
-      <div class="flex items-center justify-center border rounded-sm m-0">
-        <p>*Hier schönes Bild einfügen*</p>
+      <div class="flex items-center justify-center m-0">
+        <img src="/team.jpeg" class="rounded-lg" />
       </div>
 
       <!-- Below Image -->
