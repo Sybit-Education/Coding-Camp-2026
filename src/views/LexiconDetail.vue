@@ -4,19 +4,34 @@
       v-if="entry"
       class="overflow-hidden rounded-xl border border-border bg-background shadow-sm"
     >
-      <img
-        v-if="entry.imageUrl && !hasImageError"
-        :src="entry.imageUrl"
-        :alt="entry.name"
-        class="aspect-square w-full object-cover"
-        @error="hasImageError = true"
-      />
-      <div
-        v-else
-        class="flex aspect-square w-full items-center justify-center bg-background-mute"
-        :aria-label="`${entry.name}: kein Bild verfügbar`"
-      >
-        <img :src="fallbackImage" alt="" class="h-1/2 w-1/2 grayscale opacity-50" />
+      <div class="relative">
+        <p
+          v-if="
+            entry.imageUrl &&
+            entry.attributionURL &&
+            entry.attributionAuthor &&
+            entry.attributionLicense &&
+            !hasImageError
+          "
+          class="absolute bottom-0 right-0 text-sm bg-black/60 text-white text-right"
+        >
+          &copy; {{ entry.attributionAuthor }}, {{ entry.attributionLicense }},
+          <a :href="entry.attributionURL"> {{ entry.attributionURL }}</a>
+        </p>
+        <img
+          v-if="entry.imageUrl && !hasImageError"
+          :src="entry.imageUrl"
+          :alt="entry.name"
+          class="aspect-square w-full object-cover"
+          @error="hasImageError = true"
+        />
+        <div
+          v-else
+          class="flex aspect-square w-full items-center justify-center bg-background-mute"
+          :aria-label="`${entry.name}: kein Bild verfügbar`"
+        >
+          <img :src="fallbackImage" alt="" class="h-1/2 w-1/2 grayscale opacity-50" />
+        </div>
       </div>
 
       <AutoTextToSpeech :targetSelector="'article'" lang="de-DE" />
