@@ -5,5 +5,5 @@ export const ROUTE_NAMES = {
   DATA_PROTECTION: 'data-protection',
   LEXICON: 'lexicon',
   LEXICON_DETAILS: 'Lexicon Detail',
-  DANGER_GUIDE: 'DangerGuide'
+  DANGER_GUIDE: 'DangerGuide',
 } as const

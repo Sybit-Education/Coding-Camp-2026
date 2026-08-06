@@ -8,12 +8,12 @@ const props = defineProps({
   // Standardmäßig wird das 'main'-Tag gelesen, alternativ 'article' oder 'body'
   targetSelector: {
     type: String,
-    default: 'main'
+    default: 'main',
   },
   lang: {
     type: String,
-    default: 'de-DE'
-  }
+    default: 'de-DE',
+  },
 })
 
 const extractedText = ref('')
@@ -34,8 +34,8 @@ onMounted(() => {
   }
 })
 onUnmounted(() => {
-  stop();
-});
+  stop()
+})
 </script>
 
 <template>

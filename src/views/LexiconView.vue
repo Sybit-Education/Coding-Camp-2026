@@ -45,8 +45,20 @@
       </div>
     </div>
 
+    <details class="rounded-xl border border-border bg-background p-3 text-sm text-text">
+      <summary class="cursor-pointer font-semibold text-heading">Giftigkeitsstufen</summary>
+      <dl class="mt-3 space-y-2">
+        <div v-for="level in toxicityReferences" :key="level.id" class="flex gap-2">
+          <dt class="min-w-10 font-bold text-red-700">{{ level.type }}</dt>
+          <dd>
+            <span class="font-medium">{{ level.description }}</span>
+          </dd>
+        </div>
+      </dl>
+    </details>
+
     <section class="space-y-4" aria-label="Lexikoneinträge">
-      <LexiconListItem v-for="entry in filteredTest" :key="entry.id" :entry="entry" />
+      <LexiconListItem v-for="entry in filteredEntries" :key="entry.id" :entry="entry" />
     </section>
   </main>
 </template>
@@ -55,29 +67,23 @@
 import { Search, ListFilter } from '@lucide/vue'
 import { LexiconService } from '@/services/lexicon.service.ts'
 import LexiconListItem from '../components/LexiconListItem.vue'
-import { computed, inject, onBeforeUnmount, onMounted, ref } from 'vue'
-import type { LexiconListEntry } from '@/shared/types/lexicon.types.ts'
+import { inject, onMounted, ref, computed, onBeforeUnmount } from 'vue'
+import { type LexiconListEntry } from '@/shared/types/lexicon.types.ts'
+import { useToxicityStore } from '@/stores/toxicity.store.ts'
+import { useLabelsStore } from '@/stores/labels.store.ts'
 
-defineOptions({
-  name: 'LexiconView',
-})
+const lexiconService = inject('lexiconService') as LexiconService
+const toxicityStore = useToxicityStore()
+const labelsStore = useLabelsStore()
 
+const entries = ref<LexiconListEntry[]>([])
 const isMenuOpen = ref(false)
 const selectedLabel = ref('')
 const menuRef = ref<HTMLElement | null>(null)
 const searchQuery = ref('')
-const test = ref<LexiconListEntry[]>([])
 
-const labels = computed(() =>
-  [...new Set(test.value.map((entry) => entry.label))].sort((first, second) =>
-    first.localeCompare(second),
-  ),
-)
-
-const lexiconService = inject('lexiconService') as LexiconService
-
-const filteredTest = computed(() => {
-  let result = lexiconService.filterLexiconEntries(test.value, searchQuery.value)
+const filteredEntries = computed(() => {
+  let result = lexiconService.filterLexiconEntries(entries.value, searchQuery.value)
 
   if (selectedLabel.value) {
     result = result.filter((entry) => entry.label === selectedLabel.value)
@@ -86,6 +92,20 @@ const filteredTest = computed(() => {
   return result
 })
 
+const toxicityReferences = computed(() => {
+  return toxicityStore.getAllToxicityLevels
+})
+
+defineOptions({
+  name: 'LexiconView',
+})
+
+const labels = computed(() =>
+  labelsStore.getLabels
+    .map((label) => label.name)
+    .sort((first, second) => first.localeCompare(second)),
+)
+
 function closeMenuOnOutsideClick(event: PointerEvent) {
   if (menuRef.value && event.target instanceof Node && !menuRef.value.contains(event.target)) {
     isMenuOpen.value = false
@@ -93,8 +113,8 @@ function closeMenuOnOutsideClick(event: PointerEvent) {
 }
 
 onMounted(async () => {
+  entries.value = await lexiconService.getLexiconEntriesList()
   document.addEventListener('pointerdown', closeMenuOnOutsideClick)
-  test.value = await lexiconService.getLexiconEntriesList()
 })
 
 onBeforeUnmount(() => {
