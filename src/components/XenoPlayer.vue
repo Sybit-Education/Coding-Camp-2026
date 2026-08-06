@@ -9,7 +9,7 @@
 </template>
 <script setup lang="ts">
 const props = defineProps<{
-  id: string
+  id: number
   darkBackground: boolean
 }>()
 </script>
