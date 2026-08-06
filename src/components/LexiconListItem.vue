@@ -38,9 +38,7 @@
   </RouterLink>
 </template>
 <script setup lang="ts">
-import {
-  type LexiconListEntry,
-} from '@/shared/types/lexicon.types'
+import { type LexiconListEntry } from '@/shared/types/lexicon.types'
 import { SkullIcon } from '@lucide/vue'
 import { LeafIcon } from '@lucide/vue'
 import { computed } from 'vue'

@@ -1,11 +1,17 @@
 <template>
-  <main class="mx-auto w-full max-w-sm space-y-4 px-4 py-4 pb-24">
-    <article
+  <main class="mx-auto w-full max-w-md px-4 py-4">
+    <div
       v-if="entry"
       class="overflow-hidden rounded-xl border border-border bg-background shadow-sm"
     >
-      <img :src="entry.imageUrl" :alt="entry.name" class="aspect-square w-full object-cover" />
-      <div class="p-4">
+      <img
+        v-if="entry.imageUrl"
+        :src="entry.imageUrl"
+        :alt="entry.name"
+        class="aspect-square w-full object-cover"
+      />
+      <AutoTextToSpeech :targetSelector="'article'" lang="de-DE" />
+      <article class="p-5">
         <h1 class="text-2xl font-bold text-heading">{{ entry.name }}</h1>
         <div class="mt-2 flex flex-wrap gap-2">
           <span
@@ -29,9 +35,8 @@
           {{ toxicityReference.description }}
         </p>
         <p class="mt-3 text-text">{{ entry.description }}</p>
-      </div>
-    </article>
-
+      </article>
+    </div>
     <section
       v-if="soundID.length"
       class="space-y-3 rounded-xl border border-border bg-background p-4 shadow-sm"
@@ -50,7 +55,7 @@
   </main>
 </template>
 <script setup lang="ts">
-import type { AudioService } from '@/services/audio.service'
+import AutoTextToSpeech from '@/components/AutoTextToSpeech.vue'
 import type { LexiconService } from '@/services/lexicon.service'
 import type { AnimalAudioListEntry } from '@/shared/types/audio.types'
 import { computed, inject, onMounted, ref } from 'vue'
@@ -58,6 +63,7 @@ import { useRoute } from 'vue-router'
 import XenoPlayer from '@/components/XenoPlayer.vue'
 import { LeafIcon, SkullIcon } from '@lucide/vue'
 import type { LexiconEntry } from '@/shared/types/lexicon.types'
+import type { AudioService } from '@/services/audio.service'
 
 // Service
 const lexiconService = inject('lexiconService') as LexiconService

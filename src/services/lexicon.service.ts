@@ -5,14 +5,17 @@ import {
 } from '@/shared/types/lexicon.types'
 import type { PocketBaseService } from './pocket-base.service'
 import { sanatizeTextLength } from '@/shared/utils/sanitizer'
+import { useLabelsStore } from '@/stores/labels.store'
 import { useToxicityStore } from '@/stores/toxicity.store'
 
 export class LexiconService {
+  private labelStore = useLabelsStore()
+  private toxicityStore = useToxicityStore()
+
   constructor(readonly pocketBaseService: PocketBaseService) {
+    this.labelStore.loadLabels(pocketBaseService)
     this.toxicityStore.fetchToxicityLevels(pocketBaseService)
   }
-
-  private toxicityStore = useToxicityStore()
 
   async getLexiconEntriesList(): Promise<LexiconListEntry[]> {
     const lexiconEntries = await this.getAllLexiconEntries()
@@ -20,6 +23,7 @@ export class LexiconService {
       lexiconEntries.map(async (entry) => ({
         id: entry.id,
         name: entry.name,
+        label: await this.resolveLabelName(entry.label),
         description: sanatizeTextLength(entry.description, 100),
         imageUrl: entry.media ? await this.resolveImageUrl(entry, entry.media) : undefined,
         isProtected: entry.isProtected,
@@ -52,6 +56,11 @@ export class LexiconService {
         entry.name.toLowerCase().includes(lowerCaseSearchTerm) ||
         entry.description.toLowerCase().includes(lowerCaseSearchTerm),
     )
+  }
+
+  private async resolveLabelName(labelId: string): Promise<string> {
+    const label = await this.labelStore.getLabelById(labelId)
+    return label!.name
   }
 
   private async getAllLexiconEntries(): Promise<LexiconEntry[]> {
