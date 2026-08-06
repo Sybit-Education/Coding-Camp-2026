@@ -80,7 +80,7 @@
           </ul>
         </section>
 
-        <div class="flex flex-wrap gap-3 pt-4">
+        <div class="flex-sm pt-4">
           <RouterLink to="/">
             <button class="btn btn-primary">Zurück zur Startseite</button>
           </RouterLink>
