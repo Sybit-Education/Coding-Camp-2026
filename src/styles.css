@@ -17,10 +17,44 @@
   --color-heading: #2c3e50;
   --color-text: #2c3e50;
 
+  --color-card: #f2f7f4;
+
   --section-gap: 160px;
 }
 
 @layer components {
+  .flex-sm {
+    @apply flex gap-2;
+  }
+
+  .flex-md {
+    @apply flex gap-4;
+  }
+
+  .flex-lg {
+    @apply flex gap-6;
+  }
+
+  .h1 {
+    @apply text-3xl font-bold text-primary mb-6;
+  }
+
+  .h2 {
+    @apply text-2xl font-semibold text-secondary mb-4;
+  }
+
+  .h3 {
+    @apply text-xl font-medium text-secondary mb-2;
+  }
+
+  .card {
+    @apply border bg-card rounded-md p-3;
+  }
+
+  .card-sybit {
+    @apply bg-linear-to-br from-[#000057] to-[#c300ff] text-white p-7 rounded-md max-w-5xl;
+  }
+
   .btn {
     @apply inline-flex
     items-center
