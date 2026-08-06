@@ -1,26 +1,68 @@
 <template>
-  <h1>Gefahrenanleitung</h1>
-  <p>
-    Bei Verdacht auf eine Vergiftung durch Pflanzen sofort den Mundraum <br />
-    des Kindes kontrollieren und Pflanzenreste entfernen. <br />
-    Dem Kind schluckweise Wasser zu trinken geben.<br />
-    Kein Erbrechen auslösen und keine Milch verabreichen.<br />
-    Den zuständigen Giftnotruf (in Baden-Württemberg: 0761 / 19240)<br />
-    oder bei akuten Lebenszeichen den Notruf 1 12 wählen.<br />
-    Sofortige MaßnahmenRuhe bewahren und das Kind beruhigen.<br />Pflanzenreste aus dem Mund nehmen
-    und aufbewahren (hilft bei der Bestimmung).<br />Wasser (keine Kohlensäure) schluckweise zu
-    trinken geben, um das Gift zu verdünnen.Auf keinen Fall Erbrechen auslösen, Salzwasser oder
-    Milch geben<br />
-    (Milch kann die Aufnahme von Giften im Darm beschleunigen).<br /><strong
-      >WichtigeInformationen für den Anruf:</strong
-    ><br />
-    Halten Sie für das Gespräch mit dem Giftnotruf oder dem Arzt folgende Angaben bereit:<br />
-    Alter und Gewicht des KindesName der Pflanze oder eine Beschreibung<br />
-    (Blätter, Be eren, Blüten),<br />Menge der gegessenen Teile (geschluckt oder nur gekaut?),<br />Zeitpunkt
-    des Verzehrs,<br /><strong>Wann sofort der Notruf (112) gilt</strong><br />Wählen Sie bei
-    folgenden Symptomen direkt den Rettungsdienst:<br />
-    Wählen Sie bei folgenden Symptomen direkt den Rettungsdienst statt des Giftnotrufs:<br />Bewusstlosigkeit
-    oder Benommenheit,Atemnot oder heftige KrämpfeStarkes,<br />
-    anhaltendes Erbrechen oder Kreislaufkollaps
-  </p>
+  <div class="p-6 pb-32 max-w-4xl mx-auto">
+    <h1 class="text-3xl font-bold text-primary mb-6">Gefahrenanleitung</h1>
+
+    <div class="space-y-4">
+      <p>
+        Bei Verdacht auf eine Vergiftung durch Pflanzen sofort den Mundraum des Kindes kontrollieren
+        und Pflanzenreste entfernen.
+      </p>
+
+      <p>
+        Dem Kind schluckweise Wasser zu trinken geben.
+        <strong>Kein Erbrechen auslösen und keine Milch verabreichen!</strong>
+      </p>
+
+      <p>
+        Den zuständigen Giftnotruf (Baden-Württemberg:
+        <strong>0761 / 19240</strong>) kontaktieren oder bei akuten Beschwerden den
+        <strong>Notruf 112</strong> wählen.
+      </p>
+    </div>
+
+    <div class="mt-8">
+      <h2 class="text-xl font-semibold mb-3">Sofortige Maßnahmen</h2>
+
+      <ul class="list-disc pl-6 space-y-2">
+        <li>Ruhe bewahren und das Kind beruhigen.</li>
+        <li>Pflanzenreste aus dem Mund entfernen.</li>
+        <li>Pflanzenreste zur späteren Bestimmung aufbewahren.</li>
+        <li>Wasser ohne Kohlensäure schluckweise trinken lassen.</li>
+        <li>Kein Erbrechen auslösen.</li>
+        <li>Keine Milch oder Salzwasser geben.</li>
+      </ul>
+    </div>
+
+    <div class="mt-8">
+      <h2 class="text-xl font-semibold mb-3">Wichtige Informationen für den Anruf</h2>
+
+      <ul class="list-disc pl-6 space-y-2">
+        <li>Alter und Gewicht des Kindes</li>
+        <li>Name oder Beschreibung der Pflanze</li>
+        <li>Welche Pflanzenteile gegessen wurden</li>
+        <li>Geschätzte Menge</li>
+        <li>Zeitpunkt des Verzehrs</li>
+      </ul>
+    </div>
+
+    <div class="mt-8">
+      <h2 class="text-xl font-semibold text-error mb-3">Wann sofort 112 wählen?</h2>
+
+      <ul class="list-disc pl-6 space-y-2">
+        <li>Bewusstlosigkeit oder starke Benommenheit</li>
+        <li>Atemnot</li>
+        <li>Heftige Krampfanfälle</li>
+        <li>Starkes oder anhaltendes Erbrechen</li>
+        <li>Kreislaufkollaps</li>
+      </ul>
+    </div>
+
+    <div class="mt-8 flex gap-4">
+      <button class="btn btn-primary">Zur Karte</button>
+
+      <button class="btn btn-secondary">Infos</button>
+    </div>
+  </div>
 </template>
+
+<script setup></script>
