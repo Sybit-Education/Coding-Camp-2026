@@ -2,7 +2,6 @@
 import { ref } from 'vue'
 import { MapIcon, InfoIcon, BookOpenTextIcon, MenuIcon } from '@lucide/vue'
 import { RouterLink } from 'vue-router'
-
 const open = ref(false)
 </script>
 
@@ -44,6 +43,10 @@ const open = ref(false)
         <a href="https://www.sybit.com/de/impressum" target="_blank" rel="noopener noreferrer">
           <button class="btn btn-primary w-full">Impressum</button>
         </a>
+        <!-- bathing spots -->
+        <RouterLink to="/bathingSpots">
+          <button class="btn btn-primary w-full">Wo darf man baden?</button>
+        </RouterLink>
 
         <!-- Data-protection -->
         <RouterLink to="/dataprotection">
