@@ -1,5 +1,5 @@
 <template>
-  <div class="page-view">
+  <main class="page-view">
     <article
       v-if="entry"
       class="mx-auto w-full max-w-4xl overflow-hidden rounded-xl border border-border bg-background shadow-sm"
@@ -62,7 +62,15 @@
         <p v-if="toxicityReference" class="mt-2 text-sm text-text">
           {{ toxicityReference.description }}
         </p>
-        <p class="mt-3">{{ entry.description }}</p>
+        <p class="mt-3 text-text">{{ entry.description }}</p>
+
+        <a
+          v-if="entry.reference"
+          :href="entry.reference"
+          target="_blank"
+          class="flex-sm items-center nowrap underline pt-4 text-sm text-primary text-right px-1"
+          >Weitere Informationen <ExternalLinkIcon class="size-4"
+        /></a>
       </section>
 
       <section
@@ -81,7 +89,7 @@
         </div>
       </section>
     </article>
-  </div>
+  </main>
 </template>
 
 <script setup lang="ts">
@@ -92,7 +100,7 @@ import type { AudioService } from '@/services/audio.service'
 import type { LexiconService } from '@/services/lexicon.service'
 import type { AnimalAudioListEntry } from '@/shared/types/audio.types'
 import type { LexiconEntry } from '@/shared/types/lexicon.types'
-import { CopyrightIcon, LeafIcon, SkullIcon } from '@lucide/vue'
+import { CopyrightIcon, ExternalLinkIcon, LeafIcon, SkullIcon } from '@lucide/vue'
 import { computed, inject, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
