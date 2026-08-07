@@ -8,6 +8,7 @@ import { AudioService } from '@/services/audio.service'
 import { WeatherService } from '@/services/weather.service'
 import { MicroService } from '@/services/micro-service.service'
 import { TourGuidesService } from '@/services/tour-guides.service'
+import { WarningService } from '@/services/warning.service'
 
 export function createAppServices(_router: Router) {
   const microService = new MicroService()
@@ -19,6 +20,7 @@ export function createAppServices(_router: Router) {
   const audioService = new AudioService(pocketBaseService)
   const weatherService = new WeatherService()
   const mapService = new MapService()
+  const warningService = new WarningService(pocketBaseService)
 
   return {
     pocketBaseService,
@@ -29,6 +31,7 @@ export function createAppServices(_router: Router) {
     weatherService,
     microService,
     tourGuidesService,
+    warningService,
   }
 }
 
@@ -43,4 +46,5 @@ export function provideAppServices(app: App, services: AppServices): void {
   app.provide('audioService', services.audioService)
   app.provide('weatherService', services.weatherService)
   app.provide('tourGuidesService', services.tourGuidesService)
+  app.provide('warningService', services.warningService)
 }

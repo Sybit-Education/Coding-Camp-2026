@@ -3,11 +3,11 @@
     :to="`/lexiconDetail/${entry.id}`"
     :target="openInNewTab ? '_blank' : '_self'"
     :rel="openInNewTab ? 'noopener noreferrer' : undefined"
-    class="group block rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+    class="group block"
   >
-    <article
+    <section
       :class="[
-        'flex gap-5 rounded-xl border border-border bg-background p-4 shadow-sm transition duration-200 ease-out group-hover:-translate-y-0.5 group-hover:border-primary group-hover:shadow-md',
+        'card flex min-w-0 gap-3 shadow-sm transition duration-200 ease-out group-hover:-translate-y-0.5 group-hover:border-primary group-hover:shadow-md sm:gap-5',
         recognitionConfidence === undefined ? 'items-center' : 'items-start',
       ]"
     >
@@ -15,22 +15,27 @@
         v-if="entry.imageUrl && !hasImageError"
         :src="entry.imageUrl"
         :alt="entry.name"
-        class="aspect-square h-24 w-24 shrink-0 rounded-lg object-cover"
+        :aria-label="`Bild von ${entry.name}`"
+        class="list-item-image min-h-full w-28 self-stretch sm:w-40"
         @error="hasImageError = true"
       />
       <div
         v-else
-        class="flex aspect-square h-24 w-24 shrink-0 items-center justify-center rounded-lg bg-background-mute"
-        :aria-label="`${entry.name}: kein Bild verfügbar`"
+        class="flex min-h-full w-28 shrink-0 items-center justify-center self-stretch bg-background-mute sm:w-40"
       >
-        <img :src="fallbackImage" alt="" class="h-1/2 w-1/2 grayscale opacity-50" />
+        <img
+          :src="fallbackImage"
+          :aria-label="`${entry.name}: kein Bild verfügbar`"
+          :alt="`${entry.name}: kein Bild verfügbar`"
+          class="list-item-image h-full w-full grayscale opacity-50"
+        />
       </div>
 
-      <div class="min-w-0 flex-1">
-        <div class="flex items-start justify-between gap-3">
-          <div>
+      <div class="min-w-0 flex-1 p-2 sm:p-3">
+        <div class="flex min-w-0 items-start justify-between gap-2">
+          <div class="min-w-0">
             <div class="flex flex-wrap items-center gap-2">
-              <h2 class="text-xl font-bold text-heading">{{ entry.name }}</h2>
+              <h2 class="break-words">{{ entry.name }}</h2>
               <span
                 v-if="entry.isProtected"
                 class="flex items-center gap-1 rounded-full bg-green-600 px-2 py-1 text-xs text-white"
@@ -48,18 +53,18 @@
                 {{ entry.toxicityLevel.type }}
               </span>
             </div>
-            <p v-if="scientificName" class="text-sm text-text/60">{{ scientificName }}</p>
+            <p v-if="entry.latinName" class="text-text/60">{{ entry.latinName }}</p>
           </div>
           <span
             v-if="recognitionConfidence !== undefined"
-            class="shrink-0 rounded-full bg-primary px-3 py-1 text-sm font-medium text-white"
+            class="max-w-full shrink-0 rounded-full bg-primary px-2 py-1 text-xs font-medium text-white sm:px-3 sm:text-sm"
           >
             {{ recognitionConfidence }} %
           </span>
         </div>
-        <p class="mt-1 text-text">{{ entry.description }}</p>
+        <p class="mt-1 break-words text-text">{{ entry.description }}</p>
       </div>
-    </article>
+    </section>
   </RouterLink>
 </template>
 
@@ -72,9 +77,16 @@ import { ref } from 'vue'
 defineProps<{
   entry: LexiconListEntry
   recognitionConfidence?: number
-  scientificName?: string | null
   openInNewTab?: boolean
 }>()
 
 const hasImageError = ref(false)
 </script>
+
+<style lang="css" scoped>
+@import '@/styles.css';
+
+.list-item-image {
+  @apply bg-background-mute p-0 shrink-0 rounded-tl-xl rounded-bl-xl object-cover;
+}
+</style>

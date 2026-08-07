@@ -1,11 +1,33 @@
 @import 'tailwindcss';
 @import 'leaflet/dist/leaflet.css';
+@plugin "@tailwindcss/typography";
+
+/* Design tokens — consumed by components via var() */
+:root {
+  --spacing-unit: 4px;
+  --spacing-gutter-md: 16px;
+  --spacing-margin-lg: 24px;
+  --font-size-body-md: 14px;
+  --font-size-label-sm: 11px;
+  --font-weight-label-sm: 500;
+  --line-height-label-sm: 14px;
+  --letter-spacing-label-sm: 0.03em;
+  --shape-round-full: 9999px;
+  --color-surface-variant: #e1e3e4;
+  --color-on-surface-variant: #64748b;
+}
 
 @theme {
   --color-background: #ffffff;
   --color-background-soft: #f8f8f8;
   --color-background-mute: #f2f2f2;
   --color-primary: #2a944d;
+  --color-primary1: #0a5ca8;
+  --color-primary2: #2d7d46;
+  --color-accent1: #f2b705;
+  --color-accent2: #ff7a00;
+  --color-neutral1: #f3f4f6;
+  --color-neutral2: #e8eef2;
   --color-secondary: #1a5b30;
 
   --color-primary-hover: #247f42;
@@ -23,11 +45,84 @@
   --section-gap: 160px;
 }
 
-@layer components {
-  .flex-sm {
-    @apply flex gap-2;
+/* Custom base styles */
+@layer base {
+  html {
+    @apply antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
   }
 
+  body {
+    @apply font-sans;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: var(--font-size-body-md);
+  }
+
+  main {
+    @apply pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)];
+    @apply px-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)];
+    @apply mx-auto;
+    @apply container;
+  }
+
+  /* Typography */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-bold text-primary tracking-tight;
+  }
+
+  h1 {
+    @apply font-bold text-primary mb-6 items-center;
+    font-size: calc(var(--font-size-body-md) * 2);
+  }
+
+  h2 {
+    @apply font-semibold text-secondary mb-4 items-center;
+    font-size: calc(var(--font-size-body-md) * 1.75);
+  }
+
+  h3 {
+    @apply font-medium text-secondary mb-2 items-center;
+    font-size: calc(var(--font-size-body-md) * 1.5);
+  }
+
+  p {
+    @apply leading-relaxed;
+  }
+
+  a {
+    @apply text-primary hover:text-primary-hover;
+  }
+
+  /* Focus styles for accessibility */
+  *:focus-visible {
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #75777d;
+  }
+}
+
+@layer components {
   .flex-md {
     @apply flex gap-4;
   }
@@ -36,24 +131,16 @@
     @apply flex gap-6;
   }
 
-  h1 {
-    @apply text-3xl font-bold text-primary mb-6 items-center;
-  }
-
-  h2 {
-    @apply text-2xl font-semibold text-secondary mb-4 items-center;
-  }
-
-  h3 {
-    @apply text-xl font-medium text-secondary mb-2 items-center;
-  }
-
   .card {
-    @apply border bg-card rounded-md p-3;
+    @apply border bg-card rounded-xl border-border;
   }
 
   .card-sybit {
-    @apply bg-linear-to-br from-[#000057] to-[#c300ff] text-white p-7 rounded-md max-w-5xl;
+    @apply bg-linear-to-br from-[#000057] to-[#c300ff] text-white p-7 rounded-xl;
+  }
+
+  .card-soft {
+    @apply rounded-lg border border-gray-300 bg-white p-6 shadow-sm;
   }
 
   .btn {
@@ -80,8 +167,64 @@
   }
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  min-height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.app-content {
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  flex: 1 1 auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+}
+
+.app-content.map-content {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.app-content.map-content > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.page-view {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  padding: 1rem;
+}
+
 body {
-  min-height: 100vh;
+  min-height: 100%;
   color: var(--color-text);
   background: var(--color-background);
   transition:
@@ -101,7 +244,7 @@ body {
     'Droid Sans',
     'Helvetica Neue',
     sans-serif;
-  font-size: 15px;
+  font-size: var(--font-size-body-md);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
