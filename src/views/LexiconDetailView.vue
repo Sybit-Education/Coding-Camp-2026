@@ -24,7 +24,7 @@
           v-if="entry.imageUrl && !hasImageError"
           :src="entry.imageUrl"
           :alt="entry.name"
-          class="max-h-[min(70vh,32rem)] w-full bg-background-mute object-contain"
+          class="max-h-[min(70vh,32rem)] w-full bg-background-mute  object-cover"
           @error="hasImageError = true"
         />
         <div
