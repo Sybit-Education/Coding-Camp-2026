@@ -1,12 +1,11 @@
 import HomeView from '@/views/HomeView.vue'
 import type { RouteRecordRaw } from 'vue-router'
 import { ROUTE_NAMES } from './route-names'
-import MapView from '@/views/MapView.vue'
 import bathingSpots from '@/views/bathingSpots.vue'
-import BirdRecognitionView from '@/views/BirdRecognitionView.vue'
-import DangerGuide from '@/views/DangerGuide.vue'
-import AboutView from '@/views/AboutView.vue'
-import LexiconDetail from '@/views/LexiconDetailView.vue'
+
+
+
+
 
 export const routes: RouteRecordRaw[] = [
   {
