@@ -2,28 +2,28 @@
   <div class="page-view flex flex-col gap-4">
     <div class="grid gap-4 sm:grid-cols-2">
       <RouterLink to="/map" class="min-w-0">
-        <article
-          class="flex h-full min-w-0 items-center gap-4 rounded-xl border border-border bg-background p-4 shadow-sm transition duration-200 ease-out hover:-translate-y-0.5 hover:border-primary hover:shadow-md"
+        <section
+          class="card flex min-w-0 items-center gap-4 rounded-xl border shadow-sm transition duration-200 ease-out hover:-translate-y-0.5 hover:border-primary hover:shadow-md"
         >
           <img
             src="/img/Map.png"
             alt="Karte"
-            class="h-20 w-20 shrink-0 rounded-lg object-cover sm:h-24 sm:w-24"
+            class="h-20 w-20 shrink-0 rounded-tl-xl rounded-bl-xl object-cover sm:h-24 sm:w-24"
           />
           <div class="min-w-0">
             <h2 class="text-xl font-bold text-heading">Karte</h2>
             <p class="mt-1 text-text">Erkunde die Mettnau!</p>
           </div>
-        </article>
+        </section>
       </RouterLink>
       <RouterLink to="/lexiconDetail/9v1wsyol8316l27" class="min-w-0">
         <article
-          class="flex h-full min-w-0 items-center gap-4 rounded-xl border border-border bg-background p-4 shadow-sm transition duration-200 ease-out hover:-translate-y-0.5 hover:border-primary hover:shadow-md"
+          class="card flex h-full min-w-0 items-center gap-4 shadow-sm transition duration-200 ease-out hover:-translate-y-0.5 hover:border-primary hover:shadow-md"
         >
           <img
             src="/img/Haubentaucher.jpg"
             alt="Haubentaucher"
-            class="h-20 w-20 shrink-0 rounded-lg object-cover sm:h-24 sm:w-24"
+            class="h-20 w-20 shrink-0 rounded-tl-xl rounded-bl-xl object-cover sm:h-24 sm:w-24"
           />
           <div class="min-w-0">
             <h2 class="text-xl font-bold text-heading">Tier der Woche</h2>
