@@ -1,13 +1,11 @@
 <template>
-  <main class="mx-auto w-full max-w-sm space-y-4 px-4 py-4 pb-24">
+  <main>
     <article
       v-if="entry"
-      class="overflow-hidden rounded-xl border border-border bg-background shadow-sm"
+      class="mx-auto w-full overflow-hidden rounded-xl border border-border bg-background shadow-sm"
     >
       <div class="relative">
         <a
-          :href="entry.attributionURL"
-          target="_blank"
           v-if="
             entry.imageUrl &&
             entry.attributionURL &&
@@ -15,6 +13,8 @@
             entry.attributionLicense &&
             !hasImageError
           "
+          :href="entry.attributionURL"
+          target="_blank"
           class="flex items-center flex-sm nowrap absolute bottom-0 right-0 text-sm bg-black/60 text-white text-right px-1"
         >
           <CopyrightIcon class="size-4" /> {{ entry.attributionAuthor }},
@@ -24,22 +24,22 @@
           v-if="entry.imageUrl && !hasImageError"
           :src="entry.imageUrl"
           :alt="entry.name"
-          class="aspect-square w-full object-cover"
+          class="max-h-[min(70vh,32rem)] w-full bg-background-mute  object-cover"
           @error="hasImageError = true"
         />
         <div
           v-else
-          class="flex aspect-square w-full items-center justify-center bg-background-mute"
+          class="flex min-h-64 w-full items-center justify-center bg-background-mute sm:min-h-80"
           :aria-label="`${entry.name}: kein Bild verfügbar`"
         >
           <img :src="fallbackImage" alt="" class="h-1/2 w-1/2 grayscale opacity-50" />
         </div>
       </div>
 
-      <AutoTextToSpeech :targetSelector="'article'" lang="de-DE" />
+      <AutoTextToSpeech :targetSelector="'section'" lang="de-DE" />
 
-      <div class="p-4">
-        <h1 class="text-2xl font-bold text-heading">{{ entry.name }}</h1>
+      <section class="p-4 sm:p-6">
+        <h1>{{ entry.name }}</h1>
         <div class="mt-2 flex flex-wrap gap-2">
           <span
             v-if="entry.isProtected"
@@ -63,36 +63,44 @@
           {{ toxicityReference.description }}
         </p>
         <p class="mt-3 text-text">{{ entry.description }}</p>
-      </div>
-    </article>
 
-    <section
-      v-if="soundID.length"
-      class="space-y-3 rounded-xl border border-border bg-background p-4 shadow-sm"
-      aria-labelledby="sounds-heading"
-    >
-      <h2 id="sounds-heading" class="text-xl font-bold text-heading">Sounds</h2>
-      <div class="space-y-3">
-        <XenoPlayer
-          v-for="item in soundID"
-          :key="item.id"
-          :id="item.xenocanto_id"
-          :darkBackground="false"
-        />
-      </div>
-    </section>
+        <a
+          v-if="entry.reference"
+          :href="entry.reference"
+          target="_blank"
+          class="flex-sm items-center nowrap underline pt-4 text-sm text-primary text-right px-1"
+          >Weitere Informationen <ExternalLinkIcon class="size-4"
+        /></a>
+      </section>
+
+      <section
+        v-if="soundID.length"
+        class="border-t border-border p-4 sm:p-6"
+        aria-labelledby="sounds-heading"
+      >
+        <h2 id="sounds-heading">Vogelstimmen</h2>
+        <div class="space-y-3">
+          <XenoPlayer
+            v-for="item in soundID"
+            :key="item.id"
+            :id="item.xenocanto_id"
+            :darkBackground="false"
+          />
+        </div>
+      </section>
+    </article>
   </main>
 </template>
 
 <script setup lang="ts">
 import AutoTextToSpeech from '@/components/AutoTextToSpeech.vue'
-import fallbackImage from '@/assets/logo.svg'
+import fallbackImage from '/img/mettnau-logo.svg'
 import XenoPlayer from '@/components/XenoPlayer.vue'
 import type { AudioService } from '@/services/audio.service'
 import type { LexiconService } from '@/services/lexicon.service'
 import type { AnimalAudioListEntry } from '@/shared/types/audio.types'
 import type { LexiconEntry } from '@/shared/types/lexicon.types'
-import { CopyrightIcon, LeafIcon, LinkIcon, SkullIcon } from '@lucide/vue'
+import { CopyrightIcon, ExternalLinkIcon, LeafIcon, SkullIcon } from '@lucide/vue'
 import { computed, inject, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 

@@ -1,38 +1,49 @@
 <!-- MapView.vue -->
 <template>
-  <div class="relative w-full h-dvh bg-black">
-    <button
-      @click="toggleRoute"
-      class="absolute top-4 right-4 z-1000 px-4 py-2 bg-white text-black font-semibold rounded-lg shadow-md hover:bg-gray-100 transition-colors duration-200"
-    >
-      {{ showRoute ? 'Route ausblenden' : 'Route anzeigen' }}
-    </button>
+  <div class="relative h-dvh w-full bg-black">
+    <div ref="mapContainer" class="map-container h-dvh bg-black"></div>
 
-    <div ref="mapContainer" class="map-container bg-black h-dvh"></div>
+    <div class="absolute top-4 right-4 z-1000 flex gap-2">
+      <RouterLink
+        to="/tours"
+        class="cursor-pointer rounded-lg bg-white px-3.5 py-2.5 font-semibold text-gray-800 shadow-md hover:bg-gray-100 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+        aria-label="Touren entdecken"
+        title="Touren entdecken"
+      >
+        Touren entdecken
+      </RouterLink>
+
+      <button
+        type="button"
+        class="rounded-lg bg-white px-4 py-2 font-semibold text-black shadow-md transition-colors duration-200 hover:bg-gray-100 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+        @click="toggleRoute"
+      >
+        {{ showRoute ? 'Route ausblenden' : 'Route anzeigen' }}
+      </button>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, inject, onMounted } from 'vue'
-import type { MapService } from '@/services/map.service'
 import type L from 'leaflet'
+import { inject, onMounted, ref } from 'vue'
+import type { MapService } from '@/services/map.service'
 
 const mapService = inject('mapService') as MapService
 const mapContainer = ref<HTMLDivElement | null>(null)
 const showRoute = ref(false)
 
 const routeWaypoints: L.LatLngExpression[] = [
-  [47.733820222593046, 8.980158674040306], // Start
-  //[47.727111741708896, 8.99621393716252],                        // Zwischenstopp 1
-  [47.725592257543816, 8.999595821648448], // Zwischenstopp 2
-  [47.72166443267375, 9.015671974922551], // Ziel
+  [47.733820222593046, 8.980158674040306],
+  [47.725592257543816, 8.999595821648448],
+  [47.72166443267375, 9.015671974922551],
 ]
 
-const toggleRoute = () => {
+function toggleRoute() {
   showRoute.value = !showRoute.value
 
   if (showRoute.value) {
-    mapService.addRoute(routeWaypoints)
+    void mapService.addRoute(routeWaypoints)
   } else {
     mapService.removeRoute()
   }
@@ -45,7 +56,7 @@ onMounted(() => {
 })
 </script>
 
-<style scoped>
+<style scoped lang="postcss">
 .map-container {
   width: 100%;
   min-height: 400px;

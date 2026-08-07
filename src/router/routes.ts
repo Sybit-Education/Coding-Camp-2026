@@ -1,13 +1,8 @@
-import HomeView from '@/views/HomeView.vue'
-import LexiconView from '@/views/LexiconView.vue'
 import type { RouteRecordRaw } from 'vue-router'
-import { ROUTE_NAMES } from './route-names'
-import MapView from '@/views/MapView.vue'
-import LexiconDetail from '@/views/LexiconDetail.vue'
-import DataProtectionView from '@/views/DataProtectionView.vue'
-import BirdRecognitionView from '@/views/BirdRecognitionView.vue'
-import DangerGuide from '@/views/DangerGuide.vue'
-import AboutView from '@/views/AboutView.vue'
+import { ROUTE_NAMES } from './route-names.ts'
+import HomeView from '@/views/HomeView.vue'
+import TourGuidesView from '@/features/tours/TourGuidesView.vue'
+import TourDetailView from '@/features/tours/TourDetailView.vue'
 
 export const routes: RouteRecordRaw[] = [
   {
@@ -16,39 +11,65 @@ export const routes: RouteRecordRaw[] = [
     component: HomeView,
   },
   {
+    path: '/tours',
+    name: ROUTE_NAMES.TOURS,
+    component: TourGuidesView,
+  },
+  {
+    path: '/tour/:id',
+    name: ROUTE_NAMES.TOUR_DETAILS,
+    component: TourDetailView,
+  },
+  {
     path: '/bird-recognition',
     name: ROUTE_NAMES.BIRD_RECOGNITION,
-    component: BirdRecognitionView,
+    component: () =>
+      import(/* webpackChunkName: "bird-recognition-view" */ '../views/BirdRecognitionView.vue'),
+  },
+  {
+    path: '/privacy-policy',
+    name: ROUTE_NAMES.PRIVACY_POLICY,
+    component: () =>
+      import(/* webpackChunkName: "privacy-policy-view" */ '../views/PrivacyPolicyView.vue'),
   },
   {
     path: '/map',
     name: ROUTE_NAMES.MAP,
-    component: MapView,
+    component: () => import(/* webpackChunkName: "map-view" */ '../views/MapView.vue'),
   },
   {
-    path: '/dataprotection',
-    name: ROUTE_NAMES.DATA_PROTECTION,
-    component: DataProtectionView,
+    path: '/privacy-policy',
+    name: ROUTE_NAMES.PRIVACY_POLICY,
+    component: () =>
+      import(/* webpackChunkName: "privacy-policy-view" */ '../views/PrivacyPolicyView.vue'),
   },
   {
     path: '/lexicon',
     name: ROUTE_NAMES.LEXICON,
-    component: LexiconView,
+    component: () =>
+      import(/* webpackChunkName: "lexicon-list-view" */ '../views/LexiconListView.vue'),
   },
   {
     path: '/lexiconDetail/:id',
     name: ROUTE_NAMES.LEXICON_DETAILS,
-    component: LexiconDetail,
+    component: () =>
+      import(/* webpackChunkName: "lexicon-detail-view" */ '../views/LexiconDetailView.vue'),
   },
   {
     path: '/dangerguide',
     name: ROUTE_NAMES.DANGER_GUIDE,
-    component: DangerGuide,
+    component: () => import(/* webpackChunkName: "danger-guide-view" */ '../views/DangerGuide.vue'),
   },
   {
     path: '/about',
     name: ROUTE_NAMES.ABOUT,
-    component: AboutView,
+    component: () => import(/* webpackChunkName: "about-view" */ '../views/AboutView.vue'),
+  },
+  {
+    path: '/bathing-spots',
+    name: ROUTE_NAMES.BATHING_SPOTS,
+    component: () =>
+      import(/* webpackChunkName: "bathing-spots-view" */ '../views/BathingSpotsView.vue'),
   },
   /*FallBack !!!DO NOT REMOVE!!!*/
   {
