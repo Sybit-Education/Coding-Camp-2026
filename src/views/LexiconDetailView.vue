@@ -67,8 +67,8 @@
         <a
           v-if="entry.reference"
           :href="entry.reference"
-          class="flex items-center flex-sm nowrap underline pt-4 text-sm text-primary text-right px-1"
-          >Weitere Informationen <ArrowRightIcon class="size-4"
+          class="flex items-center nowrap underline pt-4 text-sm text-primary text-right px-1"
+          >Weitere Informationen <ExternalLinkIcon class="size-4"
         /></a>
       </section>
 
@@ -95,7 +95,7 @@ import type { AudioService } from '@/services/audio.service'
 import type { LexiconService } from '@/services/lexicon.service'
 import type { AnimalAudioListEntry } from '@/shared/types/audio.types'
 import type { LexiconEntry } from '@/shared/types/lexicon.types'
-import { ArrowRightIcon, CopyrightIcon, LeafIcon, SkullIcon } from '@lucide/vue'
+import { CopyrightIcon, ExternalLinkIcon, LeafIcon, SkullIcon } from '@lucide/vue'
 import { computed, inject, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
