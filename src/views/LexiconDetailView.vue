@@ -1,5 +1,5 @@
 <template>
-    <main>
+  <main>
     <article
       v-if="entry"
       class="overflow-hidden rounded-xl border border-border bg-background shadow-sm"
@@ -70,14 +70,9 @@
           class="flex items-center flex-sm nowrap underline pt-4 text-sm text-primary text-right px-1"
           >Weitere Informationen <ArrowRightIcon class="size-4"
         /></a>
-      </div>
-    </article>
+      </section>
 
-      <section
-        v-if="soundID.length"
-        class="card p-3 m-3"
-        aria-labelledby="sounds-heading"
-      >
+      <section v-if="soundID.length" class="card p-3 m-3" aria-labelledby="sounds-heading">
         <h2 id="sounds-heading">Vogelstimmen</h2>
         <div class="space-y-3">
           <XenoPlayer
