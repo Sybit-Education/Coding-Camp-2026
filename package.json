@@ -1,23 +1,25 @@
 {
   "name": "mettnau",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
+    "check:service-boundaries": "node scripts/check-service-boundaries.mjs",
     "preview": "vite preview",
     "test:unit": "vitest",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
-    "lint": "oxlint . --deny-warnings",
-    "lint:fix": "oxlint . --fix",
+    "lint": "npm run check:service-boundaries && oxlint . --deny-warnings",
+    "lint:fix": "npm run check:service-boundaries && oxlint . --fix",
     "format": "oxfmt src/"
   },
   "dependencies": {
     "@lucide/vue": "^1.28.0",
     "@mapbox/polyline": "^1.2.1",
     "@tailwindcss/postcss": "^4.3.3",
+    "@tailwindcss/vite": "^4.3.3",
     "@vueuse/core": "^14.4.0",
     "leaflet": "^1.9.4",
     "leaflet-routing-machine": "^3.2.12",
@@ -29,6 +31,7 @@
     "vue-router": "^5.2.0"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.20",
     "@tsconfig/node24": "^24.0.4",
     "@types/jsdom": "^28.0.3",
     "@types/leaflet": "^1.9.22",
@@ -44,7 +47,7 @@
     "oxlint": "~1.77.0",
     "prettier": "^3.9.6",
     "typescript": "~6.0.3",
-    "vite": "^8.2.0",
+    "vite": "^8.2.1",
     "vite-plugin-vue-devtools": "^8.2.1",
     "vitest": "^4.1.10",
     "vue-tsc": "^3.3.9"

@@ -1,0 +1,100 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [8.968792, 47.736091] },
+      "properties": { "category": "train", "name": "Bahnhof Radolfzell (DB)" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [8.983179, 47.736509] },
+      "properties": { "category": "bus", "name": "Bushaltestelle \"Mettnau Stadion\"" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [8.993656, 47.728866] },
+      "properties": {
+        "category": "bus",
+        "name": "Bushaltestelle \"Mettnau Strandbad\" - NABU Pavillon"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [8.988018, 47.733948] },
+      "properties": { "category": "bus", "name": "Bushaltestelle \"Strandbadstrasse\"" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [8.986199, 47.735636] },
+      "properties": { "category": "bus", "name": "Bushaltestelle \"Strandbadstrasse\"" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [9.015709, 47.721723] },
+      "properties": { "category": "destination", "number": 2, "name": "Mettnauspitz" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [9.002813, 47.7293] },
+      "properties": { "category": "destination", "number": 1, "name": "Mettnauturm" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [8.985604, 47.736035] },
+      "properties": { "category": "parking", "name": "Parkplatz 1" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [8.992739, 47.729813] },
+      "properties": { "category": "parking", "name": "Parkplatz 2" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [8.988876, 47.73345] },
+      "properties": { "category": "parking", "name": "Parkplatz 3" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [8.986044, 47.736264] },
+      "properties": {
+        "category": "destination",
+        "number": 3,
+        "name": "Plattform \"Haus Christine\""
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [8.9883433, 47.7310094] },
+      "properties": { "category": "leisure", "name": "Mettnaupark" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [8.999108, 47.725802] },
+      "properties": {
+        "category": "nature",
+        "name": "Waldstück hinter der METTNAU Klinik"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [8.9930082, 47.72896] },
+      "properties": { "category": "leisure", "name": "Strandbad Mettnau" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [9.0045686, 47.721815] },
+      "properties": { "category": "bathing_place", "name": "Liebesinsel" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [8.97929898918457, 47.73436691065578] },
+      "properties": { "category": "bathing_place", "name": "Seebad Mettnau" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [8.993236661954336, 47.72940910595648] },
+      "properties": { "category": "bathing_place", "name": "Strandbad Mettnau" }
+    }
+  ]
+}

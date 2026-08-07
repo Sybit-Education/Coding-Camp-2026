@@ -1,10 +1,10 @@
 <template>
-  <article class="rounded-lg border border-border bg-background p-6">
+  <section class="card p-3">
     <!-- Messages -->
     <p v-if="loading">Lädt...</p>
     <p v-else-if="!weather" class="text-destructive">Wetterdaten konnten nicht geladen werden.</p>
 
-    <!-- Data  -->
+    <!-- Data -->
     <div v-else class="space-y-6">
       <!-- Left -->
       <div class="flex items-center justify-between">
@@ -32,18 +32,18 @@
         </div>
       </div>
     </div>
-  </article>
+  </section>
 
   <!-- Warnings -->
   <div v-if="warnings.length" class="mt-4 space-y-4">
-    <!-- Title-->
-    <div class="rounded-lg bg-red-100 p-4 border-red-500">
-      <h2 class="font-bold text-red-700 text-xl">Warnungen</h2>
+    <!-- Title -->
+    <div class="rounded-lg border-red-500 bg-red-100 p-4">
+      <h2 class="text-xl font-bold text-red-700">Warnungen</h2>
 
       <p class="text-sm text-red-600">Aktuelle Warnungen für die Mettnau</p>
     </div>
 
-    <!--Every Weather Warning-->
+    <!-- Every weather warning -->
     <article
       v-for="warning in warnings"
       :key="warning.event + warning.expires"

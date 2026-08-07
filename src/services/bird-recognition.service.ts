@@ -1,4 +1,3 @@
-import { environment } from '@/environments/environment'
 import type {
   BirdRecognitionConfig,
   BirdRecognitionLanguages,
@@ -7,37 +6,19 @@ import type {
   BirdRecognitionJob,
   BirdRecognitionLocation,
 } from '@/shared/types/bird-recognition.types'
-
-const API_BASE_URL = environment.birdRecognitionBaseAddress
+import type { MicroService } from './micro-service.service'
 
 export class BirdRecognitionService {
-  // Sending an Request
-  private async request<T>(path: string, init?: RequestInit): Promise<T> {
-    let response: Response
-
-    try {
-      response = await fetch(`${API_BASE_URL}${path}`, init)
-    } catch {
-      // Network failures do not provide an HTTP response body to parse.
-      throw new Error('Der Erkennungsservice ist momentan nicht erreichbar.')
-    }
-
-    if (!response.ok) {
-      const message = await this.readErrorMessage(response)
-      throw new Error(message)
-    }
-
-    return (await response.json()) as T
-  }
+  constructor(private microService: MicroService) {}
 
   // Get the config
   async getConfig(): Promise<BirdRecognitionConfig> {
-    return this.request<BirdRecognitionConfig>('/api/meta/config')
+    return this.microService.request<BirdRecognitionConfig>('/api/meta/config')
   }
 
   // Get all available languagaes
   async getLanguages(): Promise<BirdRecognitionLanguages> {
-    return this.request<BirdRecognitionLanguages>('/api/meta/languages')
+    return this.microService.request<BirdRecognitionLanguages>('/api/meta/languages')
   }
 
   // Start a recognition job
@@ -62,7 +43,7 @@ export class BirdRecognitionService {
       formData.append('lang', language)
     }
 
-    return this.request<BirdRecognitionJobCreated>('/api/jobs', {
+    return this.microService.request<BirdRecognitionJobCreated>('/api/jobs', {
       method: 'POST',
       body: formData,
     })
@@ -71,7 +52,7 @@ export class BirdRecognitionService {
   // Poll the jobs result
   async getJob(jobId: string): Promise<BirdRecognitionJob> {
     // Job IDs are opaque values and must be safe when used as a URL path segment.
-    return this.request<BirdRecognitionJob>(`/api/jobs/${encodeURIComponent(jobId)}`)
+    return this.microService.request<BirdRecognitionJob>(`/api/jobs/${encodeURIComponent(jobId)}`)
   }
 
   // Auf Mettnau gehard-coded
@@ -94,27 +75,5 @@ export class BirdRecognitionService {
     targetDate.setDate(targetDate.getDate() - startDayNr + 3)
     const weekDiff = (firstThursday - targetDate.getTime()) / 604800000
     return 1 + Math.ceil(weekDiff)
-  }
-
-  // Error handling
-  private async readErrorMessage(response: Response): Promise<string> {
-    try {
-      const body = (await response.json()) as { detail?: string | { msg?: string }[] }
-      if (typeof body.detail === 'string') {
-        return body.detail
-      }
-      if (Array.isArray(body.detail)) {
-        return (
-          body.detail
-            .map((detail) => detail.msg)
-            .filter(Boolean)
-            .join(' ') || 'Ungültige Anfrage.'
-        )
-      }
-    } catch {
-      // Use the HTTP status below if the service does not return JSON.
-    }
-
-    return `Die Anfrage ist fehlgeschlagen (${response.status}).`
   }
 }

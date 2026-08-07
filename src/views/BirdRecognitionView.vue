@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-col items-center gap-8 p-4 pb-24">
-    <div class="p-4">
+  <div class="page-view flex flex-col items-center gap-8 pb-24">
+    <div class="w-full max-w-2xl">
       <h1 class="text-center text-3xl font-bold">Vogel Erkennung</h1>
       <p class="mt-2 text-center text-base-content/70">
         Nimm eine Vogelstimme auf und lasse sie analysieren.
@@ -14,7 +14,7 @@
 
     <template v-else>
       <section
-        class="flex w-full max-w-md flex-col items-center gap-5 rounded-xl border border-border bg-background p-5 shadow-sm"
+        class="flex w-full max-w-2xl flex-col items-center gap-5 rounded-xl border border-border bg-background p-5 shadow-sm"
       >
         <button
           v-if="!recordedFile"
@@ -58,7 +58,7 @@
         </div>
       </section>
 
-      <section v-if="job?.status === 'done'" class="w-full max-w-md border-t border-border pt-6">
+      <section v-if="job?.status === 'done'" class="w-full max-w-2xl border-t border-border pt-6">
         <h2 class="mb-3 text-center text-xl font-bold">Erkannte Vogelarten</h2>
 
         <p v-if="findings.length === 0" class="text-center text-base-content/70">
@@ -99,7 +99,7 @@
 </template>
 
 <script setup lang="ts">
-import LexiconListItem from '@/components/LexiconListItem.vue'
+import LexiconListItem from '@/features/lexicon/LexiconListItem.vue'
 import type { BirdRecognitionService } from '@/services/bird-recognition.service'
 import type { LexiconService } from '@/services/lexicon.service'
 import type {
