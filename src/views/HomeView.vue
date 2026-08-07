@@ -61,9 +61,8 @@
 <script setup lang="ts">
 import Warning from '@/components/Warning.vue'
 import WeatherAlert from '@/components/WeatherAlert.vue'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, inject } from 'vue'
 import { ObservationService } from '@/services/observation.service'
-import { PocketBaseService } from '@/services/pocket-base.service'
 import type { LexiconEntry } from '@/shared/types/lexicon.types'
 
 // Newest bird variabel
@@ -71,7 +70,7 @@ const newestBird = ref<LexiconEntry | null>(null)
 
 // On mount
 onMounted(async () => {
-  const service = new ObservationService(new PocketBaseService())
+  const service = inject('observationService') as ObservationService
 
   newestBird.value = await service.getNewestBird()
 })
