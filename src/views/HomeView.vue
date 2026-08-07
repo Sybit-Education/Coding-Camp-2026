@@ -51,4 +51,5 @@
 
 <script setup lang="ts">
 import Warning from '@/components/Warning.vue'
+import WeatherAlert from '@/components/WeatherAlert.vue'
 </script>
