@@ -19,37 +19,58 @@ export const routes: RouteRecordRaw[] = [
   {
     path: '/bird-recognition',
     name: ROUTE_NAMES.BIRD_RECOGNITION,
-    component: BirdRecognitionView,
+    component: () =>
+      import(
+        /* webpackChunkName: "bird-recognition-view" */ "../views/BirdRecognitionView.vue"
+      ),
   },
   {
     path: '/map',
     name: ROUTE_NAMES.MAP,
-    component: MapView,
+    component: () =>
+      import(
+        /* webpackChunkName: "map-view" */ "../views/MapView.vue"
+      ),
   },
   {
-    path: '/dataprotection',
-    name: ROUTE_NAMES.DATA_PROTECTION,
-    component: DataProtectionView,
+    path: '/privacy-policy',
+    name: ROUTE_NAMES.PRIVACY_POLICY,
+    component: () =>
+      import(
+        /* webpackChunkName: "privacy-policy-view" */ "../views/PrivacyPolicyView.vue"
+      ),
   },
   {
     path: '/lexicon',
     name: ROUTE_NAMES.LEXICON,
-    component: LexiconView,
+    component: () =>
+      import(
+        /* webpackChunkName: "lexicon-list-view" */ "../views/LexiconListView.vue"
+      ),
   },
   {
     path: '/lexiconDetail/:id',
     name: ROUTE_NAMES.LEXICON_DETAILS,
-    component: LexiconDetail,
+    component: () =>
+      import(
+        /* webpackChunkName: "lexicon-detail-view" */ "../views/LexiconDetailView.vue"
+      ),
   },
   {
     path: '/dangerguide',
     name: ROUTE_NAMES.DANGER_GUIDE,
-    component: DangerGuide,
+    component: () =>
+      import(
+        /* webpackChunkName: "danger-guide-view" */ "../views/DangerGuide.vue"
+      ),
   },
   {
     path: '/about',
     name: ROUTE_NAMES.ABOUT,
-    component: AboutView,
+    component: () =>
+      import(
+        /* webpackChunkName: "about-view" */ "../views/AboutView.vue"
+      ),
   },
   {
     path: '/bathingSpots',
