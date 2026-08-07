@@ -84,7 +84,7 @@ const hasImageError = ref(false)
 </script>
 
 <style lang="css" scoped>
-@import '../styles.css';
+@import '../../styles.css';
 
 .list-item-image {
   @apply bg-background-mute p-0 shrink-0 rounded-tl-xl rounded-bl-xl object-cover;

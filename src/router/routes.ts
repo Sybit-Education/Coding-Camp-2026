@@ -1,16 +1,24 @@
-import HomeView from '@/views/HomeView.vue'
 import type { RouteRecordRaw } from 'vue-router'
-import { ROUTE_NAMES } from './route-names'
-
-
-
-
+import { ROUTE_NAMES } from './route-names.ts'
+import HomeView from '@/views/HomeView.vue'
+import TourGuidesView from '@/features/tours/TourGuidesView.vue'
+import TourDetailView from '@/features/tours/TourDetailView.vue'
 
 export const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: ROUTE_NAMES.HOME,
     component: HomeView,
+  },
+  {
+    path: '/tours',
+    name: ROUTE_NAMES.TOURS,
+    component: TourGuidesView,
+  },
+  {
+    path: '/tour/:id',
+    name: ROUTE_NAMES.TOUR_DETAILS,
+    component: TourDetailView,
   },
   {
     path: '/bird-recognition',
@@ -60,7 +68,8 @@ export const routes: RouteRecordRaw[] = [
   {
     path: '/bathing-spots',
     name: ROUTE_NAMES.BATHING_SPOTS,
-    component: () => import(/* webpackChunkName: "bathing-spots-view" */ '../views/BathingSpotsView.vue'),
+    component: () =>
+      import(/* webpackChunkName: "bathing-spots-view" */ '../views/BathingSpotsView.vue'),
   },
   /*FallBack !!!DO NOT REMOVE!!!*/
   {
