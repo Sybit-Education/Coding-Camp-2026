@@ -1,13 +1,6 @@
 import HomeView from '@/views/HomeView.vue'
-import LexiconListView from '@/views/LexiconListView.vue'
 import type { RouteRecordRaw } from 'vue-router'
 import { ROUTE_NAMES } from './route-names'
-import MapView from '@/views/MapView.vue'
-import LexiconDetail from '@/views/LexiconDetailView.vue'
-import PrivacyPolicyView from '@/views/PrivacyPolicyView.vue'
-import BirdRecognitionView from '@/views/BirdRecognitionView.vue'
-import DangerGuide from '@/views/DangerGuide.vue'
-import AboutView from '@/views/AboutView.vue'
 
 export const routes: RouteRecordRaw[] = [
   {
@@ -50,7 +43,10 @@ export const routes: RouteRecordRaw[] = [
   {
     path: '/lexiconDetail/:id',
     name: ROUTE_NAMES.LEXICON_DETAILS,
-    component: LexiconDetail,
+    component: () =>
+      import(
+        /* webpackChunkName: "lexicon-detail-view" */ "../views/LexiconDetail.vue"
+      ),
   },
   {
     path: '/dangerguide',
@@ -63,7 +59,10 @@ export const routes: RouteRecordRaw[] = [
   {
     path: '/about',
     name: ROUTE_NAMES.ABOUT,
-    component: AboutView,
+    component: () =>
+      import(
+        /* webpackChunkName: "about-view" */ "../views/AboutView.vue"
+      ),
   },
   /*FallBack !!!DO NOT REMOVE!!!*/
   {
