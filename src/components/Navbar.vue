@@ -72,7 +72,7 @@ onBeforeUnmount(() => {
           <button class="btn btn-primary w-full">Impressum</button>
         </a>
         <!-- bathing spots -->
-        <RouterLink to="/bathingSpots">
+        <RouterLink to="/bathing-spots">
           <button class="btn btn-primary w-full">Wo darf man baden?</button>
         </RouterLink>
 

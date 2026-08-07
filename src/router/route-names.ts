@@ -5,7 +5,7 @@ export const ROUTE_NAMES = {
   PRIVACY_POLICY: 'privacy-policy',
   LEXICON: 'lexicon',
   LEXICON_DETAILS: 'Lexicon Detail',
-  BATHING_SPOTS: 'bathingSpots',
+  BATHING_SPOTS: 'bathing-spots',
   BIRD_RECOGNITION: 'bird-recognition',
   DANGER_GUIDE: 'DangerGuide',
   ABOUT: 'About',

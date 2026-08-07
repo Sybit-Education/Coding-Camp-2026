@@ -1,7 +1,6 @@
 import HomeView from '@/views/HomeView.vue'
 import type { RouteRecordRaw } from 'vue-router'
 import { ROUTE_NAMES } from './route-names'
-import bathingSpots from '@/views/bathingSpots.vue'
 
 
 
@@ -59,9 +58,9 @@ export const routes: RouteRecordRaw[] = [
     component: () => import(/* webpackChunkName: "about-view" */ '../views/AboutView.vue'),
   },
   {
-    path: '/bathingSpots',
+    path: '/bathing-spots',
     name: ROUTE_NAMES.BATHING_SPOTS,
-    component: bathingSpots,
+    component: () => import(/* webpackChunkName: "bathing-spots-view" */ '../views/BathingSpotsView.vue'),
   },
   /*FallBack !!!DO NOT REMOVE!!!*/
   {
