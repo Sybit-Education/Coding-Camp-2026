@@ -1,5 +1,5 @@
 <template>
-  <article class="card p-3">
+  <section class="card p-3">
     <!-- Messages -->
     <p v-if="loading">Lädt...</p>
     <p v-else-if="!weather" class="text-destructive">Wetterdaten konnten nicht geladen werden.</p>
@@ -32,7 +32,7 @@
         </div>
       </div>
     </div>
-  </article>
+  </section>
 </template>
 
 <script setup lang="ts">
