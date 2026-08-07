@@ -7,7 +7,7 @@
   >
     <section
       :class="[
-        'card my-3 flex gap-5 shadow-sm transition duration-200 ease-out group-hover:-translate-y-0.5 group-hover:border-primary group-hover:shadow-md',
+        'card flex min-w-0 h-38 gap-3 shadow-sm transition duration-200 ease-out group-hover:-translate-y-0.5 group-hover:border-primary group-hover:shadow-md sm:gap-5',
         recognitionConfidence === undefined ? 'items-center' : 'items-start',
       ]"
     >
@@ -16,26 +16,26 @@
         :src="entry.imageUrl"
         :alt="entry.name"
         :aria-label="`Bild von ${entry.name}`"
-        class="list-item-image"
+        class="list-item-image min-h-full w-28 sm:w-40 self-stretch"
         @error="hasImageError = true"
       />
       <div
         v-else
-        class="flex aspect-square h-1/3 w-1/3 shrink-0 items-center justify-center  bg-background-mute"
-
+        class="flex min-h-full w-28 sm:w-40 self-stretch"
       >
         <img
           :src="fallbackImage"
           :aria-label="`${entry.name}: kein Bild verfügbar`"
           :alt="`${entry.name}: kein Bild verfügbar`"
-          class="list-item-image grayscale opacity-50" />
+          class="list-item-image min-h-full "
+        />
       </div>
 
-      <div class="min-w-0 flex-1 m-3 flex items-start justify-between">
-        <div class="flex items-start justify-between">
-          <div>
+      <div class="min-w-0 flex-1 p-2 sm:p-3">
+        <div class="flex min-w-0 items-start justify-between gap-2">
+          <div class="min-w-0">
             <div class="flex flex-wrap items-center gap-2">
-              <h2>{{ entry.name }}</h2>
+              <h2 class="break-words">{{ entry.name }}</h2>
               <span
                 v-if="entry.isProtected"
                 class="flex items-center gap-1 rounded-full bg-green-600 px-2 py-1 text-xs text-white"
@@ -57,19 +57,19 @@
           </div>
           <span
             v-if="recognitionConfidence !== undefined"
-            class="shrink-0 rounded-full bg-primary px-3 py-1 text-sm font-medium text-white"
+            class="max-w-full shrink-0 rounded-full bg-primary px-2 py-1 text-xs font-medium text-white sm:px-3 sm:text-sm"
           >
             {{ recognitionConfidence }} %
           </span>
         </div>
-        <p class="mt-1 text-text">{{ entry.description }}</p>
+        <p class="mt-1 wrap-break-word text-text">{{ entry.description }}</p>
       </div>
     </section>
   </RouterLink>
 </template>
 
 <script setup lang="ts">
-import fallbackImage from '@/assets/logo.svg'
+import fallbackImage from '/img/mettnau-logo.svg'
 import type { LexiconListEntry } from '@/shared/types/lexicon.types'
 import { LeafIcon, SkullIcon } from '@lucide/vue'
 import { ref } from 'vue'
@@ -87,7 +87,6 @@ const hasImageError = ref(false)
 @import '../styles.css';
 
 .list-item-image {
-  @apply aspect-square h-1/3 w-1/3 p-0 shrink-0 rounded-tl-xl rounded-bl-xl object-cover;
+  @apply bg-background-mute p-0 shrink-0 rounded-tl-xl rounded-bl-xl object-cover;
 }
-
 </style>

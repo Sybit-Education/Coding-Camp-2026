@@ -2,7 +2,6 @@
 @import 'leaflet/dist/leaflet.css';
 @plugin "@tailwindcss/typography";
 
-
 /* Design tokens — consumed by components via var() */
 :root {
   --spacing-unit: 4px;
@@ -46,12 +45,11 @@
   --section-gap: 160px;
 }
 
-
 /* Custom base styles */
 @layer base {
   html {
     @apply antialiased;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
   }
 
   body {
@@ -66,11 +64,15 @@
     @apply px-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)];
     @apply mx-auto;
     @apply container;
-    @apply mb-25;
   }
 
   /* Typography */
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-bold text-primary tracking-tight;
   }
 
@@ -99,7 +101,7 @@
 
   /* Focus styles for accessibility */
   *:focus-visible {
-    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2;
   }
 
   /* Scrollbar styling */
@@ -112,7 +114,7 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply  rounded-full;
+    @apply rounded-full;
   }
 
   ::-webkit-scrollbar-thumb:hover {
@@ -121,7 +123,9 @@
 }
 
 @layer components {
-
+  .flex-sm {
+    @apply flex gap-2;
+  }
 
   .flex-md {
     @apply flex gap-4;
@@ -167,8 +171,64 @@
   }
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  min-height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.app-content {
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  flex: 1 1 auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+}
+
+.app-content.map-content {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.app-content.map-content > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.page-view {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  padding: 1rem;
+}
+
 body {
-  min-height: 100vh;
+  min-height: 100%;
   color: var(--color-text);
   background: var(--color-background);
   transition:

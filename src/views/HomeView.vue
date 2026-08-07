@@ -1,8 +1,43 @@
 <template>
-  <main class="space-y-8">
-    <h1 class="text-3xl font-bold text-primary">Mettnau</h1>
+  <div class="page-view flex flex-col gap-4">
+    <div class="grid gap-4 sm:grid-cols-2">
+      <RouterLink to="/map" class="min-w-0">
+        <section
+          class="card flex min-w-0 items-center gap-4 rounded-xl border shadow-sm transition duration-200 ease-out hover:-translate-y-0.5 hover:border-primary hover:shadow-md"
+        >
+          <img
+            src="/img/Map.png"
+            alt="Karte"
+            class="h-20 w-20 shrink-0 rounded-tl-xl rounded-bl-xl object-cover sm:h-24 sm:w-24"
+          />
+          <div class="min-w-0">
+            <h2 class="text-xl font-bold text-heading">Karte</h2>
+            <p class="mt-1 text-text">Erkunde die Mettnau!</p>
+          </div>
+        </section>
+      </RouterLink>
 
-    <section class="flex flex-col gap-4">
+      <RouterLink v-if="newestBird" :to="`/lexiconDetail/${newestBird.id}`" class="min-w-0">
+        <article
+          class="card flex h-full min-w-0 items-center gap-4 shadow-sm transition duration-200 ease-out hover:-translate-y-0.5 hover:border-primary hover:shadow-md"
+        >  
+            <img
+            :src="newestBird.imageUrl ?? '/img/Haubentaucher.jpg'"
+            :alt="newestBird.name"
+            class="h-20 w-20 shrink-0 rounded-tl-xl rounded-bl-xl object-cover sm:h-24 sm:w-24"
+          />
+          <div class="min-w-0">
+            <h2 class="text-xl font-bold text-heading">Tier der Woche</h2>
+
+            <p class="mt-1 text-text">
+              {{ newestBird?.name ?? 'Lade Vogel...' }}
+            </p>
+          </div>
+        </article>
+      </RouterLink>
+    </div>
+
+    <section class="flex flex-col gap-3">
       <p>
         Willkommen auf der App für die Mettnau! Entdecken Sie die Schönheit und Vielfalt dieses
         einzigartigen Naturgebiets, das sich entlang des Bodensees erstreckt. Die Mettnau bietet
@@ -16,46 +51,11 @@
         sind – die Mettnau hat für jeden etwas zu bieten.
       </p>
     </section>
-    <div class="flex overflow-x-auto scrollbar-hide lg:overflow-visible lg:justify-center gap-3">
-      <RouterLink to="/map">
-        <article
-          class="flex items-center gap-5 rounded-xl border w-75 border-border bg-background p-4 shadow-sm transition duration-200 ease-out group-hover:-translate-y-0.5 group-hover:border-primary group-hover:shadow-md"
-        >
-          <img
-            :src="'/img/Map.png'"
-            :alt="'Karte'"
-            class="aspect-square h-40 w-40 shrink-0 rounded-lg object-cover"
-          />
-          <div class="min-w-0">
-            <h2 class="text-xl font-bold text-heading">Karte</h2>
-            <p class="mt-1 text-text">Erkunde die Mettnau!</p>
-          </div>
-        </article>
-      </RouterLink>
-      <RouterLink v-if="newestBird" :to="`/lexiconDetail/${newestBird.id}`">
-        <article
-          class="flex items-center gap-5 rounded-xl border w-75 border-border bg-background p-4 shadow-sm transition duration-200 ease-out group-hover:-translate-y-0.5 group-hover:border-primary group-hover:shadow-md"
-        >
-          <img
-            :src="newestBird.imageUrl ?? '/img/Haubentaucher.jpg'"
-            :alt="newestBird.name"
-            class="aspect-square h-40 w-40 shrink-0 rounded-lg object-cover"
-          />
-          <div class="min-w-0">
-            <h2 class="text-xl font-bold text-heading">Tier der Woche</h2>
-
-            <p class="mt-1 text-text">
-              {{ newestBird?.name ?? 'Lade Vogel...' }}
-            </p>
-          </div>
-        </article>
-      </RouterLink>
-    </div>
-    <section class="flex flex-col gap-4">
-      <Warning class="w-1/2" />
-      <WeatherAlert class="w-1/2" />
+    <section class="grid gap-3 md:grid-cols-2">
+      <Warning />
+      <WeatherAlert />
     </section>
-  </main>
+  </div>
 </template>
 
 <script setup lang="ts">
