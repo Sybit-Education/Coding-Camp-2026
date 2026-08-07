@@ -19,7 +19,7 @@ const TILE_LAYER_MIN_ZOOM = 10
 const LOCATIONS_GEOJSON_URL = '/map/mettnau-locations.geojson'
 
 interface LocationProperties {
-  category: 'train' | 'bus' | 'destination' | 'parking' | 'leisure' | 'nature' | 'closure'
+  category: 'train' | 'bus' | 'destination' | 'parking' | 'leisure' | 'nature' | 'closure' | 'bathing_place'
   name: string
   number?: number
   start?: string
@@ -34,6 +34,7 @@ const CATEGORY_COLORS: Record<LocationProperties['category'], string> = {
   leisure: '#f4a261',
   nature: '#2b9348',
   closure: '#d90429',
+  bathing_place: '#07737a',
 }
 
 const CATEGORY_LABELS: Record<LocationProperties['category'], string> = {
@@ -44,6 +45,7 @@ const CATEGORY_LABELS: Record<LocationProperties['category'], string> = {
   leisure: '🌳',
   nature: '🌿',
   closure: '🚧',
+  bathing_place: '🏖️',
 }
 
 export class MapService {

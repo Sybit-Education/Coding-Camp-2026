@@ -16,7 +16,7 @@
       "geometry": { "type": "Point", "coordinates": [8.993656, 47.728866] },
       "properties": {
         "category": "bus",
-        "name": "Bushaltestelle \"Mettnau Strandbad\" – NABU Pavillon"
+        "name": "Bushaltestelle \"Mettnau Strandbad\" - NABU Pavillon"
       }
     },
     {
@@ -84,8 +84,18 @@
     {
       "type": "Feature",
       "geometry": { "type": "Point", "coordinates": [9.0045686, 47.721815] },
-      "properties": { "category": "leisure", "name": "Liebesinsel" }
+      "properties": { "category": "bathing_place", "name": "Liebesinsel" }
     },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [8.97929898918457,  47.73436691065578] },
+      "properties": { "category": "bathing_place", "name": "Seebad Mettnau" }
+    }, 
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [8.993236661954336,  47.72940910595648] },
+      "properties": { "category": "bathing_place", "name": "Strandbad Mettnau" }
+    },     
     {
       "type": "Feature",
       "geometry": {
