@@ -2,7 +2,6 @@
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { MapIcon, InfoIcon, BookOpenTextIcon, MenuIcon, MicIcon, HouseIcon } from '@lucide/vue'
 import { RouterLink } from 'vue-router'
-
 const open = ref(false)
 const menuRef = ref<HTMLElement | null>(null)
 
@@ -72,6 +71,10 @@ onBeforeUnmount(() => {
         <a href="https://www.sybit.com/de/impressum" target="_blank" rel="noopener noreferrer">
           <button class="btn btn-primary w-full">Impressum</button>
         </a>
+        <!-- bathing spots -->
+        <RouterLink to="/bathing-spots">
+          <button class="btn btn-primary w-full">Wo darf man baden?</button>
+        </RouterLink>
 
         <!-- Data-protection -->
         <RouterLink to="/privacy-policy">
