@@ -65,7 +65,7 @@
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [8.9883433, 47.7310094] },
+      "geometry": { "type": "Point", "coordinates": [6.9883433, 43.7310094] },
       "properties": { "category": "leisure", "name": "Mettnaupark" }
     },
     {
@@ -77,7 +77,7 @@
       }
        {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [7.9883433, 47.7310094] },
+      "geometry": { "type": "Point", "coordinates": [7.9883433, 46.7310094] },
       "properties": { "category": "relaxation", "name": "Sitzbänke" }
     },
     },
