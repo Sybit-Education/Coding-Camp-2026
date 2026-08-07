@@ -7,7 +7,7 @@
   >
     <section
       :class="[
-        'card flex min-w-0 gap-3 shadow-sm transition duration-200 ease-out group-hover:-translate-y-0.5 group-hover:border-primary group-hover:shadow-md sm:gap-5',
+        'card flex min-w-0 h-38 gap-3 shadow-sm transition duration-200 ease-out group-hover:-translate-y-0.5 group-hover:border-primary group-hover:shadow-md sm:gap-5',
         recognitionConfidence === undefined ? 'items-center' : 'items-start',
       ]"
     >

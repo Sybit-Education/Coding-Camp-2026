@@ -1,5 +1,5 @@
 <template>
-  <div class="page-view">
+  <main>
     <h1 class="mb-4">Lexikon</h1>
 
     <div class="mb-4 flex min-w-0 items-center gap-2">
@@ -60,7 +60,7 @@
     <section class="space-y-4" aria-label="Lexikoneinträge">
       <LexiconListItem v-for="entry in filteredEntries" :key="entry.id" :entry="entry" />
     </section>
-  </div>
+  </main>
 </template>
 
 <script setup lang="ts">
