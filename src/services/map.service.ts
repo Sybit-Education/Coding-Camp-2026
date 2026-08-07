@@ -21,12 +21,9 @@ const TILE_LAYER_MIN_ZOOM = 10
 const LOCATIONS_GEOJSON_URL = '/map/mettnau-locations.geojson'
 
 interface LocationProperties {
-  category:
-    'train' | 'bus' | 'destination' | 'parking' | 'leisure' | 'nature' | 'closure' | 'bathing_place'
+  category: 'train' | 'bus' | 'destination' | 'parking' | 'leisure' | 'nature' | 'bathing_place'
   name: string
   number?: number
-  start?: string
-  end?: string
 }
 
 const CATEGORY_COLORS: Record<LocationProperties['category'], string> = {
@@ -36,7 +33,6 @@ const CATEGORY_COLORS: Record<LocationProperties['category'], string> = {
   parking: '#457b9d',
   leisure: '#f4a261',
   nature: '#2b9348',
-  closure: '#d90429',
   bathing_place: '#07737a',
 }
 
@@ -47,7 +43,6 @@ const CATEGORY_LABELS: Record<LocationProperties['category'], string> = {
   parking: '🅿️',
   leisure: '🌳',
   nature: '🌿',
-  closure: '🚧',
   bathing_place: '🏖️',
 }
 
@@ -94,17 +89,6 @@ export class MapService {
         style: (feature) => this.styleLocationFeature(feature),
         onEachFeature: (feature, layer) => this.bindLocationPopup(feature, layer),
       }).addTo(this.map)
-
-      this.locationsLayer.eachLayer((layer) => {
-        if (!(layer instanceof L.Polyline)) {
-          return
-        }
-
-        const properties = (layer.feature?.properties ?? {}) as LocationProperties
-        if (properties.category === 'closure') {
-          this.addTextAlongPath(layer, this.createClosureLabel(properties))
-        }
-      })
     } catch (error) {
       console.error('Standorte konnten nicht geladen werden.', error)
     }
@@ -144,71 +128,13 @@ export class MapService {
   }
 
   private styleLocationFeature(
-    feature: Feature<Geometry, LocationProperties> | undefined,
+    _feature: Feature<Geometry, LocationProperties> | undefined,
   ): L.PathOptions {
-    if (feature?.properties.category === 'closure') {
-      return {
-        color: CATEGORY_COLORS.closure,
-        weight: 5,
-        opacity: 0.85,
-        dashArray: '10, 8',
-      }
-    }
-
     return {}
   }
 
   private bindLocationPopup(feature: Feature<Geometry, LocationProperties>, layer: L.Layer): void {
-    const { name, category, start, end } = feature.properties
-    const content =
-      category === 'closure' && start && end
-        ? this.createClosureLabel(feature.properties)
-        : `<strong>${name}</strong>`
-
-    layer.bindPopup(content)
-  }
-
-  private createClosureLabel(properties: LocationProperties): string {
-    if (!properties.start || !properties.end) {
-      return properties.name
-    }
-
-    return `Weg gesperrt von ${this.formatClosureDate(properties.start)} bis ${this.formatClosureDate(properties.end)}`
-  }
-
-  private addTextAlongPath(path: L.Polyline, text: string): void {
-    const pathElement = path.getElement() as SVGPathElement | null
-    const svg = pathElement?.ownerSVGElement
-
-    if (!pathElement || !svg) {
-      return
-    }
-
-    const pathId = `closure-route-${Date.now()}-${Math.random().toString(36).slice(2)}`
-    pathElement.id = pathId
-
-    const textElement = document.createElementNS('http://www.w3.org/2000/svg', 'text')
-    textElement.setAttribute('fill', CATEGORY_COLORS.closure)
-    textElement.setAttribute('font-size', '12')
-    textElement.setAttribute('font-weight', '600')
-    textElement.setAttribute('dy', '-8')
-
-    const textPath = document.createElementNS('http://www.w3.org/2000/svg', 'textPath')
-    textPath.setAttribute('href', `#${pathId}`)
-    textPath.setAttribute('startOffset', '8%')
-    textPath.textContent = text
-
-    textElement.append(textPath)
-    svg.append(textElement)
-  }
-
-  private formatClosureDate(date: string): string {
-    const [month, day] = date.split('-')
-    if (!month || !day) {
-      return date
-    }
-
-    return `${day}.${month}.`
+    layer.bindPopup(`<strong>${feature.properties.name}</strong>`)
   }
 
   private addTileLayer(): void {
