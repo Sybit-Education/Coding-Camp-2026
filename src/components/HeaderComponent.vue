@@ -1,6 +1,3 @@
-<script setup lang="ts">
-</script>
-
 <template>
   <header
     class="flex items-center justify-center h-50 bg-cover bg-no-repeat bg-center"
