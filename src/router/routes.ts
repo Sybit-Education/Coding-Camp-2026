@@ -6,13 +6,20 @@ import MapView from '@/views/MapView.vue'
 import LexiconDetail from '@/views/LexiconDetail.vue'
 import DataProtectionView from '@/views/DataProtectionView.vue'
 import bathingSpots from '@/views/bathingSpots.vue'
-
+import BirdRecognitionView from '@/views/BirdRecognitionView.vue'
+import DangerGuide from '@/views/DangerGuide.vue'
+import AboutView from '@/views/AboutView.vue'
 
 export const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: ROUTE_NAMES.HOME,
     component: HomeView,
+  },
+  {
+    path: '/bird-recognition',
+    name: ROUTE_NAMES.BIRD_RECOGNITION,
+    component: BirdRecognitionView,
   },
   {
     path: '/map',
@@ -35,11 +42,20 @@ export const routes: RouteRecordRaw[] = [
     component: LexiconDetail,
   },
   {
+    path: '/dangerguide',
+    name: ROUTE_NAMES.DANGER_GUIDE,
+    component: DangerGuide,
+  },
+  {
+    path: '/about',
+    name: ROUTE_NAMES.ABOUT,
+    component: AboutView,
+  },
+  {
     path: '/bathingSpots',
     name: ROUTE_NAMES.BATHING_SPOTS,
     component: bathingSpots,
   },
-
   /*FallBack !!!DO NOT REMOVE!!!*/
   {
     path: '/:pathMatch(.*)*',

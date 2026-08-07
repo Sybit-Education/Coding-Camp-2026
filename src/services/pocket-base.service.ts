@@ -21,4 +21,14 @@ export class PocketBaseService {
     const result = await this.pb.files.getURL(entry, imagePath)
     return result
   }
+
+  async getRefrences<T extends RecordModel>(
+    searchTable: string,
+    tableName: string,
+    parentId: string,
+  ): Promise<T[]> {
+    return await this.pb.collection(searchTable).getFullList({
+      filter: `${tableName} ~ "${parentId}"`,
+    })
+  }
 }
