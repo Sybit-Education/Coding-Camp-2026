@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="page-view">
     <article
       v-if="entry"
       class="mx-auto w-full max-w-4xl overflow-hidden rounded-xl border border-border bg-background shadow-sm"
