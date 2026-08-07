@@ -63,6 +63,13 @@
           {{ toxicityReference.description }}
         </p>
         <p class="mt-3 text-text">{{ entry.description }}</p>
+
+        <a
+          v-if="entry.reference"
+          :href="entry.reference"
+          class="flex items-center flex-sm nowrap underline pt-4 text-sm text-primary text-right px-1"
+          >Weitere Informationen <ArrowRightIcon class="size-4"
+        /></a>
       </div>
     </article>
 
@@ -92,7 +99,7 @@ import type { AudioService } from '@/services/audio.service'
 import type { LexiconService } from '@/services/lexicon.service'
 import type { AnimalAudioListEntry } from '@/shared/types/audio.types'
 import type { LexiconEntry } from '@/shared/types/lexicon.types'
-import { CopyrightIcon, LeafIcon, LinkIcon, SkullIcon } from '@lucide/vue'
+import { ArrowRightIcon, CopyrightIcon, LeafIcon, SkullIcon } from '@lucide/vue'
 import { computed, inject, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
