@@ -1,9 +1,6 @@
 <template>
   <RouterLink
-    :to="{
-      path: `/tour/${tourId}`,
-      query: { tour: JSON.stringify(tour) },
-    }"
+    :to="`/tour/${tourId}`"
     class="group block rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
     :aria-label="`Details zur Führung ${tour.title} ansehen`"
   >
@@ -50,6 +47,7 @@
 </template>
 
 <script setup lang="ts">
+import { getTourId } from '@/shared/utils/tour-id'
 import type { GuidedTour } from '@/shared/types/tour-guides.types'
 import { ArrowRight, CalendarDays, MapPin } from '@lucide/vue'
 import { computed } from 'vue'
@@ -58,16 +56,7 @@ const props = defineProps<{
   tour: GuidedTour
 }>()
 
-const tourId = computed(() =>
-  `${props.tour.title}-${props.tour.start}`
-    .toLowerCase()
-    .replace(/ä/g, 'ae')
-    .replace(/ö/g, 'oe')
-    .replace(/ü/g, 'ue')
-    .replace(/ß/g, 'ss')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, ''),
-)
+const tourId = computed(() => getTourId(props.tour))
 
 const startDate = computed(() => {
   const date = new Date(props.tour.start)

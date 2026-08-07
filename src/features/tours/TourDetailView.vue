@@ -9,8 +9,29 @@
         Zurück zu den Führungen
       </RouterLink>
 
+      <p
+        v-if="isLoading"
+        class="rounded-xl border border-border bg-background-mute p-4 text-text"
+        role="status"
+      >
+        Tourdetails werden geladen …
+      </p>
+
+      <section
+        v-else-if="errorMessage"
+        class="rounded-xl border border-border bg-background p-4 shadow-sm sm:p-6"
+        aria-labelledby="error-heading"
+        role="alert"
+      >
+        <h1 id="error-heading" class="mb-2">Tourdetails konnten nicht geladen werden</h1>
+        <p class="max-w-2xl text-text">{{ errorMessage }}</p>
+        <button class="btn btn-primary mt-6" type="button" @click="loadTour">
+          Erneut versuchen
+        </button>
+      </section>
+
       <article
-        v-if="tour"
+        v-else-if="tour"
         class="overflow-hidden rounded-xl border border-border bg-background shadow-sm"
       >
         <header class="bg-primary p-5 text-white sm:p-6">
@@ -72,79 +93,54 @@
         class="rounded-xl border border-border bg-background p-4 shadow-sm sm:p-6"
         aria-labelledby="unavailable-heading"
       >
-        <h1 id="unavailable-heading" class="mb-2">Tourdetails nicht verfügbar</h1>
+        <h1 id="unavailable-heading" class="mb-2">Tour nicht gefunden</h1>
         <p class="max-w-2xl text-text">
-          Diese Führung konnte nicht geladen werden. Bitte wähle die Führung erneut aus der
-          Übersicht aus.
+          Diese Führung ist nicht verfügbar oder wurde inzwischen entfernt.
         </p>
-        <RouterLink to="/tours" class="btn btn-primary mt-6">
-          Zu den Führungen
-        </RouterLink>
+        <RouterLink to="/tours" class="btn btn-primary mt-6"> Zu den Führungen </RouterLink>
       </section>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { getTourId } from '@/shared/utils/tour-id'
+import type { TourGuidesService } from '@/services/tour-guides.service'
 import type { GuidedTour } from '@/shared/types/tour-guides.types'
-import {
-  ArrowLeft,
-  Building2,
-  CalendarDays,
-  ExternalLink,
-  MapPin,
-  MapPinned,
-} from '@lucide/vue'
-import { computed } from 'vue'
+import { ArrowLeft, Building2, CalendarDays, ExternalLink, MapPin, MapPinned } from '@lucide/vue'
+import { computed, inject, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
-function isGuidedTour(value: unknown): value is GuidedTour {
-  if (!value || typeof value !== 'object') {
-    return false
-  }
-
-  const candidate = value as Record<string, unknown>
-  return typeof candidate.title === 'string' && typeof candidate.start === 'string'
-}
-
 const route = useRoute()
+const tourService = inject<TourGuidesService>('tourGuidesService')
+const tour = ref<GuidedTour>()
+const isLoading = ref(true)
+const errorMessage = ref('')
 
-function getTourFromQuery(): GuidedTour | undefined {
-  const serializedTour = route.query.tour
-
-  if (typeof serializedTour !== 'string') {
-    return undefined
-  }
-
-  try {
-    const parsedTour: unknown = JSON.parse(serializedTour)
-    return isGuidedTour(parsedTour) ? parsedTour : undefined
-  } catch {
-    return undefined
-  }
-}
-
-const tour = getTourFromQuery()
+const routeId = computed(() => {
+  const id = route.params.id
+  return typeof id === 'string' ? id : undefined
+})
 
 const startDate = computed(() => {
-  if (!tour) {
+  if (!tour.value) {
     return undefined
   }
 
-  const date = new Date(tour.start)
+  const date = new Date(tour.value.start)
   return Number.isNaN(date.getTime()) ? undefined : date
 })
 
 const dateTimeLabel = computed(() => {
-  if (!tour) {
+  if (!tour.value) {
     return ''
   }
 
   if (!startDate.value) {
-    return tour.start
+    return tour.value.start
   }
 
-  const hasTime = tour.start.includes('T')
+  const hasTime = tour.value.start.includes('T')
 
   return new Intl.DateTimeFormat(
     'de-DE',
@@ -164,11 +160,36 @@ const dateTimeLabel = computed(() => {
   ).format(startDate.value)
 })
 
-const addressLabel = computed(() => {
-  if (!tour) {
-    return ''
+const addressLabel = computed(() =>
+  tour.value ? [tour.value.postalCode, tour.value.city].filter(Boolean).join(' ') : '',
+)
+
+async function loadTour() {
+  if (!tourService) {
+    errorMessage.value = 'Der Dienst für Führungen ist derzeit nicht verfügbar.'
+    isLoading.value = false
+    return
   }
 
-  return [tour.postalCode, tour.city].filter(Boolean).join(' ')
-})
+  if (!routeId.value) {
+    errorMessage.value = 'Die Tour-Adresse ist ungültig.'
+    isLoading.value = false
+    return
+  }
+
+  isLoading.value = true
+  errorMessage.value = ''
+  tour.value = undefined
+
+  try {
+    const response = await tourService.getTourGuides()
+    tour.value = response.events.find((event) => getTourId(event) === routeId.value)
+  } catch {
+    errorMessage.value = 'Bitte prüfe deine Verbindung und versuche es anschließend erneut.'
+  } finally {
+    isLoading.value = false
+  }
+}
+
+watch(routeId, loadTour, { immediate: true })
 </script>
