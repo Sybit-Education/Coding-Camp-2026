@@ -16,18 +16,18 @@
         :src="entry.imageUrl"
         :alt="entry.name"
         :aria-label="`Bild von ${entry.name}`"
-        class="list-item-image min-h-full w-28 self-stretch sm:w-40"
+        class="list-item-image min-h-full w-28 sm:w-40 self-stretch"
         @error="hasImageError = true"
       />
       <div
         v-else
-        class="flex min-h-full w-28 shrink-0 items-center justify-center self-stretch bg-background-mute sm:w-40"
+        class="flex min-h-full w-28 sm:w-40 self-stretch"
       >
         <img
           :src="fallbackImage"
           :aria-label="`${entry.name}: kein Bild verfügbar`"
           :alt="`${entry.name}: kein Bild verfügbar`"
-          class="list-item-image h-full w-full grayscale opacity-50"
+          class="list-item-image min-h-full "
         />
       </div>
 
