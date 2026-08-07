@@ -1,27 +1,30 @@
-import L from 'leaflet'
+import * as Leaflet from 'leaflet'
 import type { DiscoveryCard, NatureCategory } from '@/shared/types/card.types'
 
 const PIN_COLORS: Record<NatureCategory, string> = {
-  Vogel: '#ff00ff',
-  Pflanze: '#00ff00',
-  Insekt: '#00ffff',
-  Baum: '#ffff00',
+  Vogel: 'var(--color-primary1)',
+  Pflanze: 'var(--color-primary2)',
+  Insekt: 'var(--color-accent1)',
+  Baum: 'var(--color-primary2)',
 }
 
-const PIN_ICON_SIZE: L.PointTuple = [24, 36]
-const PIN_ICON_ANCHOR: L.PointTuple = [12, 36]
-const PIN_POPUP_ANCHOR: L.PointTuple = [0, -36]
+const PIN_ICON_SIZE: Leaflet.PointTuple = [24, 36]
+const PIN_ICON_ANCHOR: Leaflet.PointTuple = [12, 36]
+const PIN_POPUP_ANCHOR: Leaflet.PointTuple = [0, -36]
 
 export class PinService {
-  private readonly map: L.Map
-  private readonly markers: Map<number, L.Marker> = new Map()
+  private readonly map: Leaflet.Map
+  private readonly markers: Map<number, Leaflet.Marker> = new Map()
 
-  constructor(map: L.Map) {
+  constructor(
+    map: Leaflet.Map,
+    private readonly layerGroup?: Leaflet.LayerGroup,
+  ) {
     this.map = map
   }
 
-  private createColoredIcon(color: string): L.DivIcon {
-    return L.divIcon({
+  private createColoredIcon(color: string): Leaflet.DivIcon {
+    return Leaflet.divIcon({
       className: 'custom-pin',
       html: `
         <svg width="24" height="36" viewBox="0 0 24 36" xmlns="http://www.w3.org/2000/svg">
@@ -36,11 +39,23 @@ export class PinService {
   }
 
   addDiscovery(discovery: DiscoveryCard): void {
+    if (!this.hasValidCoordinates(discovery)) {
+      return
+    }
+
     const color = PIN_COLORS[discovery.label]
     const icon = this.createColoredIcon(color)
-    const marker = L.marker([discovery.coordinatesX, discovery.coordinatesY], { icon })
-      .addTo(this.map)
-      .bindPopup(`<strong>${discovery.name}</strong>`)
+    const marker = Leaflet.marker([discovery.coordinatesX, discovery.coordinatesY], {
+      icon,
+      title: discovery.name,
+    }).bindPopup(this.createPopupContent(discovery.name))
+
+    if (this.layerGroup) {
+      this.layerGroup.addLayer(marker)
+    } else {
+      marker.addTo(this.map)
+    }
+
     this.markers.set(discovery.id, marker)
   }
 
@@ -53,7 +68,29 @@ export class PinService {
     if (!marker) {
       return
     }
-    this.map.removeLayer(marker)
+    if (this.layerGroup) {
+      this.layerGroup.removeLayer(marker)
+    } else {
+      this.map.removeLayer(marker)
+    }
     this.markers.delete(id)
+  }
+
+  private hasValidCoordinates(discovery: DiscoveryCard): boolean {
+    return (
+      Number.isFinite(discovery.coordinatesX) &&
+      Number.isFinite(discovery.coordinatesY) &&
+      discovery.coordinatesX >= -90 &&
+      discovery.coordinatesX <= 90 &&
+      discovery.coordinatesY >= -180 &&
+      discovery.coordinatesY <= 180 &&
+      !(discovery.coordinatesX === 0 && discovery.coordinatesY === 0)
+    )
+  }
+
+  private createPopupContent(name: string): HTMLElement {
+    const content = document.createElement('strong')
+    content.textContent = name
+    return content
   }
 }
