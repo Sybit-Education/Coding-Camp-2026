@@ -50,6 +50,7 @@ export class MapService {
   private map: L.Map | null = null
   private routeLayer: L.GeoJSON | L.Polyline | null = null
   private locationsLayer: L.GeoJSON | null = null
+  private routeRequestId = 0
 
   initialize(container: HTMLDivElement) {
     const bounds = L.latLngBounds(MAP_BOUNDS.southWest, MAP_BOUNDS.northEast)
@@ -155,6 +156,7 @@ export class MapService {
     }
 
     this.removeRoute()
+    const requestId = ++this.routeRequestId
 
     try {
       // ORS erwartet [lng, lat] statt [lat, lng]
@@ -184,6 +186,10 @@ export class MapService {
 
       const data = await response.json()
 
+      if (!this.isCurrentRouteRequest(requestId)) {
+        return
+      }
+
       if (!data.features?.length) {
         console.warn('Keine Route gefunden, zeichne Wegpunkte direkt')
         this.routeLayer = L.polyline(coords, { color: '#3388ff', weight: 5 }).addTo(this.map)
@@ -200,6 +206,10 @@ export class MapService {
 
       this.map.fitBounds(bounds, { padding: [40, 40] })
     } catch (error) {
+      if (!this.isCurrentRouteRequest(requestId)) {
+        return
+      }
+
       console.error('ORS-Routing fehlgeschlagen, fallback auf direkte Linie:', error)
       this.routeLayer = L.polyline(coords, { color: '#3388ff', weight: 5 }).addTo(this.map)
       this.map.fitBounds(this.routeLayer.getBounds(), { padding: [40, 40] })
@@ -207,9 +217,15 @@ export class MapService {
   }
 
   removeRoute() {
+    this.routeRequestId += 1
+
     if (this.routeLayer && this.map) {
       this.map.removeLayer(this.routeLayer)
       this.routeLayer = null
     }
+  }
+
+  private isCurrentRouteRequest(requestId: number): boolean {
+    return this.routeRequestId === requestId && this.map !== null
   }
 }
