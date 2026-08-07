@@ -1,8 +1,8 @@
 <template>
-    <main>
+  <div class="page-view">
     <article
       v-if="entry"
-      class="overflow-hidden rounded-xl border border-border bg-background shadow-sm"
+      class="mx-auto w-full max-w-4xl overflow-hidden rounded-xl border border-border bg-background shadow-sm"
     >
       <div class="relative">
         <a
@@ -24,12 +24,12 @@
           v-if="entry.imageUrl && !hasImageError"
           :src="entry.imageUrl"
           :alt="entry.name"
-          class="aspect-square w-full object-cover"
+          class="max-h-[min(70vh,32rem)] w-full bg-background-mute object-contain"
           @error="hasImageError = true"
         />
         <div
           v-else
-          class="flex aspect-square w-full items-center justify-center bg-background-mute"
+          class="flex min-h-64 w-full items-center justify-center bg-background-mute sm:min-h-80"
           :aria-label="`${entry.name}: kein Bild verfügbar`"
         >
           <img :src="fallbackImage" alt="" class="h-1/2 w-1/2 grayscale opacity-50" />
@@ -38,7 +38,7 @@
 
       <AutoTextToSpeech :targetSelector="'section'" lang="de-DE" />
 
-      <section class="p-4">
+      <section class="p-4 sm:p-6">
         <h1>{{ entry.name }}</h1>
         <div class="mt-2 flex flex-wrap gap-2">
           <span
@@ -67,7 +67,7 @@
 
       <section
         v-if="soundID.length"
-        class="card p-3 m-3"
+        class="border-t border-border p-4 sm:p-6"
         aria-labelledby="sounds-heading"
       >
         <h2 id="sounds-heading">Vogelstimmen</h2>
@@ -81,7 +81,7 @@
         </div>
       </section>
     </article>
-  </main>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -92,7 +92,7 @@ import type { AudioService } from '@/services/audio.service'
 import type { LexiconService } from '@/services/lexicon.service'
 import type { AnimalAudioListEntry } from '@/shared/types/audio.types'
 import type { LexiconEntry } from '@/shared/types/lexicon.types'
-import { CopyrightIcon, LeafIcon, LinkIcon, SkullIcon } from '@lucide/vue'
+import { CopyrightIcon, LeafIcon, SkullIcon } from '@lucide/vue'
 import { computed, inject, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 

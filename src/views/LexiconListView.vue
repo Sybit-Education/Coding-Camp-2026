@@ -1,13 +1,20 @@
 <template>
-    <main>
-      <h1>Lexikon</h1>
-      <Search class="m-1 shrink-0 text-gray-400" />
-      <input
-        v-model="searchQuery"
-        type="search"
-        placeholder="Suchen ..."
-        class="min-w-0 flex-1 py-2 text-sm outline-none"
-      />
+  <div class="page-view">
+    <h1 class="mb-4">Lexikon</h1>
+
+    <div class="mb-4 flex min-w-0 items-center gap-2">
+      <div
+        class="flex min-w-0 flex-1 items-center rounded-md border border-border bg-background px-2"
+      >
+        <Search class="m-1 shrink-0 text-gray-400" />
+        <input
+          v-model="searchQuery"
+          type="search"
+          placeholder="Suchen ..."
+          class="min-w-0 flex-1 bg-transparent py-2 text-sm outline-none"
+        />
+      </div>
+
       <div ref="menuRef" class="relative shrink-0 text-left">
         <button
           class="flex items-center gap-2 rounded-md bg-gray-100 px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200"
@@ -38,23 +45,22 @@
           </button>
         </div>
       </div>
+    </div>
 
+    <details class="mb-4 rounded-xl border border-border bg-background p-3 text-sm text-text">
+      <summary class="cursor-pointer font-semibold text-heading">Giftigkeitsstufen</summary>
+      <dl class="mt-3 space-y-2">
+        <div v-for="level in toxicityReferences" :key="level.id" class="flex gap-2">
+          <dt class="min-w-10 font-bold text-red-700">{{ level.type }}</dt>
+          <dd class="font-medium">{{ level.description }}</dd>
+        </div>
+      </dl>
+    </details>
 
-      <details class="rounded-xl border border-border bg-background p-3 text-sm text-text">
-        <summary class="cursor-pointer font-semibold text-heading">Giftigkeitsstufen</summary>
-        <dl class="mt-3 space-y-2">
-          <div v-for="level in toxicityReferences" :key="level.id" class="flex gap-2">
-            <dt class="min-w-10 font-bold text-red-700">{{ level.type }}</dt>
-            <dd class="font-medium">{{ level.description }}</dd>
-          </div>
-        </dl>
-      </details>
-
-      <section class="space-y-4" aria-label="Lexikoneinträge">
-        <LexiconListItem v-for="entry in filteredEntries" :key="entry.id" :entry="entry" />
-      </section>
-    </main>
-
+    <section class="space-y-4" aria-label="Lexikoneinträge">
+      <LexiconListItem v-for="entry in filteredEntries" :key="entry.id" :entry="entry" />
+    </section>
+  </div>
 </template>
 
 <script setup lang="ts">
