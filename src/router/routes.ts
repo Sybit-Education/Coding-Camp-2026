@@ -7,6 +7,7 @@ import LexiconDetail from '@/views/LexiconDetail.vue'
 import DataProtectionView from '@/views/DataProtectionView.vue'
 import BirdRecognitionView from '@/views/BirdRecognitionView.vue'
 import DangerGuide from '@/views/DangerGuide.vue'
+import AboutView from '@/views/AboutView.vue'
 
 export const routes: RouteRecordRaw[] = [
   {
@@ -40,11 +41,15 @@ export const routes: RouteRecordRaw[] = [
     component: LexiconDetail,
   },
   {
-    path: '/DangerGuide',
+    path: '/dangerguide',
     name: ROUTE_NAMES.DANGER_GUIDE,
     component: DangerGuide,
   },
-
+  {
+    path: '/about',
+    name: ROUTE_NAMES.ABOUT,
+    component: AboutView,
+  },
   /*FallBack !!!DO NOT REMOVE!!!*/
   {
     path: '/:pathMatch(.*)*',
