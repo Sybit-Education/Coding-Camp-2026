@@ -69,7 +69,7 @@
 </template>
 
 <script setup lang="ts">
-import fallbackImage from '@/assets/logo.svg'
+import fallbackImage from '/img/mettnau-logo.svg'
 import type { LexiconListEntry } from '@/shared/types/lexicon.types'
 import { LeafIcon, SkullIcon } from '@lucide/vue'
 import { ref } from 'vue'

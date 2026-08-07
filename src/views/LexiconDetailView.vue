@@ -86,7 +86,7 @@
 
 <script setup lang="ts">
 import AutoTextToSpeech from '@/components/AutoTextToSpeech.vue'
-import fallbackImage from '@/assets/logo.svg'
+import fallbackImage from '/img/mettnau-logo.svg'
 import XenoPlayer from '@/components/XenoPlayer.vue'
 import type { AudioService } from '@/services/audio.service'
 import type { LexiconService } from '@/services/lexicon.service'
