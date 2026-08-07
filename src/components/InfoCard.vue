@@ -18,3 +18,13 @@
     </article>
   </RouterLink>
 </template>
+
+<script setup lang="ts">
+defineProps<{
+  placeholder: {
+    id: string
+    name: string
+    imageUrl?: string
+  }
+}>()
+</script>
