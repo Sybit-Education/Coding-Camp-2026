@@ -61,8 +61,6 @@ export class MapService {
 
     this.addTileLayer()
 
-    this.map.fitBounds(L.latLngBounds(MAP_BOUNDS.southWest, MAP_BOUNDS.northEast))
-
     this.loadLocations()
   }
 
