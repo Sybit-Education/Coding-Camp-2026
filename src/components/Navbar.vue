@@ -22,7 +22,7 @@ onBeforeUnmount(() => {
 
 <template>
   <nav
-    class="relative z-1000 flex w-full shrink-0 justify-evenly bg-secondary/85 p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))]"
+    class="fixed bottom-0 left-1/2 z-1000 flex -translate-x-1/2 justify-evenly gap-3 rounded-2xl bg-secondary/33 mb-5 p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))]"
   >
     <!-- Home page -->
     <RouterLink to="/">
@@ -54,7 +54,7 @@ onBeforeUnmount(() => {
       <!-- Dropdown menu -->
       <div
         v-if="open"
-        class="absolute bottom-[calc(100%+0.5rem)] right-0 z-1001 flex max-h-[calc(100dvh-6rem)] w-[min(14rem,calc(100vw-1rem))] max-w-[calc(100vw-1rem)] flex-col gap-2 overflow-y-auto rounded-lg bg-secondary/95 p-2 shadow-xl"
+        class="absolute bottom-[calc(100%+0.5rem+4px)] right-0 z-1001 flex max-h-[calc(100dvh-6rem)] w-[min(14rem,calc(100vw-1rem))] max-w-[calc(100vw-1rem)] flex-col gap-2 overflow-y-auto rounded-t-2xl bg-secondary/33 p-2 shadow-xl"
       >
         <!-- About us -->
         <RouterLink to="/about">
@@ -67,14 +67,16 @@ onBeforeUnmount(() => {
           </button>
         </RouterLink>
 
-        <!-- Impressum -->
-        <a href="https://www.sybit.com/de/impressum" target="_blank" rel="noopener noreferrer">
-          <button class="btn btn-primary w-full">Impressum</button>
-        </a>
         <!-- bathing spots -->
         <RouterLink to="/bathing-spots">
           <button class="btn btn-primary w-full">Wo darf man baden?</button>
         </RouterLink>
+
+        <!-- Impressum -->
+        <a href="https://www.sybit.com/de/impressum" target="_blank" rel="noopener noreferrer">
+          <button class="btn btn-primary w-full">Impressum</button>
+        </a>
+
 
         <!-- Data-protection -->
         <RouterLink to="/privacy-policy">
