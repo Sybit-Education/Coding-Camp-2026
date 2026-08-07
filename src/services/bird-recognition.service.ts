@@ -10,7 +10,6 @@ import type { MicroService } from './micro-service.service'
 
 export class BirdRecognitionService {
   constructor(private microService: MicroService) {}
-  
 
   // Get the config
   async getConfig(): Promise<BirdRecognitionConfig> {
