@@ -11,7 +11,9 @@ export class ObservationService {
     const observations = await this.getObservations()
 
     // Sort observations by newest date
-    const sorted = observations.observations.sort((a, b) => Number(b.date) - Number(a.date))
+    const sorted = observations.observations.sort(
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+    )
 
     // Find matching animal in pocketbase
     for (const observation of sorted) {

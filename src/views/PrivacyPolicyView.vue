@@ -717,7 +717,7 @@
       Sie erklären:
     </p>
     <ul>
-      <li>Per E-Mail an: XXXX@sybit.de</li>
+      <li>Per E-Mail an: datenschutz@sybit.de</li>
       <li>Per Abmelde-Link in jeder Newsletter-E-Mail</li>
       <li>Über die Cookie-Einstellungen auf unserer Webseite (für das Webtracking)</li>
     </ul>

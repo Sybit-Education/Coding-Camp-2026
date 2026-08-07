@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, inject, onMounted } from 'vue'
+import { ref, inject, onMounted, onUnmounted } from 'vue'
 import type { MapService } from '@/services/map.service'
 
 const mapService = inject('mapService') as MapService
@@ -25,6 +25,10 @@ onMounted(async () => {
   if (mapContainer.value) {
     mapService.initialize(mapContainer.value)
   }
+})
+
+onUnmounted(() => {
+  mapService.destroy()
 })
 </script>
 
