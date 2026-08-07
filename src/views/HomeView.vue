@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="page-view flex flex-col gap-6">
     <section class="grid gap-4 sm:grid-cols-2 my-6">
       <RouterLink to="/map" class="min-w-0">
         <section
