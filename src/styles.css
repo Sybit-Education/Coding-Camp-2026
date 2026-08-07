@@ -56,6 +56,10 @@
     @apply bg-linear-to-br from-[#000057] to-[#c300ff] text-white p-7 rounded-md max-w-5xl;
   }
 
+  .card-soft {
+    @apply rounded-lg border border-gray-300 bg-white p-6 shadow-sm;
+  }
+
   .btn {
     @apply inline-flex
     items-center
