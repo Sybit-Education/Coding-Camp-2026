@@ -58,6 +58,7 @@
     @apply font-sans;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-size: var(--font-size-body-md);
   }
 
   main {
@@ -74,15 +75,18 @@
   }
 
   h1 {
-    @apply text-3xl font-bold text-primary mb-6 items-center;
+    @apply font-bold text-primary mb-6 items-center;
+    font-size: calc(var(--font-size-body-md) * 2);
   }
 
   h2 {
-    @apply text-2xl font-semibold text-secondary mb-4 items-center;
+    @apply font-semibold text-secondary mb-4 items-center;
+    font-size: calc(var(--font-size-body-md) * 1.75);
   }
 
   h3 {
-    @apply text-xl font-medium text-secondary mb-2 items-center;
+    @apply font-medium text-secondary mb-2 items-center;
+    font-size: calc(var(--font-size-body-md) * 1.5);
   }
 
   p {
@@ -180,7 +184,7 @@ body {
     'Droid Sans',
     'Helvetica Neue',
     sans-serif;
-  font-size: 15px;
+  font-size: var(--font-size-body-md);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
