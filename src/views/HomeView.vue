@@ -20,8 +20,8 @@
       <RouterLink v-if="newestBird" :to="`/lexiconDetail/${newestBird.id}`" class="min-w-0">
         <article
           class="card flex h-full min-w-0 items-center gap-4 shadow-sm transition duration-200 ease-out hover:-translate-y-0.5 hover:border-primary hover:shadow-md"
-        >  
-            <img
+        >
+          <img
             :src="newestBird.imageUrl ?? '/img/Haubentaucher.jpg'"
             :alt="newestBird.name"
             class="h-20 w-20 shrink-0 rounded-tl-xl rounded-bl-xl object-cover sm:h-24 sm:w-24"
@@ -64,9 +64,10 @@ import WeatherAlert from '@/components/WeatherAlert.vue'
 import { ref, onMounted } from 'vue'
 import { ObservationService } from '@/services/observation.service'
 import { PocketBaseService } from '@/services/pocket-base.service'
+import type { LexiconEntry } from '@/shared/types/lexicon.types'
 
 // Newest bird variabel
-const newestBird = ref<LexiconEntry | undefined>(null)
+const newestBird = ref<LexiconEntry | null>(null)
 
 // On mount
 onMounted(async () => {

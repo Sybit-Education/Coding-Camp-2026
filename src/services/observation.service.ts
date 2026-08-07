@@ -38,7 +38,7 @@ export class ObservationService {
 
   // Gets observations
   private async getObservations(): Promise<ObservationResponse> {
-    const response = await fetch(environment.obsercationAddress)
+    const response = await fetch(environment.birdRecognitionBaseAddress + 'observations')
 
     // Failed
     if (!response.ok) {
