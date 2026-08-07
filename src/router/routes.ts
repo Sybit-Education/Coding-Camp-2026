@@ -1,14 +1,15 @@
 import HomeView from '@/views/HomeView.vue'
-import LexiconView from '@/views/LexiconView.vue'
+import LexiconView from '@/features/lexicon/LexiconView.vue'
 import type { RouteRecordRaw } from 'vue-router'
 import { ROUTE_NAMES } from './route-names'
 import MapView from '@/views/MapView.vue'
-import LexiconDetail from '@/views/LexiconDetail.vue'
+import LexiconDetail from '@/features/lexicon/LexiconDetail.vue'
 import DataProtectionView from '@/views/DataProtectionView.vue'
 import BirdRecognitionView from '@/views/BirdRecognitionView.vue'
 import DangerGuide from '@/views/DangerGuide.vue'
 import AboutView from '@/views/AboutView.vue'
-import TourGuidesView from '@/views/TourGuidesView.vue'
+import TourGuidesView from '@/features/tours/TourGuidesView.vue'
+import TourDetailView from '@/features/tours/TourDetailView.vue'
 
 export const routes: RouteRecordRaw[] = [
   {
@@ -27,9 +28,14 @@ export const routes: RouteRecordRaw[] = [
     component: MapView,
   },
   {
-    path: '/tour-guides',
-    name: ROUTE_NAMES.TOUR_GUIDES,
+    path: '/tours',
+    name: ROUTE_NAMES.TOURS,
     component: TourGuidesView,
+  },
+  {
+    path: '/tour/:id',
+    name: ROUTE_NAMES.TOUR_DETAILS,
+    component: TourDetailView,
   },
   {
     path: '/dataprotection',
