@@ -99,7 +99,7 @@
 </template>
 
 <script setup lang="ts">
-import LexiconListItem from '@/components/LexiconListItem.vue'
+import LexiconListItem from '@/features/lexicon/LexiconListItem.vue'
 import type { BirdRecognitionService } from '@/services/bird-recognition.service'
 import type { LexiconService } from '@/services/lexicon.service'
 import type {

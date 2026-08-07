@@ -1,5 +1,5 @@
 <template>
-  <div class="page-view">
+  <main>
     <h1>Datenschutzerklärung</h1>
 
     <h2>1. Datenschutz auf einen Blick</h2>
@@ -1433,5 +1433,5 @@
       stattfinden.&nbsp;Kanada gilt nach Angemessenheitsbeschluss der EU-Kommission als sicheres
       Drittland im Sinne der DSGVO&nbsp;(Art. 45 Abs. 1 DSGVO).&nbsp;
     </p>
-  </div>
+  </main>
 </template>

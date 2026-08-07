@@ -1,9 +1,6 @@
-<script setup lang="ts">
-import { RouterLink } from 'vue-router'
-</script>
 
 <template>
-  <div class="page-view">
+  <main>
     <h1>Gefahrenanleitung</h1>
 
     <div class="space-y-4">
@@ -60,5 +57,5 @@ import { RouterLink } from 'vue-router'
         <li>Kreislaufkollaps</li>
       </ul>
     </div>
-  </div>
+  </main>
 </template>

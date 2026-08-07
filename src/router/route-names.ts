@@ -9,4 +9,6 @@ export const ROUTE_NAMES = {
   BIRD_RECOGNITION: 'bird-recognition',
   DANGER_GUIDE: 'DangerGuide',
   ABOUT: 'About',
+  TOURS: 'Tours',
+  TOUR_DETAILS: 'Tour Details',
 } as const

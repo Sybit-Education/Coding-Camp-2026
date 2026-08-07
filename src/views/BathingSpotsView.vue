@@ -26,6 +26,8 @@ import AutoTextToSpeech from '@/components/AutoTextToSpeech.vue';
       </li>
     </ul>
 
+    <p>Diese sind in der Karte gekennzeichnet: <span style="background: #07737a" class="rounded-full p-1">🏖️</span></p>
+
     <h2>Verboten</h2>
 
     <p>
