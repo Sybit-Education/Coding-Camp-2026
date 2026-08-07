@@ -1,12 +1,29 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { MapIcon, InfoIcon, BookOpenTextIcon, MenuIcon, MicIcon, HouseIcon } from '@lucide/vue'
 import { RouterLink } from 'vue-router'
 const open = ref(false)
+const menuRef = ref<HTMLElement | null>(null)
+
+function closeMenuOnOutsideClick(event: PointerEvent): void {
+  if (menuRef.value && event.target instanceof Node && !menuRef.value.contains(event.target)) {
+    open.value = false
+  }
+}
+
+onMounted(() => {
+  document.addEventListener('pointerdown', closeMenuOnOutsideClick)
+})
+
+onBeforeUnmount(() => {
+  document.removeEventListener('pointerdown', closeMenuOnOutsideClick)
+})
 </script>
 
 <template>
-  <nav class="flex justify-evenly inset-x-0 bottom-0 p-3 bg-secondary/85 fixed z-50">
+  <nav
+    class="relative z-[1000] flex w-full shrink-0 justify-evenly bg-secondary/85 p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))]"
+  >
     <!-- Home page -->
     <RouterLink to="/">
       <button class="btn btn-primary"><HouseIcon /></button>
@@ -28,7 +45,7 @@ const open = ref(false)
     </RouterLink>
 
     <!-- Dropdown -->
-    <div class="relative">
+    <div ref="menuRef" class="relative">
       <!-- Hamburger trigger -->
       <button class="btn btn-primary" @click="open = !open">
         <MenuIcon />
@@ -37,7 +54,7 @@ const open = ref(false)
       <!-- Dropdown menu -->
       <div
         v-if="open"
-        class="absolute bottom-14 left-1/2 mb-2 -translate-x-1/2 origin-bottom flex flex-col gap-2 rounded-lg bg-secondary/90 p-2 shadow-lg"
+        class="absolute bottom-[calc(100%+0.5rem)] right-0 z-[1001] flex max-h-[calc(100dvh-6rem)] w-[min(14rem,calc(100vw-1rem))] max-w-[calc(100vw-1rem)] flex-col gap-2 overflow-y-auto rounded-lg bg-secondary/95 p-2 shadow-xl"
       >
         <!-- About us -->
         <RouterLink to="/about">
@@ -45,7 +62,9 @@ const open = ref(false)
         </RouterLink>
 
         <RouterLink to="/dangerguide">
-          <button class="btn btn-primary">Gefahrenanleitung</button>
+          <button class="btn btn-primary w-full whitespace-normal text-center">
+            Gefahrenanleitung
+          </button>
         </RouterLink>
 
         <!-- Impressum -->
