@@ -1,5 +1,22 @@
 @import 'tailwindcss';
 @import 'leaflet/dist/leaflet.css';
+@plugin "@tailwindcss/typography";
+
+
+/* Design tokens — consumed by components via var() */
+:root {
+  --spacing-unit: 4px;
+  --spacing-gutter-md: 16px;
+  --spacing-margin-lg: 24px;
+  --font-size-body-md: 14px;
+  --font-size-label-sm: 11px;
+  --font-weight-label-sm: 500;
+  --line-height-label-sm: 14px;
+  --letter-spacing-label-sm: 0.03em;
+  --shape-round-full: 9999px;
+  --color-surface-variant: #e1e3e4;
+  --color-on-surface-variant: #64748b;
+}
 
 @theme {
   --color-background: #ffffff;
@@ -23,22 +40,31 @@
   --section-gap: 160px;
 }
 
-@layer components {
+
+/* Custom base styles */
+@layer base {
+  html {
+    @apply antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  body {
+    @apply font-sans;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
   main {
     @apply pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)];
     @apply px-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)];
-    @apply flex flex-col justify-center items-center;
-    @apply w-auto mx-auto;
-    @apply container w-auto;
+    @apply mx-auto;
+    @apply container;
     @apply mb-25;
   }
 
-  .flex-md {
-    @apply flex gap-4;
-  }
-
-  .flex-lg {
-    @apply flex gap-6;
+  /* Typography */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold text-primary tracking-tight;
   }
 
   h1 {
@@ -53,8 +79,50 @@
     @apply text-xl font-medium text-secondary mb-2 items-center;
   }
 
+  p {
+    @apply leading-relaxed;
+  }
+
+  a {
+    @apply text-primary hover:text-primary-hover;
+  }
+
+  /* Focus styles for accessibility */
+  *:focus-visible {
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply  rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #75777d;
+  }
+}
+
+@layer components {
+
+
+  .flex-md {
+    @apply flex gap-4;
+  }
+
+  .flex-lg {
+    @apply flex gap-6;
+  }
+
   .card {
-    @apply border bg-card rounded-md p-3;
+    @apply border bg-card rounded-xl border-border;
   }
 
   .card-sybit {

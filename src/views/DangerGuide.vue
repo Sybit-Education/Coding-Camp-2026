@@ -4,9 +4,9 @@ import { RouterLink } from 'vue-router'
 
 <template>
   <main>
-    <h1 class="text-3xl font-bold text-primary mb-6">Gefahrenanleitung</h1>
+    <h1>Gefahrenanleitung</h1>
 
-    <div class="space-y-4">
+
       <p>
         Bei Verdacht auf eine Vergiftung durch Pflanzen sofort den Mundraum des Kindes kontrollieren
         und Pflanzenreste entfernen.
@@ -22,7 +22,7 @@ import { RouterLink } from 'vue-router'
         <strong>0761 / 19240</strong>) kontaktieren oder bei akuten Beschwerden den
         <strong>Notruf 112</strong> wählen.
       </p>
-    </div>
+
 
     <div class="mt-8">
       <h2 class="text-xl font-semibold mb-3">Sofortige Maßnahmen</h2>

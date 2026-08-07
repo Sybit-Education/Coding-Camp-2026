@@ -1,12 +1,10 @@
 <template>
-    <main
-      class="relative flex w-full items-center gap-1 rounded-lg border border-gray-300 bg-white p-1 shadow-sm focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500"
-    >
+    <main>
       <Search class="m-1 shrink-0 text-gray-400" />
       <input
         v-model="searchQuery"
         type="search"
-        placeholder="Suchen..."
+        placeholder="Suchen ..."
         class="min-w-0 flex-1 py-2 text-sm outline-none"
       />
       <div ref="menuRef" class="relative shrink-0 text-left">

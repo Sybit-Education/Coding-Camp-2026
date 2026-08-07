@@ -6,8 +6,6 @@
     >
       <div class="relative">
         <a
-          :href="entry.attributionURL"
-          target="_blank"
           v-if="
             entry.imageUrl &&
             entry.attributionURL &&
@@ -15,6 +13,8 @@
             entry.attributionLicense &&
             !hasImageError
           "
+          :href="entry.attributionURL"
+          target="_blank"
           class="flex items-center flex-sm nowrap absolute bottom-0 right-0 text-sm bg-black/60 text-white text-right px-1"
         >
           <CopyrightIcon class="size-4" /> {{ entry.attributionAuthor }},
@@ -36,10 +36,10 @@
         </div>
       </div>
 
-      <AutoTextToSpeech :targetSelector="'article'" lang="de-DE" />
+      <AutoTextToSpeech :targetSelector="'section'" lang="de-DE" />
 
-      <div class="p-4">
-        <h1 class="text-2xl font-bold text-heading">{{ entry.name }}</h1>
+      <section class="p-4">
+        <h1>{{ entry.name }}</h1>
         <div class="mt-2 flex flex-wrap gap-2">
           <span
             v-if="entry.isProtected"
@@ -62,25 +62,25 @@
         <p v-if="toxicityReference" class="mt-2 text-sm text-text">
           {{ toxicityReference.description }}
         </p>
-        <p class="mt-3 text-text">{{ entry.description }}</p>
-      </div>
-    </article>
+        <p class="mt-3">{{ entry.description }}</p>
+      </section>
 
-    <section
-      v-if="soundID.length"
-      class="space-y-3 rounded-xl border border-border bg-background p-4 shadow-sm"
-      aria-labelledby="sounds-heading"
-    >
-      <h2 id="sounds-heading" class="text-xl font-bold text-heading">Sounds</h2>
-      <div class="space-y-3">
-        <XenoPlayer
-          v-for="item in soundID"
-          :key="item.id"
-          :id="item.xenocanto_id"
-          :darkBackground="false"
-        />
-      </div>
-    </section>
+      <section
+        v-if="soundID.length"
+        class="card p-3 m-3"
+        aria-labelledby="sounds-heading"
+      >
+        <h2 id="sounds-heading">Vogelstimmen</h2>
+        <div class="space-y-3">
+          <XenoPlayer
+            v-for="item in soundID"
+            :key="item.id"
+            :id="item.xenocanto_id"
+            :darkBackground="false"
+          />
+        </div>
+      </section>
+    </article>
   </main>
 </template>
 
