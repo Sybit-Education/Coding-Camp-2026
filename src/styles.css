@@ -2,7 +2,6 @@
 @import 'leaflet/dist/leaflet.css';
 @plugin "@tailwindcss/typography";
 
-
 /* Design tokens — consumed by components via var() */
 :root {
   --spacing-unit: 4px;
@@ -46,12 +45,11 @@
   --section-gap: 160px;
 }
 
-
 /* Custom base styles */
 @layer base {
   html {
     @apply antialiased;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
   }
 
   body {
@@ -70,7 +68,12 @@
   }
 
   /* Typography */
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-bold text-primary tracking-tight;
   }
 
@@ -99,7 +102,7 @@
 
   /* Focus styles for accessibility */
   *:focus-visible {
-    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2;
   }
 
   /* Scrollbar styling */
@@ -112,7 +115,7 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply  rounded-full;
+    @apply rounded-full;
   }
 
   ::-webkit-scrollbar-thumb:hover {
@@ -121,7 +124,9 @@
 }
 
 @layer components {
-
+  .flex-sm {
+    @apply flex gap-2;
+  }
 
   .flex-md {
     @apply flex gap-4;
