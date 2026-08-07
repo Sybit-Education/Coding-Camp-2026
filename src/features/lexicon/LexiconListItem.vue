@@ -36,13 +36,8 @@
           <div class="min-w-0">
             <div class="flex flex-wrap items-center gap-2">
               <h2 class="break-words">{{ entry.name }}</h2>
-              <span
-                v-if="entry.isProtected"
-                class="flex items-center gap-1 rounded-full bg-green-600 px-2 py-1 text-xs text-white"
-              >
-                <LeafIcon :size="14" aria-hidden="true" />
-                Geschützt
-              </span>
+
+              <MettnauHighlightBadge v-if="entry.isProtected" />
               <span
                 v-if="entry.toxicityLevel"
                 class="flex items-center gap-1 rounded-full bg-red-600 px-2 py-1 text-xs text-white"
@@ -73,6 +68,7 @@ import fallbackImage from '/img/mettnau-logo.svg'
 import type { LexiconListEntry } from '@/shared/types/lexicon.types'
 import { LeafIcon, SkullIcon } from '@lucide/vue'
 import { ref } from 'vue'
+import MettnauHighlightBadge from './MettnauHighlightBadge.vue';
 
 defineProps<{
   entry: LexiconListEntry
