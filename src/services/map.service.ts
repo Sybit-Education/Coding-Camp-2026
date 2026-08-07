@@ -1,22 +1,18 @@
 import L from 'leaflet'
 import type { Feature, FeatureCollection, Geometry } from 'geojson'
 
-// Default contig
 const METTNAU_CENTER: L.LatLngTuple = [47.728558, 9.000175]
 const METTNAU_DEFAULT_ZOOM = 14
 
-// Map bounds
 const MAP_BOUNDS = {
-  southWest: [47.7, 8.95] as L.LatLngTuple,
-  northEast: [47.75, 9.05] as L.LatLngTuple,
+  southWest: L.latLng(47.49926433371864, 8.766776086610086),
+  northEast: L.latLng(47.839096177396186, 9.88577290757221),
 }
 
-// Infos
 const TILE_LAYER_URL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 const TILE_LAYER_ATTRIBUTION = '&copy; OpenStreetMap contributors'
 
-// Zoom Border
-const TILE_LAYER_MAX_ZOOM = 19 // Dont go over 19x, because loading issues occurs
+const TILE_LAYER_MAX_ZOOM = 19
 const TILE_LAYER_MIN_ZOOM = 10
 
 // Location data
@@ -54,10 +50,13 @@ export class MapService {
   private map: L.Map | null = null
   private locationsLayer: L.GeoJSON | null = null
 
-  initialize(container: HTMLDivElement): void {
+  initialize(container: HTMLElement): void {
+    const bounds = L.latLngBounds(MAP_BOUNDS.southWest, MAP_BOUNDS.northEast)
+
     this.map = L.map(container, {
       minZoom: TILE_LAYER_MIN_ZOOM,
       maxZoom: TILE_LAYER_MAX_ZOOM,
+      maxBounds: bounds,
     }).setView(METTNAU_CENTER, METTNAU_DEFAULT_ZOOM)
 
     this.addTileLayer()
@@ -66,6 +65,7 @@ export class MapService {
 
     this.loadLocations()
   }
+
   destroy(): void {
     this.locationsLayer = null
     this.map?.remove()
@@ -218,28 +218,12 @@ export class MapService {
   // }
 
   private addTileLayer(): void {
-    if (!this.map) {
-      return
-    }
+    if (!this.map) return
+
     L.tileLayer(TILE_LAYER_URL, {
       attribution: TILE_LAYER_ATTRIBUTION,
       maxZoom: TILE_LAYER_MAX_ZOOM,
       minZoom: TILE_LAYER_MIN_ZOOM,
     }).addTo(this.map)
   }
-
-  // private addDiscoveryPins(discoveries: DiscoveryCard[]): void {
-  //   if (!this.map) {
-  //     return
-  //   }
-  //   const pinService = new PinService(this.map)
-  //   pinService.addMultiple(discoveries)
-  // }
-
-  // private requireMap(): L.Map {
-  //   if (!this.map) {
-  //     throw new Error('MapService wurde noch nicht initialisiert.')
-  //   }
-  //   return this.map
-  // }
 }
