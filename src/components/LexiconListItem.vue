@@ -62,7 +62,7 @@
             {{ recognitionConfidence }} %
           </span>
         </div>
-        <p class="mt-1 break-words text-text">{{ entry.description }}</p>
+        <p class="mt-1 wrap-break-word text-text">{{ entry.description }}</p>
       </div>
     </section>
   </RouterLink>
