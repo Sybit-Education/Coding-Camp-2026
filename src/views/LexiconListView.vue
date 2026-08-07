@@ -1,5 +1,6 @@
 <template>
     <main>
+      <h1>Lexikon</h1>
       <Search class="m-1 shrink-0 text-gray-400" />
       <input
         v-model="searchQuery"

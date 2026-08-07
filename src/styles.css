@@ -23,6 +23,12 @@
   --color-background-soft: #f8f8f8;
   --color-background-mute: #f2f2f2;
   --color-primary: #2a944d;
+  --color-primary1: #0a5ca8;
+  --color-primary2: #2d7d46;
+  --color-accent1: #f2b705;
+  --color-accent2: #ff7a00;
+  --color-neutral1: #f3f4f6;
+  --color-neutral2: #e8eef2;
   --color-secondary: #1a5b30;
 
   --color-primary-hover: #247f42;
@@ -126,7 +132,7 @@
   }
 
   .card-sybit {
-    @apply bg-linear-to-br from-[#000057] to-[#c300ff] text-white p-7 rounded-md max-w-5xl;
+    @apply bg-linear-to-br from-[#000057] to-[#c300ff] text-white p-7 rounded-xl;
   }
 
   .btn {
