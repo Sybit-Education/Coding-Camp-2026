@@ -9,6 +9,8 @@
 <script setup lang="ts">
 import { ref, inject, onMounted } from 'vue'
 import type { MapService } from '@/services/map.service'
+import L from 'leaflet'
+
 
 const mapService = inject('mapService') as MapService
 const mapContainer = ref<HTMLDivElement | null>(null)
