@@ -32,7 +32,7 @@
         </div>
       </div>
     </div>
-  </article>
+  </section>
 
   <!-- Warnings -->
   <div v-if="warnings.length" class="mt-4 space-y-4">
@@ -44,7 +44,7 @@
     </div>
 
     <!--Every Weather Warning-->
-    <article
+    <section
       v-for="warning in warnings"
       :key="warning.event + warning.expires"
       class="rounded-lg border border-red-500 bg-red-50 p-6"
@@ -65,7 +65,7 @@
           {{ new Date(warning.expires).toLocaleString('de-DE') }}
         </p>
       </div>
-    </article>
+    </section>
   </div>
 </template>
 
