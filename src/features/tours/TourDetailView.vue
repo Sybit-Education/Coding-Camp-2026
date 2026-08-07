@@ -96,6 +96,7 @@ import {
   MapPinned,
 } from '@lucide/vue'
 import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 
 function isGuidedTour(value: unknown): value is GuidedTour {
   if (!value || typeof value !== 'object') {
@@ -103,18 +104,27 @@ function isGuidedTour(value: unknown): value is GuidedTour {
   }
 
   const candidate = value as Record<string, unknown>
-  return (
-    typeof candidate.source === 'string' &&
-    typeof candidate.title === 'string' &&
-    typeof candidate.start === 'string' &&
-    typeof candidate.postalCode === 'string' &&
-    typeof candidate.city === 'string' &&
-    typeof candidate.location === 'string' &&
-    typeof candidate.sourceUrl === 'string'
-  )
+  return typeof candidate.title === 'string' && typeof candidate.start === 'string'
 }
 
-const tour = isGuidedTour(window.history.state?.tour) ? window.history.state.tour : undefined
+const route = useRoute()
+
+function getTourFromQuery(): GuidedTour | undefined {
+  const serializedTour = route.query.tour
+
+  if (typeof serializedTour !== 'string') {
+    return undefined
+  }
+
+  try {
+    const parsedTour: unknown = JSON.parse(serializedTour)
+    return isGuidedTour(parsedTour) ? parsedTour : undefined
+  } catch {
+    return undefined
+  }
+}
+
+const tour = getTourFromQuery()
 
 const startDate = computed(() => {
   if (!tour) {

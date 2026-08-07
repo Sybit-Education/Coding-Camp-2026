@@ -2,7 +2,7 @@
   <RouterLink
     :to="{
       path: `/tour/${tourId}`,
-      state: { tour },
+      query: { tour: JSON.stringify(tour) },
     }"
     class="group block rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
     :aria-label="`Details zur Führung ${tour.title} ansehen`"
