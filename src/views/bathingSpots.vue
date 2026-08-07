@@ -8,7 +8,6 @@ import { Ban, CheckCircle } from '@lucide/vue'
 
     <section>
       <div>
-        <CheckCircle />
         <h2>Erlaubt</h2>
       </div>
 
@@ -31,7 +30,6 @@ import { Ban, CheckCircle } from '@lucide/vue'
 
     <section>
       <div>
-        <Ban />
         <h2>Verboten</h2>
       </div>
 
