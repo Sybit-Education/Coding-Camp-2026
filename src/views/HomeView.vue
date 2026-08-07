@@ -17,13 +17,13 @@
     </div>
   </header>
 
-  <div class="flex overflow-x-auto scrollbar-hide lg:overflow-visible lg:justify-center">
+  <div class="flex overflow-x-auto scrollbar-hide lg:overflow-visible lg:justify-center gap-3">
     <RouterLink to="/map">
       <article
         class="flex items-center gap-5 rounded-xl border w-75 border-border bg-background p-4 shadow-sm transition duration-200 ease-out group-hover:-translate-y-0.5 group-hover:border-primary group-hover:shadow-md"
       >
         <img
-          :src="map"
+          :src="'/img/Map.png'"
           :alt="'Karte'"
           class="aspect-square h-40 w-40 shrink-0 rounded-lg object-cover"
         />
@@ -38,7 +38,7 @@
         class="flex items-center gap-5 rounded-xl border border-border bg-background p-4 shadow-sm transition duration-200 ease-out group-hover:-translate-y-0.5 group-hover:border-primary group-hover:shadow-md"
       >
         <img
-          :src="haubentaucher"
+          :src="'/img/Haubentaucher.jpg'"
           :alt="'Karte'"
           class="aspect-square h-40 w-40 shrink-0 rounded-lg object-cover"
         />
@@ -57,6 +57,4 @@
 
 <script setup lang="ts">
 import WeatherAlert from '@/components/WeatherAlert.vue'
-import map from '@/assets/Map.png'
-import haubentaucher from '@/assets/Haubentaucher.jpg'
 </script>
