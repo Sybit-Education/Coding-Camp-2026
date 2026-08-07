@@ -1,11 +1,14 @@
-export type TourGuide = {
-  id: string
+export type GuidedToursResponse = {
+  count: number
+  events: GuidedTour[]
+}
+
+export type GuidedTour = {
+  source: string
   title: string
-  description: string
-  imageUrl: string
-  audioUrl: string
-  location: {
-    latitude: number
-    longitude: number
-  }
+  start: string
+  postalCode: string
+  city: string
+  location: string
+  sourceUrl: string
 }
