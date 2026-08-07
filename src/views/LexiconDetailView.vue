@@ -88,7 +88,7 @@
         </div>
       </section>
     </article>
-  </div>
+  </main>
 </template>
 
 <script setup lang="ts">
