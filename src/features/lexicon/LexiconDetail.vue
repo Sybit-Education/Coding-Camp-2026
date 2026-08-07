@@ -41,13 +41,9 @@
       <section class="p-4 sm:p-6">
         <h1>{{ entry.name }}</h1>
         <div class="mt-2 flex flex-wrap gap-2">
-          <span
-            v-if="entry.isProtected"
-            class="flex w-fit items-center gap-1 rounded-full bg-green-600 px-2 py-1 text-xs text-white"
-          >
-            <LeafIcon :size="14" aria-hidden="true" />
-            Geschützt
-          </span>
+
+          <MettnauHighlightBadge v-if="entry.isProtected" />
+
           <span
             v-if="toxicityReference"
             class="flex w-fit items-center gap-1 rounded-full bg-red-600 px-2 py-1 text-xs text-white"
