@@ -64,7 +64,7 @@
 </template>
 
 <script setup lang="ts">
-import LexiconListItem from '@/features/lexicon/LexiconListItem.vue'
+import LexiconListItem from '@/components/LexiconListItem.vue'
 import { LexiconService } from '@/services/lexicon.service'
 import { useLabelsStore } from '@/stores/labels.store'
 import { useToxicityStore } from '@/stores/toxicity.store'

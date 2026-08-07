@@ -1,6 +1,6 @@
 <template>
-  <div class="page-view flex flex-col gap-4">
-    <div class="grid gap-4 sm:grid-cols-2">
+  <main class="page-view flex flex-col gap-6">
+    <section class="grid gap-4 sm:grid-cols-2 my-6">
       <RouterLink to="/map" class="min-w-0">
         <section
           class="card flex min-w-0 items-center gap-4 rounded-xl border shadow-sm transition duration-200 ease-out hover:-translate-y-0.5 hover:border-primary hover:shadow-md"
@@ -31,9 +31,9 @@
           </div>
         </article>
       </RouterLink>
-    </div>
+    </section>
 
-    <section class="flex flex-col gap-3">
+    <section class="flex flex-col gap-3 my-6">
       <p>
         Willkommen auf der App für die Mettnau! Entdecken Sie die Schönheit und Vielfalt dieses
         einzigartigen Naturgebiets, das sich entlang des Bodensees erstreckt. Die Mettnau bietet
@@ -51,7 +51,7 @@
       <Warning />
       <WeatherAlert />
     </section>
-  </div>
+  </main>
 </template>
 
 <script setup lang="ts">
