@@ -75,6 +75,11 @@
         "category": "nature",
         "name": "Waldstück hinter der METTNAU Klinik"
       }
+       {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [7.9883433, 47.7310094] },
+      "properties": { "category": "relaxation", "name": "Sitzbänke" }
+    },
     },
     {
       "type": "Feature",
