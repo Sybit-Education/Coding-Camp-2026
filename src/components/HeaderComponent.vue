@@ -9,7 +9,9 @@ defineProps<{
     class="header flex items-center justify-center bg-cover bg-no-repeat bg-center"
     :class="{ 'header--compact': isCompact }"
     :style="{
-      backgroundImage: `radial-gradient(circle at center 100px, white 0%, transparent 70%), linear-gradient(to bottom, transparent, white), url(/img/Banner.jpg)`,
+      backgroundImage: isCompact
+        ? 'radial-gradient(circle at center 30px, white 0%, transparent 70%), url(/img/Banner.jpg)'
+        : `radial-gradient(circle at center 100px, white 0%, transparent 70%), linear-gradient(to bottom, transparent, white), url(/img/Banner.jpg)`,
     }"
   >
     <div class="header-content flex flex-col items-center font-head">
@@ -43,6 +45,8 @@ defineProps<{
   height: 56px;
   flex-basis: 56px;
   background-position: center 42%;
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 68%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 0%, black 68%, transparent 100%);
 }
 
 .header--compact .header-content {
