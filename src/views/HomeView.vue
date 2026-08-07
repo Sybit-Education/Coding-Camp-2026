@@ -61,14 +61,14 @@
 <script setup lang="ts">
 import Warning from '@/components/Warning.vue'
 import WeatherAlert from '@/components/WeatherAlert.vue'
-
-//
 import { ref, onMounted } from 'vue'
 import { ObservationService } from '@/services/observation.service'
 import { PocketBaseService } from '@/services/pocket-base.service'
 
-const newestBird = ref<any>(null)
+// Newest bird variabel
+const newestBird = ref<LexiconEntry | undefined>(null)
 
+// On mount
 onMounted(async () => {
   const service = new ObservationService(new PocketBaseService())
 

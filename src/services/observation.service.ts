@@ -6,22 +6,22 @@ import type { PocketBaseService } from './pocket-base.service'
 export class ObservationService {
   constructor(readonly pocketBaseService: PocketBaseService) {}
 
+  // Gets newest bird
   async getNewestBird(): Promise<LexiconEntry | null> {
     const observations = await this.getObservations()
 
     // Sort observations by newest date
     const sorted = observations.observations.sort((a, b) => Number(b.date) - Number(a.date))
 
-    const lexiconEntries = await this.pocketBaseService.getAll<LexiconEntry>('lexiconEntries')
-
     // Find matching animal in pocketbase
     for (const observation of sorted) {
-      const foundBird = lexiconEntries.find(
-        (entry) =>
-          entry.name.toLowerCase() === observation.species.toLowerCase() ||
-          entry.latinName?.toLowerCase() === observation.taxonomy?.toLowerCase(),
+      const foundBird = await this.pocketBaseService.getBy<LexiconEntry>(
+        'lexiconEntries',
+        'name',
+        observation.species,
       )
 
+      // Found bird
       if (foundBird) {
         return {
           ...foundBird,
@@ -32,16 +32,20 @@ export class ObservationService {
       }
     }
 
+    // Fallback
     return null
   }
 
+  // Gets observations
   private async getObservations(): Promise<ObservationResponse> {
     const response = await fetch(environment.obsercationAddress)
 
+    // Failed
     if (!response.ok) {
       throw new Error('Observations konnten nicht geladen werden')
     }
 
+    // Parses response
     return await response.json()
   }
 }
