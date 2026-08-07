@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { MapIcon, InfoIcon, BookOpenTextIcon, MenuIcon, MicIcon } from '@lucide/vue'
+import { MapIcon, InfoIcon, BookOpenTextIcon, MenuIcon, MicIcon, HouseIcon } from '@lucide/vue'
 import { RouterLink } from 'vue-router'
 
 const open = ref(false)
 </script>
 
 <template>
-  <div class="flex justify-evenly inset-x-0 bottom-0 p-3 bg-secondary/85 fixed z-50">
+  <nav class="flex justify-evenly inset-x-0 bottom-0 p-3 bg-secondary/85 fixed z-50">
     <!-- Home page -->
     <RouterLink to="/">
-      <button class="btn btn-primary"><InfoIcon /></button>
+      <button class="btn btn-primary"><HouseIcon /></button>
     </RouterLink>
 
     <!-- Map -->
@@ -55,10 +55,10 @@ const open = ref(false)
         </a>
 
         <!-- Data-protection -->
-        <RouterLink to="/dataprotection">
+        <RouterLink to="/privacy-policy">
           <button class="btn btn-primary w-full">Datenschutz</button>
         </RouterLink>
       </div>
     </div>
-  </div>
+  </nav>
 </template>
