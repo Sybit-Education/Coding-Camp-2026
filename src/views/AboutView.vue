@@ -1,5 +1,5 @@
 <template>
-  <div class="page-view">
+  <main>
     <h1>About Us</h1>
 
     <div class="flex items-center justify-center m-0">
@@ -75,7 +75,7 @@
         <ExternalLinkIcon class="size-5" />
       </a>
     </div>
-  </div>
+  </main>
 </template>
 
 <script setup lang="ts">
