@@ -6,12 +6,13 @@
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
+    "check:service-boundaries": "node scripts/check-service-boundaries.mjs",
     "preview": "vite preview",
     "test:unit": "vitest",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
-    "lint": "oxlint . --deny-warnings",
-    "lint:fix": "oxlint . --fix",
+    "lint": "npm run check:service-boundaries && oxlint . --deny-warnings",
+    "lint:fix": "npm run check:service-boundaries && oxlint . --fix",
     "format": "oxfmt src/"
   },
   "dependencies": {
