@@ -123,6 +123,10 @@
 }
 
 @layer components {
+  .flex-sm {
+    @apply flex gap-2;
+  }
+
   .flex-md {
     @apply flex gap-4;
   }
