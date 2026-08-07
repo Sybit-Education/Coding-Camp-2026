@@ -1,17 +1,19 @@
 <template>
-  <div class="page-view">
+  <main>
     <h1>About Us</h1>
 
-    <div class="flex items-center justify-center m-0">
-      <img src="/team.jpeg" class="rounded-lg" />
+    <div class="flex-md items-center justify-center m-0">
+      <img src="/team.jpeg" class="rounded-lg" alt="Das SYBIT Coding Camp Team"/>
     </div>
+
+    <AutoTextToSpeech :targetSelector="'section'" lang="de-DE" />
 
     <section class="my-5">
       <h2 class="flex-md"><InfoIcon /> Infos</h2>
-      <div class="flex-sm flex-col md:flex-row">
+      <div class="flex-col md:flex-row">
         <h3>Über das Projekt</h3>
         <p>
-          Diese Website wurde im Rahmen des SYBIT Coding Camps 2026 entwickelt ‐ von jungen
+          Diese Website wurde im Rahmen des SYBIT Coding Camps 2026 entwickelt - von jungen
           Talenten, die mit Neugier ihre ersten Schritte in der professionellen Softwareentwicklung
           gegangen sind. Unser Ziel war es, nicht nur Code zu schreiben, sondern etwas Sinnvolles zu
           erschaffen, das funktioniert, nützlich ist und unsere Ideen sichtbar macht. Einen
@@ -75,9 +77,10 @@
         <ExternalLinkIcon class="size-5" />
       </a>
     </div>
-  </div>
+  </main>
 </template>
 
 <script setup lang="ts">
+import AutoTextToSpeech from '@/components/AutoTextToSpeech.vue';
 import { ExternalLinkIcon, InfoIcon, UsersIcon } from '@lucide/vue'
 </script>

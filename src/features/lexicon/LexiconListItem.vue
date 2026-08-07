@@ -62,14 +62,14 @@
             {{ recognitionConfidence }} %
           </span>
         </div>
-        <p class="mt-1 break-words text-text">{{ entry.description }}</p>
+        <p class="mt-1 wrap-break-word text-text">{{ entry.description }}</p>
       </div>
     </section>
   </RouterLink>
 </template>
 
 <script setup lang="ts">
-import fallbackImage from '@/assets/logo.svg'
+import fallbackImage from '/img/mettnau-logo.svg'
 import type { LexiconListEntry } from '@/shared/types/lexicon.types'
 import { LeafIcon, SkullIcon } from '@lucide/vue'
 import { ref } from 'vue'

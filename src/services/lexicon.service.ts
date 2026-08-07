@@ -23,6 +23,7 @@ export class LexiconService {
       lexiconEntries.map(async (entry) => ({
         id: entry.id,
         name: entry.name,
+        reference: entry.reference,
         label: await this.resolveLabelName(entry.label),
         description: sanatizeTextLength(entry.description, 100),
         imageUrl: entry.media ? await this.resolveImageUrl(entry, entry.media) : undefined,
