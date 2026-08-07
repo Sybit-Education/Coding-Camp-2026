@@ -2,7 +2,7 @@ export const ROUTE_NAMES = {
   HOME: 'home',
   MAP: 'map',
   IMPRINT: 'imprint',
-  DATA_PROTECTION: 'data-protection',
+  PRIVACY_POLICY: 'privacy-policy',
   LEXICON: 'lexicon',
   LEXICON_DETAILS: 'Lexicon Detail',
   BIRD_RECOGNITION: 'bird-recognition',

@@ -1,13 +1,11 @@
 <template>
-  <main class="mx-auto w-full max-w-md space-y-4 px-4 py-4 pb-24">
-    <div
-      class="relative flex w-full items-center gap-1 rounded-lg border border-gray-300 bg-white p-1 shadow-sm focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500"
-    >
+    <main>
+      <h1>Lexikon</h1>
       <Search class="m-1 shrink-0 text-gray-400" />
       <input
         v-model="searchQuery"
         type="search"
-        placeholder="Suchen..."
+        placeholder="Suchen ..."
         class="min-w-0 flex-1 py-2 text-sm outline-none"
       />
       <div ref="menuRef" class="relative shrink-0 text-left">
@@ -40,22 +38,23 @@
           </button>
         </div>
       </div>
-    </div>
 
-    <details class="rounded-xl border border-border bg-background p-3 text-sm text-text">
-      <summary class="cursor-pointer font-semibold text-heading">Giftigkeitsstufen</summary>
-      <dl class="mt-3 space-y-2">
-        <div v-for="level in toxicityReferences" :key="level.id" class="flex gap-2">
-          <dt class="min-w-10 font-bold text-red-700">{{ level.type }}</dt>
-          <dd class="font-medium">{{ level.description }}</dd>
-        </div>
-      </dl>
-    </details>
 
-    <section class="space-y-4" aria-label="Lexikoneinträge">
-      <LexiconListItem v-for="entry in filteredEntries" :key="entry.id" :entry="entry" />
-    </section>
-  </main>
+      <details class="rounded-xl border border-border bg-background p-3 text-sm text-text">
+        <summary class="cursor-pointer font-semibold text-heading">Giftigkeitsstufen</summary>
+        <dl class="mt-3 space-y-2">
+          <div v-for="level in toxicityReferences" :key="level.id" class="flex gap-2">
+            <dt class="min-w-10 font-bold text-red-700">{{ level.type }}</dt>
+            <dd class="font-medium">{{ level.description }}</dd>
+          </div>
+        </dl>
+      </details>
+
+      <section class="space-y-4" aria-label="Lexikoneinträge">
+        <LexiconListItem v-for="entry in filteredEntries" :key="entry.id" :entry="entry" />
+      </section>
+    </main>
+
 </template>
 
 <script setup lang="ts">
