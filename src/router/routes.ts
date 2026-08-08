@@ -44,7 +44,7 @@ export const routes: RouteRecordRaw[] = [
       import(/* webpackChunkName: "lexicon-list-view" */ '../views/LexiconListView.vue'),
   },
   {
-    path: '/lexiconDetail/:id',
+    path: '/lexicon/:id',
     name: ROUTE_NAMES.LEXICON_DETAILS,
     component: () =>
       import(/* webpackChunkName: "lexicon-detail-view" */ '../views/LexiconDetailView.vue'),

@@ -17,7 +17,7 @@
         </section>
       </RouterLink>
 
-      <RouterLink v-if="newestBird" :to="`/lexiconDetail/${newestBird.id}`" class="min-w-0">
+      <RouterLink v-if="newestBird" :to="`/lexicon/${newestBird.id}`" class="min-w-0">
         <article
           class="card flex h-full min-w-0 items-center gap-4 shadow-sm transition duration-200 ease-out hover:-translate-y-0.5 hover:border-primary hover:shadow-md"
         >
