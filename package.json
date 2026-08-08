@@ -21,6 +21,7 @@
     "@tailwindcss/vite": "^4.3.3",
     "@vueuse/core": "^14.4.0",
     "leaflet": "^1.9.4",
+    "minisearch": "^7.2.0",
     "pinia": "^4.0.2",
     "pocketbase": "^0.27.1",
     "postcss": "^8.5.25",

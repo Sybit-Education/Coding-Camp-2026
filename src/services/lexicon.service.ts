@@ -3,6 +3,7 @@ import {
   type LexiconListEntry,
   type ToxicityLevel,
 } from '@/shared/types/lexicon.types'
+import { searchLexiconEntries } from '@/features/lexicon/search/lexicon-search-index'
 import type { PocketBaseService } from './pocket-base.service'
 import { sanatizeTextLength } from '@/shared/utils/sanitizer'
 import { useLabelsStore } from '@/stores/labels.store'
@@ -54,13 +55,7 @@ export class LexiconService {
   }
 
   filterLexiconEntries(entries: LexiconListEntry[], searchTerm: string): LexiconListEntry[] {
-    const lowerCaseSearchTerm = searchTerm.toLowerCase()
-
-    return entries.filter(
-      (entry) =>
-        entry.name.toLowerCase().includes(lowerCaseSearchTerm) ||
-        entry.description.toLowerCase().includes(lowerCaseSearchTerm),
-    )
+    return searchLexiconEntries(entries, searchTerm)
   }
 
   private async resolveLabelName(labelId: string): Promise<string> {
