@@ -41,13 +41,7 @@
       <section class="p-4 sm:p-6">
         <h1>{{ entry.name }}</h1>
         <div class="mt-2 flex flex-wrap gap-2">
-          <span
-            v-if="entry.isProtected"
-            class="flex w-fit items-center gap-1 rounded-full bg-green-600 px-2 py-1 text-xs text-white"
-          >
-            <LeafIcon :size="14" aria-hidden="true" />
-            Geschützt
-          </span>
+          <MettnauHighlightBadge v-if="entry.isProtected" showTextInBadge/>
           <span
             v-if="toxicityReference"
             class="flex w-fit items-center gap-1 rounded-full bg-red-600 px-2 py-1 text-xs text-white"
@@ -103,6 +97,7 @@ import type { LexiconEntry } from '@/shared/types/lexicon.types'
 import { CopyrightIcon, ExternalLinkIcon, LeafIcon, SkullIcon } from '@lucide/vue'
 import { computed, inject, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
+import MettnauHighlightBadge from '@/features/lexicon/MettnauHighlightBadge.vue'
 
 const lexiconService = inject('lexiconService') as LexiconService
 const audioService = inject('audioService') as AudioService

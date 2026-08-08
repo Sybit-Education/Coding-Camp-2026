@@ -31,4 +31,16 @@ export class PocketBaseService {
       filter: `${tableName} ~ "${parentId}"`,
     })
   }
+
+  async getBy<T extends RecordModel>(
+    table: string,
+    column: string,
+    value: string,
+  ): Promise<T | undefined> {
+    try {
+      return await this.pb.collection(table).getFirstListItem(`${column}="${value}"`)
+    } catch {
+      return undefined
+    }
+  }
 }

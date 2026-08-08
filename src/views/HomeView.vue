@@ -1,5 +1,5 @@
 <template>
-  <main class="page-view flex flex-col gap-6">
+  <main class="flex flex-col gap-6">
     <section class="grid gap-4 sm:grid-cols-2 my-6">
       <RouterLink to="/map" class="min-w-0">
         <section
@@ -16,18 +16,22 @@
           </div>
         </section>
       </RouterLink>
-      <RouterLink to="/lexiconDetail/9v1wsyol8316l27" class="min-w-0">
+
+      <RouterLink v-if="newestBird" :to="`/lexiconDetail/${newestBird.id}`" class="min-w-0">
         <article
           class="card flex h-full min-w-0 items-center gap-4 shadow-sm transition duration-200 ease-out hover:-translate-y-0.5 hover:border-primary hover:shadow-md"
         >
           <img
-            src="/img/Haubentaucher.jpg"
-            alt="Haubentaucher"
+            :src="newestBird.imageUrl ?? '/img/Haubentaucher.jpg'"
+            :alt="newestBird.name"
             class="h-20 w-20 shrink-0 rounded-tl-xl rounded-bl-xl object-cover sm:h-24 sm:w-24"
           />
           <div class="min-w-0">
             <h2 class="text-xl font-bold text-heading">Tier der Woche</h2>
-            <p class="mt-1 text-text">Haubentaucher</p>
+
+            <p class="mt-1 text-text">
+              {{ newestBird?.name ?? 'Lade Vogel...' }}
+            </p>
           </div>
         </article>
       </RouterLink>
@@ -57,4 +61,17 @@
 <script setup lang="ts">
 import Warning from '@/components/Warning.vue'
 import WeatherAlert from '@/components/WeatherAlert.vue'
+import { ref, onMounted, inject } from 'vue'
+import { ObservationService } from '@/services/observation.service'
+import type { LexiconEntry } from '@/shared/types/lexicon.types'
+
+// Newest bird variabel
+const newestBird = ref<LexiconEntry | null>(null)
+
+// On mount
+onMounted(async () => {
+  const service = inject('observationService') as ObservationService
+
+  newestBird.value = await service.getNewestBird()
+})
 </script>

@@ -26,7 +26,7 @@
 
 <script setup lang="ts">
 import type L from 'leaflet'
-import { inject, onMounted, ref } from 'vue'
+import { inject, onMounted, onUnmounted, ref } from 'vue'
 import type { MapService } from '@/services/map.service'
 
 const mapService = inject('mapService') as MapService
@@ -56,6 +56,10 @@ onMounted(() => {
   if (mapContainer.value) {
     mapService.initialize(mapContainer.value)
   }
+})
+
+onUnmounted(() => {
+  mapService.destroy()
 })
 </script>
 

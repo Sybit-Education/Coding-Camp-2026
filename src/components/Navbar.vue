@@ -5,9 +5,13 @@ import { RouterLink } from 'vue-router'
 const open = ref(false)
 const menuRef = ref<HTMLElement | null>(null)
 
+function closeMenu(): void {
+  open.value = false
+}
+
 function closeMenuOnOutsideClick(event: PointerEvent): void {
   if (menuRef.value && event.target instanceof Node && !menuRef.value.contains(event.target)) {
-    open.value = false
+    closeMenu()
   }
 }
 
@@ -57,18 +61,18 @@ onBeforeUnmount(() => {
         class="absolute bottom-[calc(100%+0.5rem+4px)] right-0 z-1001 flex max-h-[calc(100dvh-6rem)] w-[min(14rem,calc(100vw-1rem))] max-w-[calc(100vw-1rem)] flex-col gap-2 overflow-y-auto rounded-t-2xl bg-secondary/33 p-2 shadow-xl"
       >
         <!-- About us -->
-        <RouterLink to="/about">
+        <RouterLink to="/about" @click="closeMenu">
           <button class="btn btn-primary w-full">About Us</button>
         </RouterLink>
 
-        <RouterLink to="/dangerguide">
+        <RouterLink to="/dangerguide" @click="closeMenu">
           <button class="btn btn-primary w-full whitespace-normal text-center">
             Gefahrenanleitung
           </button>
         </RouterLink>
 
         <!-- bathing spots -->
-        <RouterLink to="/bathing-spots">
+        <RouterLink to="/bathing-spots" @click="closeMenu">
           <button class="btn btn-primary w-full">Wo darf man baden?</button>
         </RouterLink>
 
@@ -79,7 +83,7 @@ onBeforeUnmount(() => {
 
 
         <!-- Data-protection -->
-        <RouterLink to="/privacy-policy">
+        <RouterLink to="/privacy-policy" @click="closeMenu">
           <button class="btn btn-primary w-full">Datenschutz</button>
         </RouterLink>
       </div>

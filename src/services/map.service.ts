@@ -51,8 +51,10 @@ export class MapService {
   private routeLayer: L.GeoJSON | L.Polyline | null = null
   private locationsLayer: L.GeoJSON | null = null
   private routeRequestId = 0
+  private loadLocationsRequestId = 0
 
-  initialize(container: HTMLDivElement) {
+  initialize(container: HTMLElement): void {
+    const requestId = ++this.loadLocationsRequestId
     const bounds = L.latLngBounds(MAP_BOUNDS.southWest, MAP_BOUNDS.northEast)
 
     this.map = L.map(container, {
@@ -62,17 +64,19 @@ export class MapService {
     }).setView(METTNAU_CENTER, METTNAU_DEFAULT_ZOOM)
 
     this.addTileLayer()
-    void this.loadLocations()
+
+    void this.loadLocations(requestId)
   }
 
   destroy(): void {
+    this.loadLocationsRequestId += 1
     this.locationsLayer = null
     this.removeRoute()
     this.map?.remove()
     this.map = null
   }
 
-  async loadLocations(): Promise<void> {
+  async loadLocations(requestId = this.loadLocationsRequestId): Promise<void> {
     if (!this.map) {
       return
     }
@@ -84,6 +88,10 @@ export class MapService {
       }
 
       const data = (await response.json()) as FeatureCollection<Geometry, LocationProperties>
+
+      if (!this.map || requestId !== this.loadLocationsRequestId) {
+        return
+      }
 
       this.locationsLayer = L.geoJSON(data, {
         pointToLayer: (feature, latlng) => this.createLocationMarker(feature, latlng),
