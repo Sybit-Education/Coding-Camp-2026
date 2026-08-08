@@ -68,4 +68,20 @@ describe('lexicon search index', () => {
   it('tolerates small typos in searched terms', () => {
     expect(searchLexiconEntries(entries, 'Schilfrohresanger')[0]?.id).toBe('description-only')
   })
+
+  it('finds entries when the search term is part of a German compound word', () => {
+    const compoundEntries: LexiconListEntry[] = [
+      {
+        id: 'compound-name-match',
+        name: 'Buntspecht',
+        latinName: 'Dendrocopos major',
+        label: 'Vögel',
+        description: 'Trommelt an Baumstämmen.',
+      },
+    ]
+
+    expect(searchLexiconEntries(compoundEntries, 'Specht').map((entry) => entry.id)).toContain(
+      'compound-name-match',
+    )
+  })
 })
