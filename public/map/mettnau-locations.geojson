@@ -88,35 +88,13 @@
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [8.97929898918457,  47.73436691065578] },
+      "geometry": { "type": "Point", "coordinates": [8.97929898918457, 47.73436691065578] },
       "properties": { "category": "bathing_place", "name": "Seebad Mettnau" }
-    }, 
+    },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [8.993236661954336,  47.72940910595648] },
+      "geometry": { "type": "Point", "coordinates": [8.993236661954336, 47.72940910595648] },
       "properties": { "category": "bathing_place", "name": "Strandbad Mettnau" }
-    },     
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [9.00336, 47.729178],
-          [9.007952, 47.727504],
-          [9.009948, 47.725642],
-          [9.011536, 47.724978],
-          [9.0119, 47.724285],
-          [9.014132, 47.723159],
-          [9.014819, 47.721932],
-          [9.015484, 47.721744]
-        ]
-      },
-      "properties": {
-        "category": "closure",
-        "name": "Weg gesperrt vom 15.4. bis 31.8.",
-        "start": "04-15",
-        "end": "08-31"
-      }
     }
   ]
 }

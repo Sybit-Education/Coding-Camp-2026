@@ -1,5 +1,9 @@
+// map.service.ts
 import L from 'leaflet'
 import type { Feature, FeatureCollection, Geometry } from 'geojson'
+
+const ORS_API_KEY =
+  'eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjI1ZGQ1ZTNlYzcxYzRhMzdiNWM0MjYzNjljMTRiYmRkIiwiaCI6Im11cm11cjY0In0='
 
 const METTNAU_CENTER: L.LatLngTuple = [47.728558, 9.000175]
 const METTNAU_DEFAULT_ZOOM = 14
@@ -11,19 +15,15 @@ const MAP_BOUNDS = {
 
 const TILE_LAYER_URL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 const TILE_LAYER_ATTRIBUTION = '&copy; OpenStreetMap contributors'
-
 const TILE_LAYER_MAX_ZOOM = 19
 const TILE_LAYER_MIN_ZOOM = 10
 
-// Location data
 const LOCATIONS_GEOJSON_URL = '/map/mettnau-locations.geojson'
 
 interface LocationProperties {
-  category: 'train' | 'bus' | 'destination' | 'parking' | 'leisure' | 'nature' | 'closure' | 'bathing_place'
+  category: 'train' | 'bus' | 'destination' | 'parking' | 'leisure' | 'nature' | 'bathing_place'
   name: string
   number?: number
-  start?: string
-  end?: string
 }
 
 const CATEGORY_COLORS: Record<LocationProperties['category'], string> = {
@@ -33,7 +33,6 @@ const CATEGORY_COLORS: Record<LocationProperties['category'], string> = {
   parking: '#457b9d',
   leisure: '#f4a261',
   nature: '#2b9348',
-  closure: '#d90429',
   bathing_place: '#07737a',
 }
 
@@ -44,13 +43,14 @@ const CATEGORY_LABELS: Record<LocationProperties['category'], string> = {
   parking: '🅿️',
   leisure: '🌳',
   nature: '🌿',
-  closure: '🚧',
   bathing_place: '🏖️',
 }
 
 export class MapService {
   private map: L.Map | null = null
+  private routeLayer: L.GeoJSON | L.Polyline | null = null
   private locationsLayer: L.GeoJSON | null = null
+  private routeRequestId = 0
   private loadLocationsRequestId = 0
 
   initialize(container: HTMLElement): void {
@@ -71,6 +71,7 @@ export class MapService {
   destroy(): void {
     this.loadLocationsRequestId += 1
     this.locationsLayer = null
+    this.removeRoute()
     this.map?.remove()
     this.map = null
   }
@@ -85,6 +86,7 @@ export class MapService {
       if (!response.ok) {
         throw new Error(`Fehler beim Laden der Standorte: ${response.status}`)
       }
+
       const data = (await response.json()) as FeatureCollection<Geometry, LocationProperties>
 
       if (!this.map || requestId !== this.loadLocationsRequestId) {
@@ -96,17 +98,6 @@ export class MapService {
         style: (feature) => this.styleLocationFeature(feature),
         onEachFeature: (feature, layer) => this.bindLocationPopup(feature, layer),
       }).addTo(this.map)
-
-      this.locationsLayer.eachLayer((layer) => {
-        if (!(layer instanceof L.Polyline)) {
-          return
-        }
-
-        const properties = (layer.feature?.properties ?? {}) as LocationProperties
-        if (properties.category === 'closure') {
-          this.addTextAlongPath(layer, this.createClosureLabel(properties))
-        }
-      })
     } catch (error) {
       console.error('Standorte konnten nicht geladen werden.', error)
     }
@@ -146,91 +137,103 @@ export class MapService {
   }
 
   private styleLocationFeature(
-    feature: Feature<Geometry, LocationProperties> | undefined,
+    _feature: Feature<Geometry, LocationProperties> | undefined,
   ): L.PathOptions {
-    if (feature?.properties.category === 'closure') {
-      return {
-        color: CATEGORY_COLORS.closure,
-        weight: 5,
-        opacity: 0.85,
-        dashArray: '10, 8',
-      }
-    }
     return {}
   }
 
   private bindLocationPopup(feature: Feature<Geometry, LocationProperties>, layer: L.Layer): void {
-    const { name, category, start, end } = feature.properties
-    let content = `<strong>${name}</strong>`
-
-    if (category === 'closure' && start && end) {
-      content = this.createClosureLabel(feature.properties)
-    }
-
-    layer.bindPopup(content)
+    layer.bindPopup(`<strong>${feature.properties.name}</strong>`)
   }
-
-  private createClosureLabel(properties: LocationProperties): string {
-    if (!properties.start || !properties.end) {
-      return properties.name
-    }
-
-    return `Weg gesperrt von ${this.formatClosureDate(properties.start)} bis ${this.formatClosureDate(properties.end)}`
-  }
-
-  private addTextAlongPath(path: L.Polyline, text: string): void {
-    const pathElement = path.getElement() as SVGPathElement | null
-    const svg = pathElement?.ownerSVGElement
-
-    if (!pathElement || !svg) {
-      return
-    }
-
-    const pathId = `closure-route-${Date.now()}-${Math.random().toString(36).slice(2)}`
-    pathElement.id = pathId
-
-    const textElement = document.createElementNS('http://www.w3.org/2000/svg', 'text')
-    textElement.setAttribute('fill', CATEGORY_COLORS.closure)
-    textElement.setAttribute('font-size', '12')
-    textElement.setAttribute('font-weight', '600')
-    textElement.setAttribute('dy', '-8')
-
-    const textPath = document.createElementNS('http://www.w3.org/2000/svg', 'textPath')
-    textPath.setAttribute('href', `#${pathId}`)
-    textPath.setAttribute('startOffset', '8%')
-    textPath.textContent = text
-
-    textElement.append(textPath)
-    svg.append(textElement)
-  }
-
-  private formatClosureDate(date: string): string {
-    const [month, day] = date.split('-')
-    if (!month || !day) {
-      return date
-    }
-    return `${day}.${month}.`
-  }
-
-  // fitToConfiguredBounds(): void {
-  //   const map = this.requireMap()
-  //   const bounds = L.latLngBounds(MAP_BOUNDS.southWest, MAP_BOUNDS.northEast)
-  //   map.fitBounds(bounds, { padding: [24, 24] })
-  // }
-
-  // setAllowedBounds(bounds: L.LatLngBoundsExpression): void {
-  //   const map = this.requireMap()
-  //   map.setMaxBounds(bounds)
-  //   map.panInsideBounds(bounds, { animate: true })
-  // }
 
   private addTileLayer(): void {
-    if (!this.map) return
+    if (!this.map) {
+      return
+    }
 
     L.tileLayer(TILE_LAYER_URL, {
       attribution: TILE_LAYER_ATTRIBUTION,
       maxZoom: TILE_LAYER_MAX_ZOOM,
       minZoom: TILE_LAYER_MIN_ZOOM,
     }).addTo(this.map)
+  }
+
+  async addRoute(coords: L.LatLngExpression[]) {
+    if (!this.map) {
+      return
+    }
+
+    this.removeRoute()
+    const requestId = ++this.routeRequestId
+
+    try {
+      // ORS erwartet [lng, lat] statt [lat, lng]
+      const coordinates = coords.map((coordinate) => {
+        const [lat, lng] = Array.isArray(coordinate) ? coordinate : [coordinate.lat, coordinate.lng]
+
+        return [lng, lat]
+      })
+
+      const response = await fetch(
+        'https://api.openrouteservice.org/v2/directions/foot-hiking/geojson',
+        {
+          method: 'POST',
+          headers: {
+            Authorization: ORS_API_KEY,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ coordinates }),
+        },
+      )
+
+      if (!response.ok) {
+        const errorText = await response.text()
+        console.error(`ORS-Fehler ${response.status}:`, errorText)
+        throw new Error(`ORS-Fehler: ${response.status}`)
+      }
+
+      const data = await response.json()
+
+      if (!this.isCurrentRouteRequest(requestId)) {
+        return
+      }
+
+      if (!data.features?.length) {
+        console.warn('Keine Route gefunden, zeichne Wegpunkte direkt')
+        this.routeLayer = L.polyline(coords, { color: '#3388ff', weight: 5 }).addTo(this.map)
+      } else {
+        this.routeLayer = L.geoJSON(data, {
+          style: { color: '#3388ff', weight: 5 },
+        }).addTo(this.map)
+      }
+
+      const bounds =
+        this.routeLayer instanceof L.GeoJSON
+          ? this.routeLayer.getBounds()
+          : this.routeLayer.getBounds()
+
+      this.map.fitBounds(bounds, { padding: [40, 40] })
+    } catch (error) {
+      if (!this.isCurrentRouteRequest(requestId)) {
+        return
+      }
+
+      console.error('ORS-Routing fehlgeschlagen, fallback auf direkte Linie:', error)
+      this.routeLayer = L.polyline(coords, { color: '#3388ff', weight: 5 }).addTo(this.map)
+      this.map.fitBounds(this.routeLayer.getBounds(), { padding: [40, 40] })
+    }
+  }
+
+  removeRoute() {
+    this.routeRequestId += 1
+
+    if (this.routeLayer && this.map) {
+      this.map.removeLayer(this.routeLayer)
+      this.routeLayer = null
+    }
+  }
+
+  private isCurrentRouteRequest(requestId: number): boolean {
+    return this.routeRequestId === requestId && this.map !== null
   }
 }
