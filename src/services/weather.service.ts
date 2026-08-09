@@ -18,7 +18,7 @@ export class WeatherService {
   constructor() {}
 
   // Current Weather
-  async getCurrentWeather(): Promise<CurrentWeather[]> {
+  async getCurrentWeather(): Promise<CurrentWeather> {
     const response = await fetch(`${environment.WEATHER_API_URL}?lat=${LAT}&lon=${LON}`)
 
     if (!response.ok) {
