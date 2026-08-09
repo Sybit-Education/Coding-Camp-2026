@@ -14,6 +14,45 @@ const COMMUNITY_ID = '08335063'
 const TEST_WARNING = false
 const TEST_WARNING_AMOUNT = 0
 
+type DwdWarningRegion = {
+  polygonGeometry?: {
+    coordinates?: number[][][]
+  }
+}
+
+type DwdWarning = {
+  regions?: DwdWarningRegion[]
+  [key: string]: unknown
+}
+
+function isPointInPolygon(longitude: number, latitude: number, polygon: number[][]) {
+  let inside = false
+
+  for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+    const [xi, yi] = polygon[i] ?? []
+    const [xj, yj] = polygon[j] ?? []
+
+    if (xi === undefined || yi === undefined || xj === undefined || yj === undefined) {
+      continue
+    }
+
+    const intersects = yi > latitude !== yj > latitude
+      && longitude < ((xj - xi) * (latitude - yi)) / (yj - yi) + xi
+
+    if (intersects) {
+      inside = !inside
+    }
+  }
+
+  return inside
+}
+
+function containsLocation(warning: DwdWarning) {
+  return warning.regions?.some((region) => region.polygonGeometry?.coordinates?.some(
+    (polygon) => isPointInPolygon(LON, LAT, polygon),
+  )) ?? false
+}
+
 export class WeatherService {
   constructor() {}
 
@@ -63,7 +102,9 @@ export class WeatherService {
     console.log('DWD Warnungen:', data)
 
 
-    const warnings = data.warnings?.[COMMUNITY_ID]
+    const warnings = Array.isArray(data.warnings)
+      ? data.warnings.filter(containsLocation)
+      : data.warnings?.[COMMUNITY_ID]
 
     if (!warnings) {
       return []
