@@ -71,7 +71,7 @@ describe('WeatherService', () => {
       ],
     })
 
-    await expect(new WeatherService().getWarnings()).resolves.toEqual([
+    await expect(WeatherService.prototype.getWarnings()).resolves.toEqual([
       {
         event: 'GEWITTER',
         headline: 'Amtliche WARNUNG vor GEWITTER',
