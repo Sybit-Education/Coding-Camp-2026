@@ -22,7 +22,7 @@ describe('WeatherService', () => {
       warnings: [
         {
           event: 'GEWITTER',
-          headline: 'Amtliche WARNUNG vor GEWITTER',
+          headLine: 'Amtliche WARNUNG vor GEWITTER',
           description: 'Gewitter in Radolfzell',
           severity: 'Severe',
           start: '2026-08-09T10:00:00.000Z',

@@ -110,7 +110,7 @@ export class WeatherService {
     return warnings.map((warning: any) => ({
       event: warning.event ?? '',
 
-      headline: warning.headline ?? '',
+      headline: warning.headLine ?? warning.headline ?? '',
 
       description: warning.description ?? '',
 
