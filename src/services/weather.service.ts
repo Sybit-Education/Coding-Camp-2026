@@ -99,9 +99,6 @@ export class WeatherService {
 
     const data = await response.json()
 
-    console.log('DWD Warnungen:', data)
-
-
     const warnings = Array.isArray(data.warnings)
       ? data.warnings.filter(containsLocation)
       : data.warnings?.[COMMUNITY_ID]
