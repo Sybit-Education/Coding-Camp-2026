@@ -56,7 +56,7 @@
         <p v-if="toxicityReference" class="mt-2 text-sm text-text">
           {{ toxicityReference.description }}
         </p>
-        <p class="mt-3 text-text">{{ entry.description }}</p>
+        <MarkdownRenderer :source="entry.description" class="mt-3" />
 
         <a
           v-if="entry.reference"
@@ -89,6 +89,7 @@
 <script setup lang="ts">
 import AutoTextToSpeech from '@/components/AutoTextToSpeech.vue'
 import fallbackImage from '/img/mettnau-logo.svg'
+import MarkdownRenderer from '@/components/MarkdownRenderer.vue'
 import XenoPlayer from '@/components/XenoPlayer.vue'
 import type { AudioService } from '@/services/audio.service'
 import type { LexiconService } from '@/services/lexicon.service'
