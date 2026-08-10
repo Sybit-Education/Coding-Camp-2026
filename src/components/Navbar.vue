@@ -5,9 +5,27 @@ import { RouterLink } from 'vue-router'
 const open = ref(false)
 const menuRef = ref<HTMLElement | null>(null)
 
+const internalMenuItems = [
+  { to: '/about', label: 'About Us' },
+  { to: '/dangerguide', label: 'Gefahrenanleitung' },
+  { to: '/bathing-spots', label: 'Wo darf man baden?' },
+  { to: '/privacy-policy', label: 'Datenschutz' },
+]
+
+const externalMenuItems = [
+  {
+    href: 'https://www.sybit.com/de/impressum',
+    label: 'Impressum',
+  },
+]
+
+function closeMenu(): void {
+  open.value = false
+}
+
 function closeMenuOnOutsideClick(event: PointerEvent): void {
   if (menuRef.value && event.target instanceof Node && !menuRef.value.contains(event.target)) {
-    open.value = false
+    closeMenu()
   }
 }
 
@@ -47,41 +65,50 @@ onBeforeUnmount(() => {
     <!-- Dropdown -->
     <div ref="menuRef" class="relative">
       <!-- Hamburger trigger -->
-      <button class="btn btn-primary" @click="open = !open">
+      <button
+        class="btn btn-primary"
+        type="button"
+        aria-label="Weitere Navigation öffnen"
+        :aria-expanded="open"
+        aria-controls="navbar-overflow-menu"
+        @click="open = !open"
+      >
         <MenuIcon />
       </button>
 
       <!-- Dropdown menu -->
       <div
         v-if="open"
-        class="absolute bottom-[calc(100%+0.5rem+4px)] right-0 z-1001 flex max-h-[calc(100dvh-6rem)] w-[min(14rem,calc(100vw-1rem))] max-w-[calc(100vw-1rem)] flex-col gap-2 overflow-y-auto rounded-t-2xl bg-secondary/33 p-2 shadow-xl"
+        id="navbar-overflow-menu"
+        class="absolute bottom-[calc(100%+0.75rem)] right-0 z-1001 w-[min(16rem,calc(100vw-1.5rem))] overflow-hidden rounded-3xl border border-white/70 bg-white/95 p-2 text-left text-heading shadow-2xl shadow-black/25 backdrop-blur-md"
       >
-        <!-- About us -->
-        <RouterLink to="/about">
-          <button class="btn btn-primary w-full">About Us</button>
-        </RouterLink>
+        <div class="mb-1 px-3 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-secondary/70">
+          Mehr
+        </div>
 
-        <RouterLink to="/dangerguide">
-          <button class="btn btn-primary w-full whitespace-normal text-center">
-            Gefahrenanleitung
-          </button>
-        </RouterLink>
+        <div class="flex max-h-[calc(100dvh-7rem)] flex-col gap-1 overflow-y-auto">
+          <RouterLink
+            v-for="item in internalMenuItems"
+            :key="item.to"
+            :to="item.to"
+            class="rounded-2xl px-3 py-2.5 text-sm font-medium leading-snug text-heading transition hover:bg-neutral2 hover:text-secondary focus-visible:bg-neutral2"
+            @click="closeMenu"
+          >
+            {{ item.label }}
+          </RouterLink>
 
-        <!-- bathing spots -->
-        <RouterLink to="/bathing-spots">
-          <button class="btn btn-primary w-full">Wo darf man baden?</button>
-        </RouterLink>
-
-        <!-- Impressum -->
-        <a href="https://www.sybit.com/de/impressum" target="_blank" rel="noopener noreferrer">
-          <button class="btn btn-primary w-full">Impressum</button>
-        </a>
-
-
-        <!-- Data-protection -->
-        <RouterLink to="/privacy-policy">
-          <button class="btn btn-primary w-full">Datenschutz</button>
-        </RouterLink>
+          <a
+            v-for="item in externalMenuItems"
+            :key="item.href"
+            :href="item.href"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="rounded-2xl px-3 py-2.5 text-sm font-medium leading-snug text-heading transition hover:bg-neutral2 hover:text-secondary focus-visible:bg-neutral2"
+            @click="closeMenu"
+          >
+            {{ item.label }}
+          </a>
+        </div>
       </div>
     </div>
   </nav>
