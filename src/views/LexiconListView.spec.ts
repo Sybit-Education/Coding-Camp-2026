@@ -131,9 +131,15 @@ describe('LexiconListView', () => {
     await nextTick()
     await waitForHeadingCount(wrapper, 3)
 
+    expect(findChip(wrapper).attributes('aria-pressed')).toBe('false')
+    expect(wrapper.text()).toContain('3 von 3 Einträgen')
+
     await findChip(wrapper).trigger('click')
     await nextTick()
     await waitForHeadingCount(wrapper, 2)
+
+    expect(findChip(wrapper).attributes('aria-pressed')).toBe('true')
+    expect(wrapper.text()).toContain('2 von 3 Einträgen')
 
     expect(wrapper.findAll('h2').map((heading) => heading.text())).toEqual([
       'Highlight Vogel',
@@ -164,7 +170,7 @@ describe('LexiconListView', () => {
     expect(wrapper.findAll('h2').map((heading) => heading.text())).toEqual(['Highlight Vogel'])
   })
 
-  it('shows an empty-state message when no entries match', async () => {
+  it('shows an empty-state reset action and restores entries after reset', async () => {
     lexiconService.getLexiconEntriesList.mockResolvedValue([
       {
         id: 'plain-plant',
@@ -183,5 +189,21 @@ describe('LexiconListView', () => {
 
     expect(wrapper.findAll('h2')).toHaveLength(0)
     expect(wrapper.text()).toContain('Keine Einträge gefunden.')
+    expect(wrapper.text()).toContain(
+      'Versuche einen anderen Suchbegriff oder setze die Filter zurück.',
+    )
+
+    const resetButton = wrapper
+      .findAll('button')
+      .find((button) => button.text() === 'Filter zurücksetzen')
+    expect(resetButton).toBeTruthy()
+
+    await resetButton!.trigger('click')
+    await nextTick()
+
+    expect(findChip(wrapper).attributes('aria-pressed')).toBe('false')
+    expect(wrapper.findAll('h2').map((heading) => heading.text())).toEqual([
+      'Gewöhnliche Pflanze',
+    ])
   })
 })
