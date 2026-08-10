@@ -4,6 +4,7 @@ import { MapIcon, InfoIcon, BookOpenTextIcon, MenuIcon, MicIcon, HouseIcon } fro
 import { RouterLink } from 'vue-router'
 const open = ref(false)
 const menuRef = ref<HTMLElement | null>(null)
+const menuButtonRef = ref<HTMLButtonElement | null>(null)
 
 const internalMenuItems = [
   { to: '/about', label: 'About Us' },
@@ -19,8 +20,12 @@ const externalMenuItems = [
   },
 ]
 
-function closeMenu(): void {
+function closeMenu(options: { restoreFocus?: boolean } = {}): void {
   open.value = false
+
+  if (options.restoreFocus) {
+    menuButtonRef.value?.focus()
+  }
 }
 
 function closeMenuOnOutsideClick(event: PointerEvent): void {
@@ -29,41 +34,50 @@ function closeMenuOnOutsideClick(event: PointerEvent): void {
   }
 }
 
+function closeMenuOnEscape(event: KeyboardEvent): void {
+  if (event.key === 'Escape' && open.value) {
+    closeMenu({ restoreFocus: true })
+  }
+}
+
 onMounted(() => {
   document.addEventListener('pointerdown', closeMenuOnOutsideClick)
+  document.addEventListener('keydown', closeMenuOnEscape)
 })
 
 onBeforeUnmount(() => {
   document.removeEventListener('pointerdown', closeMenuOnOutsideClick)
+  document.removeEventListener('keydown', closeMenuOnEscape)
 })
 </script>
 
 <template>
-  <nav class="navbar">
+  <nav class="navbar" aria-label="Hauptnavigation">
     <!-- Home page -->
     <RouterLink to="/">
-      <button class="btn btn-primary"><HouseIcon /></button>
+      <button class="btn btn-primary" type="button" aria-label="Startseite öffnen"><HouseIcon /></button>
     </RouterLink>
 
     <!-- Map -->
     <RouterLink to="/map">
-      <button class="btn btn-primary"><MapIcon /></button>
+      <button class="btn btn-primary" type="button" aria-label="Karte öffnen"><MapIcon /></button>
     </RouterLink>
 
     <!-- Bird recognition -->
     <RouterLink to="/bird-recognition">
-      <button class="btn btn-primary"><MicIcon /></button>
+      <button class="btn btn-primary" type="button" aria-label="Vogelerkennung öffnen"><MicIcon /></button>
     </RouterLink>
 
     <!-- Lexicon -->
     <RouterLink to="/lexicon">
-      <button class="btn btn-primary"><BookOpenTextIcon /></button>
+      <button class="btn btn-primary" type="button" aria-label="Lexikon öffnen"><BookOpenTextIcon /></button>
     </RouterLink>
 
     <!-- Dropdown -->
     <div ref="menuRef" class="relative">
       <!-- Hamburger trigger -->
       <button
+        ref="menuButtonRef"
         class="btn btn-primary"
         type="button"
         aria-label="Weitere Navigation öffnen"
@@ -79,8 +93,10 @@ onBeforeUnmount(() => {
         v-if="open"
         id="navbar-overflow-menu"
         class="navbar-popover"
+        role="menu"
+        aria-labelledby="navbar-overflow-label"
       >
-        <div class="navbar-popover-label">
+        <div id="navbar-overflow-label" class="navbar-popover-label">
           Mehr
         </div>
 
@@ -90,7 +106,8 @@ onBeforeUnmount(() => {
             :key="item.to"
             :to="item.to"
             class="navbar-popover-link"
-            @click="closeMenu"
+            role="menuitem"
+            @click="closeMenu()"
           >
             {{ item.label }}
           </RouterLink>
@@ -102,7 +119,8 @@ onBeforeUnmount(() => {
             target="_blank"
             rel="noopener noreferrer"
             class="navbar-popover-link"
-            @click="closeMenu"
+            role="menuitem"
+            @click="closeMenu()"
           >
             {{ item.label }}
           </a>
