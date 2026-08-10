@@ -16,3 +16,13 @@ Failing output that triggered the fix:
 Final state:
 - Verification is clean.
 - No source behavior changes were needed beyond the spec typing fix.
+
+Smoke test (Step 5) — performed 2026-08-10 via agent-browser + Chromium against the live PocketBase backend:
+- Chip "Mettnau-Highlights" renders on `/lexicon`; green leaf badges visible on protected entries.
+- Chip active → exactly the 6 `isProtected` entries remain.
+- Chip inactive → full list (86 entries) returns.
+- Chip + search "Mehl" → only Mehl-Primel (AND).
+- Chip + search "Amsel" → "Keine Einträge gefunden." (empty state).
+- Chip + label "Vogel" → "Keine Einträge gefunden." (AND; all protected entries are plants).
+- Chip + label "Pflanze" → all 6 protected entries (AND).
+- No console errors observed.
