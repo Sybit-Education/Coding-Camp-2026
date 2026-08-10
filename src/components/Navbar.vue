@@ -39,9 +39,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <nav
-    class="fixed bottom-0 left-1/2 z-1000 flex -translate-x-1/2 justify-evenly gap-3 rounded-2xl bg-secondary/33 mb-5 p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))]"
-  >
+  <nav class="navbar">
     <!-- Home page -->
     <RouterLink to="/">
       <button class="btn btn-primary"><HouseIcon /></button>
@@ -80,18 +78,18 @@ onBeforeUnmount(() => {
       <div
         v-if="open"
         id="navbar-overflow-menu"
-        class="absolute bottom-[calc(100%+0.75rem)] right-0 z-1001 w-[min(16rem,calc(100vw-1.5rem))] overflow-hidden rounded-3xl border border-white/70 bg-white/95 p-2 text-left text-heading shadow-2xl shadow-black/25 backdrop-blur-md"
+        class="navbar-popover"
       >
-        <div class="mb-1 px-3 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-secondary/70">
+        <div class="navbar-popover-label">
           Mehr
         </div>
 
-        <div class="flex max-h-[calc(100dvh-7rem)] flex-col gap-1 overflow-y-auto">
+        <div class="navbar-popover-list">
           <RouterLink
             v-for="item in internalMenuItems"
             :key="item.to"
             :to="item.to"
-            class="rounded-2xl px-3 py-2.5 text-sm font-medium leading-snug text-heading transition hover:bg-neutral2 hover:text-secondary focus-visible:bg-neutral2"
+            class="navbar-popover-link"
             @click="closeMenu"
           >
             {{ item.label }}
@@ -103,7 +101,7 @@ onBeforeUnmount(() => {
             :href="item.href"
             target="_blank"
             rel="noopener noreferrer"
-            class="rounded-2xl px-3 py-2.5 text-sm font-medium leading-snug text-heading transition hover:bg-neutral2 hover:text-secondary focus-visible:bg-neutral2"
+            class="navbar-popover-link"
             @click="closeMenu"
           >
             {{ item.label }}

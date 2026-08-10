@@ -23,7 +23,7 @@ describe('Navbar overflow menu', () => {
     const menu = wrapper.get('#navbar-overflow-menu')
     expect(menu.text()).toContain('Mehr')
     expect(menu.text()).toContain('Gefahrenanleitung')
-    expect(menu.classes()).toContain('bg-white/95')
+    expect(menu.classes()).toContain('navbar-popover')
 
     const dangerGuideLink = wrapper
       .findAllComponents(RouterLinkStub)
