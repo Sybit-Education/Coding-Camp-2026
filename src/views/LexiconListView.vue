@@ -45,6 +45,20 @@
           </button>
         </div>
       </div>
+
+      <button
+        class="flex shrink-0 items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors"
+        :class="
+          showHighlightsOnly
+            ? 'bg-green-600 text-white hover:bg-green-700'
+            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+        "
+        :aria-pressed="showHighlightsOnly"
+        @click="showHighlightsOnly = !showHighlightsOnly"
+      >
+        <LeafIcon class="h-4 w-4" />
+        <span>Mettnau-Highlights</span>
+      </button>
     </div>
 
     <details class="mb-4 rounded-xl border border-border bg-background p-3 text-sm text-text">
@@ -57,9 +71,12 @@
       </dl>
     </details>
 
-    <section class="space-y-4" aria-label="Lexikoneinträge">
+    <section v-if="filteredEntries.length > 0" class="space-y-4" aria-label="Lexikoneinträge">
       <LexiconListItem v-for="entry in filteredEntries" :key="entry.id" :entry="entry" />
     </section>
+    <p v-else class="rounded-xl border border-border bg-background p-4 text-text">
+      Keine Einträge gefunden.
+    </p>
   </main>
 </template>
 
@@ -69,7 +86,7 @@ import { LexiconService } from '@/services/lexicon.service'
 import { useLabelsStore } from '@/stores/labels.store'
 import { useToxicityStore } from '@/stores/toxicity.store'
 import type { LexiconListEntry } from '@/shared/types/lexicon.types'
-import { ListFilter, Search } from '@lucide/vue'
+import { LeafIcon, ListFilter, Search } from '@lucide/vue'
 import { computed, inject, onBeforeUnmount, onMounted, ref } from 'vue'
 
 defineOptions({
@@ -85,6 +102,7 @@ const isMenuOpen = ref(false)
 const selectedLabel = ref('')
 const menuRef = ref<HTMLElement | null>(null)
 const searchQuery = ref('')
+const showHighlightsOnly = ref(false)
 
 const labels = computed(() =>
   labelsStore.getLabels
@@ -97,6 +115,10 @@ const filteredEntries = computed(() => {
 
   if (selectedLabel.value) {
     result = result.filter((entry) => entry.label === selectedLabel.value)
+  }
+
+  if (showHighlightsOnly.value) {
+    result = result.filter((entry) => entry.isProtected === true)
   }
 
   return result
