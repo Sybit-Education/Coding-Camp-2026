@@ -51,8 +51,10 @@ const CATEGORY_LABELS: Record<LocationProperties['category'], string> = {
 export class MapService {
   private map: L.Map | null = null
   private locationsLayer: L.GeoJSON | null = null
+  private loadLocationsRequestId = 0
 
   initialize(container: HTMLElement): void {
+    const requestId = ++this.loadLocationsRequestId
     const bounds = L.latLngBounds(MAP_BOUNDS.southWest, MAP_BOUNDS.northEast)
 
     this.map = L.map(container, {
@@ -63,16 +65,17 @@ export class MapService {
 
     this.addTileLayer()
 
-    this.loadLocations()
+    void this.loadLocations(requestId)
   }
 
   destroy(): void {
+    this.loadLocationsRequestId += 1
     this.locationsLayer = null
     this.map?.remove()
     this.map = null
   }
 
-  async loadLocations(): Promise<void> {
+  async loadLocations(requestId = this.loadLocationsRequestId): Promise<void> {
     if (!this.map) {
       return
     }
@@ -83,6 +86,10 @@ export class MapService {
         throw new Error(`Fehler beim Laden der Standorte: ${response.status}`)
       }
       const data = (await response.json()) as FeatureCollection<Geometry, LocationProperties>
+
+      if (!this.map || requestId !== this.loadLocationsRequestId) {
+        return
+      }
 
       this.locationsLayer = L.geoJSON(data, {
         pointToLayer: (feature, latlng) => this.createLocationMarker(feature, latlng),

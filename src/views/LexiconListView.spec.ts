@@ -3,6 +3,7 @@ import { createPinia, setActivePinia } from 'pinia'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 
+import LexiconListItem from '@/features/lexicon/LexiconListItem.vue'
 import type { LexiconListEntry } from '@/shared/types/lexicon.types'
 import LexiconListView from '@/views/LexiconListView.vue'
 
@@ -51,14 +52,14 @@ const lexiconService = {
   ),
 }
 
-function mountView() {
+function mountView(service = lexiconService) {
   const pinia = createPinia()
   setActivePinia(pinia)
 
   return mount(LexiconListView, {
     global: {
       plugins: [pinia],
-      provide: { lexiconService },
+      provide: { lexiconService: service },
       stubs: { RouterLink: { template: '<a><slot /></a>' } },
     },
   })
@@ -82,7 +83,46 @@ async function waitForHeadingCount(wrapper: ReturnType<typeof mountView>, expect
 
 describe('LexiconListView', () => {
   beforeEach(() => {
+    vi.clearAllMocks()
     lexiconService.getLexiconEntriesList.mockResolvedValue(entries)
+    lexiconService.filterLexiconEntries.mockImplementation((list) => list)
+  })
+
+  it('shows skeleton cards while lexicon entries are loading', async () => {
+    let resolveEntries!: (entries: LexiconListEntry[]) => void
+    const entriesPromise = new Promise<LexiconListEntry[]>((resolve) => {
+      resolveEntries = resolve
+    })
+
+    const loadingLexiconService = {
+      getLexiconEntriesList: vi.fn<() => Promise<LexiconListEntry[]>>(() => entriesPromise),
+      filterLexiconEntries: vi.fn<
+        (entries: LexiconListEntry[], _searchTerm: string) => LexiconListEntry[]
+      >((entries) => entries),
+    }
+
+    const wrapper = mountView(loadingLexiconService)
+    await nextTick()
+
+    expect(wrapper.get('[aria-label="Lexikoneinträge"]').attributes('aria-busy')).toBe('true')
+    expect(wrapper.findAll('[data-testid="lexicon-skeleton-card"]')).toHaveLength(4)
+    expect(wrapper.get('[role="status"]').text()).toContain('Lexikoneinträge werden geladen')
+
+    resolveEntries([
+      {
+        id: '1',
+        name: 'Amsel',
+        description: 'Eine häufige Vogelart.',
+        label: 'Vögel',
+      },
+    ])
+
+    await flushPromises()
+    await nextTick()
+
+    expect(wrapper.get('[aria-label="Lexikoneinträge"]').attributes('aria-busy')).toBe('false')
+    expect(wrapper.findAll('[data-testid="lexicon-skeleton-card"]')).toHaveLength(0)
+    expect(wrapper.findAllComponents(LexiconListItem)).toHaveLength(1)
   })
 
   it('filters the list to Mettnau highlights when the chip is active', async () => {
@@ -113,9 +153,7 @@ describe('LexiconListView', () => {
     await dropdownButton.trigger('click')
     await nextTick()
 
-    const labelButton = wrapper
-      .findAll('button')
-      .find((button) => button.text() === 'Vögel')!
+    const labelButton = wrapper.findAll('button').find((button) => button.text() === 'Vögel')!
     await labelButton.trigger('click')
     await nextTick()
 

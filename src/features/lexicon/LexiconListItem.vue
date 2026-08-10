@@ -1,6 +1,6 @@
 <template>
   <RouterLink
-    :to="`/lexiconDetail/${entry.id}`"
+    :to="`/lexicon/${entry.id}`"
     :target="openInNewTab ? '_blank' : '_self'"
     :rel="openInNewTab ? 'noopener noreferrer' : undefined"
     class="group block"
