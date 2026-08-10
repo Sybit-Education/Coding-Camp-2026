@@ -45,8 +45,10 @@ vi.mock('@/stores/toxicity.store', () => ({
 }))
 
 const lexiconService = {
-  getLexiconEntriesList: vi.fn(),
-  filterLexiconEntries: vi.fn((list: LexiconListEntry[], _searchTerm: string) => list),
+  getLexiconEntriesList: vi.fn<() => Promise<LexiconListEntry[]>>(),
+  filterLexiconEntries: vi.fn<(list: LexiconListEntry[], _searchTerm: string) => LexiconListEntry[]>(
+    (list) => list,
+  ),
 }
 
 function mountView() {
