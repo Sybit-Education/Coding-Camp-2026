@@ -1,24 +1,27 @@
 <template>
-  <main class="mx-auto w-full max-w-md space-y-4 px-4 py-4 pb-24">
-    <div
-      class="relative flex w-full items-center gap-1 rounded-lg border border-gray-300 bg-white p-1 shadow-sm focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500"
-    >
-      <Search class="m-1 shrink-0 text-gray-400" />
-      <input
-        v-model="searchQuery"
-        type="search"
-        placeholder="Suchen..."
-        class="min-w-0 flex-1 py-2 text-sm outline-none"
-      />
+  <main>
+    <h1 class="mb-4">Lexikon</h1>
+
+    <div class="mb-4 flex min-w-0 items-center gap-2">
+      <div
+        class="flex min-w-0 flex-1 items-center rounded-md border border-border bg-background px-2"
+      >
+        <Search class="m-1 shrink-0 text-gray-400" />
+        <input
+          v-model="searchQuery"
+          type="search"
+          placeholder="Suchen ..."
+          class="min-w-0 flex-1 bg-transparent py-2 text-sm outline-none"
+        />
+      </div>
+
       <div ref="menuRef" class="relative shrink-0 text-left">
         <button
           class="flex items-center gap-2 rounded-md bg-gray-100 px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200"
           @click="isMenuOpen = !isMenuOpen"
         >
           <ListFilter class="h-4 w-4 text-gray-400" />
-          <span>
-            {{ selectedLabel || 'Alle' }}
-          </span>
+          <span>{{ selectedLabel || 'Alle' }}</span>
         </button>
 
         <div
@@ -31,7 +34,6 @@
           >
             Alle anzeigen
           </button>
-
           <button
             v-for="label in labels"
             :key="label"
@@ -45,14 +47,12 @@
       </div>
     </div>
 
-    <details class="rounded-xl border border-border bg-background p-3 text-sm text-text">
+    <details class="mb-4 rounded-xl border border-border bg-background p-3 text-sm text-text">
       <summary class="cursor-pointer font-semibold text-heading">Giftigkeitsstufen</summary>
       <dl class="mt-3 space-y-2">
         <div v-for="level in toxicityReferences" :key="level.id" class="flex gap-2">
           <dt class="min-w-10 font-bold text-red-700">{{ level.type }}</dt>
-          <dd>
-            <span class="font-medium">{{ level.description }}</span>
-          </dd>
+          <dd class="font-medium">{{ level.description }}</dd>
         </div>
       </dl>
     </details>
@@ -64,23 +64,33 @@
 </template>
 
 <script setup lang="ts">
-import { Search, ListFilter } from '@lucide/vue'
-import { LexiconService } from '@/services/lexicon.service.ts'
-import LexiconListItem from '../components/LexiconListItem.vue'
-import { inject, onMounted, ref, computed, onBeforeUnmount } from 'vue'
-import { type LexiconListEntry } from '@/shared/types/lexicon.types.ts'
-import { useToxicityStore } from '@/stores/toxicity.store.ts'
-import { useLabelsStore } from '@/stores/labels.store.ts'
+import LexiconListItem from '@/components/LexiconListItem.vue'
+import { LexiconService } from '@/services/lexicon.service'
+import { useLabelsStore } from '@/stores/labels.store'
+import { useToxicityStore } from '@/stores/toxicity.store'
+import type { LexiconListEntry } from '@/shared/types/lexicon.types'
+import { ListFilter, Search } from '@lucide/vue'
+import { computed, inject, onBeforeUnmount, onMounted, ref } from 'vue'
+
+defineOptions({
+  name: 'LexiconView',
+})
 
 const lexiconService = inject('lexiconService') as LexiconService
-const toxicityStore = useToxicityStore()
 const labelsStore = useLabelsStore()
+const toxicityStore = useToxicityStore()
 
 const entries = ref<LexiconListEntry[]>([])
 const isMenuOpen = ref(false)
 const selectedLabel = ref('')
 const menuRef = ref<HTMLElement | null>(null)
 const searchQuery = ref('')
+
+const labels = computed(() =>
+  labelsStore.getLabels
+    .map((label) => label.name)
+    .sort((first, second) => first.localeCompare(second)),
+)
 
 const filteredEntries = computed(() => {
   let result = lexiconService.filterLexiconEntries(entries.value, searchQuery.value)
@@ -92,19 +102,7 @@ const filteredEntries = computed(() => {
   return result
 })
 
-const toxicityReferences = computed(() => {
-  return toxicityStore.getAllToxicityLevels
-})
-
-defineOptions({
-  name: 'LexiconView',
-})
-
-const labels = computed(() =>
-  labelsStore.getLabels
-    .map((label) => label.name)
-    .sort((first, second) => first.localeCompare(second)),
-)
+const toxicityReferences = computed(() => toxicityStore.getAllToxicityLevels)
 
 function closeMenuOnOutsideClick(event: PointerEvent) {
   if (menuRef.value && event.target instanceof Node && !menuRef.value.contains(event.target)) {
@@ -113,8 +111,8 @@ function closeMenuOnOutsideClick(event: PointerEvent) {
 }
 
 onMounted(async () => {
-  entries.value = await lexiconService.getLexiconEntriesList()
   document.addEventListener('pointerdown', closeMenuOnOutsideClick)
+  entries.value = await lexiconService.getLexiconEntriesList()
 })
 
 onBeforeUnmount(() => {
