@@ -4,38 +4,109 @@
 
 **Goal:** Polish the bottom NavigationBar overflow menu into a compact, card-like popover without changing routes or navigation structure.
 
-**Architecture:** Keep the existing single-file Vue component and reactive `open` state. Replace the current dropdown's stacked primary buttons with semantically clearer link rows inside a styled viewport-safe popover, preserving outside-click behavior and adding close-on-selection.
+**Architecture:** Keep the existing single-file Vue component and reactive `open` state. Add a focused component test for the overflow behavior before production changes, then replace the current stacked primary buttons with quieter link rows inside a styled viewport-safe popover.
 
-**Tech Stack:** Vue 3 `<script setup lang="ts">`, Vue Router `RouterLink`, Tailwind CSS utility classes, lucide-vue icons already present.
+**Tech Stack:** Vue 3 `<script setup lang="ts">`, Vue Router `RouterLink`, `@vue/test-utils`, Vitest, Tailwind CSS utility classes, lucide-vue icons already present.
 
 ## Global Constraints
 
 - Branch: `fix/navbar-popover-polish` in `.worktrees/navbar-popover-polish`.
 - Primary implementation file: `src/components/Navbar.vue`.
+- Primary test file: `src/components/Navbar.spec.ts`.
 - Main navigation remains fixed at the bottom.
 - Popover remains compact and aligned above/right of the hamburger trigger.
 - Menu closes on outside click and after selecting an entry.
 - External links keep `target="_blank"` and `rel="noopener noreferrer"`.
 - No route changes and no new state-management dependency.
-- Verification: `npm run type-check`, `npm run lint`, and `npm run build`.
+- Verification: `npm run test:unit -- src/components/Navbar.spec.ts --run`, `npm run type-check`, `npm run lint`, and `npm run build`.
 
 ---
 
 ## File Structure
 
+- Create `src/components/Navbar.spec.ts`: focused tests that prove the overflow menu is hidden initially, opens from the hamburger trigger, renders the compact popover affordance, and closes after selecting an internal route.
 - Modify `src/components/Navbar.vue`: add menu data arrays, close-on-select handling, improved trigger accessibility, and polished popover markup/classes.
 - No new component file: the NavigationBar is small enough that extracting a separate menu component would add indirection without reuse.
 - No global style changes: existing `.btn` and focus-visible styles remain available, but the popover rows use local Tailwind classes to avoid changing other buttons.
 
 ---
 
-### Task 1: Refactor Menu Items and Interaction Hooks
+### Task 1: Add Failing Navbar Overflow Menu Test
+
+**Files:**
+- Create: `src/components/Navbar.spec.ts`
+- Read: `src/components/Navbar.vue`
+
+**Interfaces:**
+- Consumes: current `Navbar.vue` component behavior.
+- Produces: failing tests that define the desired overflow menu behavior before production changes.
+
+- [ ] **Step 1: Write the failing component test**
+
+Create `src/components/Navbar.spec.ts`:
+
+```typescript
+import { RouterLinkStub, mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
+import Navbar from './Navbar.vue'
+
+function mountNavbar() {
+  return mount(Navbar, {
+    global: {
+      stubs: {
+        RouterLink: RouterLinkStub,
+      },
+    },
+  })
+}
+
+describe('Navbar overflow menu', () => {
+  it('opens as a compact popover and closes after selecting a route', async () => {
+    const wrapper = mountNavbar()
+
+    expect(wrapper.find('#navbar-overflow-menu').exists()).toBe(false)
+
+    await wrapper.get('button[aria-label="Weitere Navigation öffnen"]').trigger('click')
+
+    const menu = wrapper.get('#navbar-overflow-menu')
+    expect(menu.text()).toContain('Mehr')
+    expect(menu.text()).toContain('Gefahrenanleitung')
+    expect(menu.classes()).toContain('bg-white/95')
+
+    const dangerGuideLink = wrapper
+      .findAllComponents(RouterLinkStub)
+      .find((link) => link.props('to') === '/dangerguide')
+
+    expect(dangerGuideLink).toBeTruthy()
+    await dangerGuideLink!.trigger('click')
+
+    expect(wrapper.find('#navbar-overflow-menu').exists()).toBe(false)
+  })
+})
+```
+
+This catches these realistic bugs: the menu trigger is not accessible by name, the polished popover affordance is missing, or route selection leaves the menu open.
+
+- [ ] **Step 2: Run test to verify RED**
+
+Run: `npm run test:unit -- src/components/Navbar.spec.ts --run`
+
+Expected: FAIL because the current hamburger trigger has no `aria-label` and the current dropdown has no `#navbar-overflow-menu`.
+
+- [ ] **Step 3: Do not commit the failing test**
+
+Do not commit this task by itself. Continue directly to Task 2 and Task 3, then commit the test with the production change after it passes.
+
+---
+
+### Task 2: Refactor Menu Items and Interaction Hooks
 
 **Files:**
 - Modify: `src/components/Navbar.vue:1-21`
+- Test: `src/components/Navbar.spec.ts`
 
 **Interfaces:**
-- Consumes: existing `open: Ref<boolean>` and `menuRef: Ref<HTMLElement | null>`.
+- Consumes: failing test from Task 1 plus existing `open: Ref<boolean>` and `menuRef: Ref<HTMLElement | null>`.
 - Produces: `closeMenu(): void`, `internalMenuItems`, and `externalMenuItems` for the template.
 
 - [ ] **Step 1: Add close helper and menu item arrays**
@@ -85,28 +156,26 @@ onBeforeUnmount(() => {
 </script>
 ```
 
-- [ ] **Step 2: Run type-check for script changes**
+- [ ] **Step 2: Run focused checks**
 
-Run: `npm run type-check`
+Run: `npm run type-check && npm run test:unit -- src/components/Navbar.spec.ts --run`
 
-Expected: PASS.
+Expected: type-check PASS; test still FAIL until Task 3 adds the accessible trigger, popover id, and close-on-selection markup.
 
-- [ ] **Step 3: Commit script refactor if it passes independently**
+- [ ] **Step 3: Do not commit yet**
 
-```bash
-git add src/components/Navbar.vue
-git commit -m "refactor: structure navbar overflow items"
-```
+This task is part of the same TDD cycle as Task 1 and Task 3. Commit only after the test passes in Task 3.
 
 ---
 
-### Task 2: Replace Dropdown with Polished Compact Popover
+### Task 3: Replace Dropdown with Polished Compact Popover
 
 **Files:**
 - Modify: `src/components/Navbar.vue:47-86`
+- Test: `src/components/Navbar.spec.ts`
 
 **Interfaces:**
-- Consumes: `open`, `closeMenu`, `internalMenuItems`, `externalMenuItems` from Task 1.
+- Consumes: `open`, `closeMenu`, `internalMenuItems`, `externalMenuItems` from Task 2.
 - Produces: accessible compact popover menu markup with close-on-selection.
 
 - [ ] **Step 1: Improve hamburger trigger accessibility**
@@ -166,30 +235,31 @@ Replace the current `v-if="open"` dropdown `<div>` and its hardcoded links with:
 </div>
 ```
 
-- [ ] **Step 3: Run focused checks**
+- [ ] **Step 3: Run focused checks and verify GREEN**
 
-Run: `npm run type-check && npm run lint`
+Run: `npm run type-check && npm run test:unit -- src/components/Navbar.spec.ts --run && npm run lint`
 
-Expected: both PASS.
+Expected: all PASS.
 
-- [ ] **Step 4: Commit popover implementation**
+- [ ] **Step 4: Commit test and popover implementation**
 
 ```bash
-git add src/components/Navbar.vue
+git add src/components/Navbar.vue src/components/Navbar.spec.ts
 git commit -m "fix: polish navbar overflow popover"
 ```
 
 ---
 
-### Task 3: Final Verification and PR Prep
+### Task 4: Final Verification and PR Prep
 
 **Files:**
 - Verify: `src/components/Navbar.vue`
+- Verify: `src/components/Navbar.spec.ts`
 - Verify: `docs/superpowers/specs/2026-08-10-navbar-popover-design.md`
 - Verify: `docs/superpowers/plans/2026-08-10-navbar-popover-polish.md`
 
 **Interfaces:**
-- Consumes: completed Tasks 1 and 2.
+- Consumes: completed Tasks 1, 2, and 3.
 - Produces: clean branch ready for PR.
 
 - [ ] **Step 1: Run full requested verification**
@@ -197,7 +267,7 @@ git commit -m "fix: polish navbar overflow popover"
 Run:
 
 ```bash
-npm run type-check && npm run lint && npm run build
+npm run test:unit -- src/components/Navbar.spec.ts --run && npm run type-check && npm run lint && npm run build
 ```
 
 Expected: all commands PASS.
@@ -208,10 +278,10 @@ Run:
 
 ```bash
 git status --short
-git diff main...HEAD -- src/components/Navbar.vue docs/superpowers/specs/2026-08-10-navbar-popover-design.md docs/superpowers/plans/2026-08-10-navbar-popover-polish.md
+git diff main...HEAD -- src/components/Navbar.vue src/components/Navbar.spec.ts docs/superpowers/specs/2026-08-10-navbar-popover-design.md docs/superpowers/plans/2026-08-10-navbar-popover-polish.md
 ```
 
-Expected: only the Navbar polish and planning docs are included.
+Expected: only the Navbar polish, focused test, and planning docs are included.
 
 - [ ] **Step 3: Push branch and create PR**
 
@@ -223,7 +293,7 @@ gh pr create \
   --base main \
   --head fix/navbar-popover-polish \
   --title "Polish NavigationBar overflow menu" \
-  --body "## Summary\n- restyle the NavigationBar overflow menu as a compact card-like popover\n- keep existing routes and close behavior while closing on menu selection\n- add design and implementation planning docs\n\n## Verification\n- npm run type-check\n- npm run lint\n- npm run build"
+  --body "## Summary\n- add a focused Navbar overflow menu test\n- restyle the NavigationBar overflow menu as a compact card-like popover\n- keep existing routes and close behavior while closing on menu selection\n- add design and implementation planning docs\n\n## Verification\n- npm run test:unit -- src/components/Navbar.spec.ts --run\n- npm run type-check\n- npm run lint\n- npm run build"
 ```
 
 Expected: PR URL returned.
