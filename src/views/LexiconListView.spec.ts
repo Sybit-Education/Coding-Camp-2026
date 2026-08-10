@@ -194,6 +194,7 @@ describe('LexiconListView', () => {
     )
 
     const resetButton = wrapper
+      .get('section[aria-label="Lexikoneinträge"]')
       .findAll('button')
       .find((button) => button.text() === 'Filter zurücksetzen')
     expect(resetButton).toBeTruthy()
