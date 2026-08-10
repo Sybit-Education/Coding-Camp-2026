@@ -66,6 +66,10 @@
     @apply container;
   }
 
+  main.app-content {
+    padding: 0;
+  }
+
   /* Typography */
   h1,
   h2,
@@ -240,6 +244,7 @@ body,
   max-width: 100%;
 }
 
+main:not(.app-content),
 .page-view {
   width: 100%;
   max-width: 100%;

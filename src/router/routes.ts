@@ -38,19 +38,13 @@ export const routes: RouteRecordRaw[] = [
     component: () => import(/* webpackChunkName: "map-view" */ '../views/MapView.vue'),
   },
   {
-    path: '/privacy-policy',
-    name: ROUTE_NAMES.PRIVACY_POLICY,
-    component: () =>
-      import(/* webpackChunkName: "privacy-policy-view" */ '../views/PrivacyPolicyView.vue'),
-  },
-  {
     path: '/lexicon',
     name: ROUTE_NAMES.LEXICON,
     component: () =>
       import(/* webpackChunkName: "lexicon-list-view" */ '../views/LexiconListView.vue'),
   },
   {
-    path: '/lexiconDetail/:id',
+    path: '/lexicon/:id',
     name: ROUTE_NAMES.LEXICON_DETAILS,
     component: () =>
       import(/* webpackChunkName: "lexicon-detail-view" */ '../views/LexiconDetailView.vue'),

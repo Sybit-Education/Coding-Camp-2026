@@ -57,8 +57,33 @@
       </dl>
     </details>
 
-    <section class="space-y-4" aria-label="Lexikoneinträge">
-      <LexiconListItem v-for="entry in filteredEntries" :key="entry.id" :entry="entry" />
+    <section class="space-y-4" aria-label="Lexikoneinträge" :aria-busy="isLoading">
+      <div v-if="isLoading" role="status" aria-live="polite" class="space-y-4">
+        <span class="sr-only">Lexikoneinträge werden geladen …</span>
+
+        <article
+          v-for="skeleton in skeletonCards"
+          :key="skeleton"
+          data-testid="lexicon-skeleton-card"
+          class="flex h-38 min-w-0 animate-pulse overflow-hidden rounded-xl border border-border bg-background shadow-sm"
+        >
+          <div class="h-full w-28 shrink-0 bg-background-mute sm:w-40"></div>
+
+          <div class="flex min-w-0 flex-1 flex-col justify-center gap-3 p-2 sm:p-3">
+            <div class="h-5 w-3/5 rounded-full bg-background-mute"></div>
+            <div class="h-4 w-2/5 rounded-full bg-background-mute"></div>
+            <div class="space-y-2 pt-1">
+              <div class="h-4 w-full rounded-full bg-background-mute"></div>
+              <div class="h-4 w-11/12 rounded-full bg-background-mute"></div>
+              <div class="h-4 w-4/5 rounded-full bg-background-mute"></div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <template v-else>
+        <LexiconListItem v-for="entry in filteredEntries" :key="entry.id" :entry="entry" />
+      </template>
     </section>
   </main>
 </template>
@@ -85,6 +110,8 @@ const isMenuOpen = ref(false)
 const selectedLabel = ref('')
 const menuRef = ref<HTMLElement | null>(null)
 const searchQuery = ref('')
+const isLoading = ref(true)
+const skeletonCards = [1, 2, 3, 4]
 
 const labels = computed(() =>
   labelsStore.getLabels
@@ -112,7 +139,13 @@ function closeMenuOnOutsideClick(event: PointerEvent) {
 
 onMounted(async () => {
   document.addEventListener('pointerdown', closeMenuOnOutsideClick)
-  entries.value = await lexiconService.getLexiconEntriesList()
+
+  try {
+    isLoading.value = true
+    entries.value = await lexiconService.getLexiconEntriesList()
+  } finally {
+    isLoading.value = false
+  }
 })
 
 onBeforeUnmount(() => {
