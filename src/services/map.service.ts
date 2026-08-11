@@ -2,8 +2,7 @@
 import L from 'leaflet'
 import type { Feature, FeatureCollection, Geometry } from 'geojson'
 
-const ORS_API_KEY =
-  'eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjI1ZGQ1ZTNlYzcxYzRhMzdiNWM0MjYzNjljMTRiYmRkIiwiaCI6Im11cm11cjY0In0='
+const ORS_API_KEY = import.meta.env.VITE_ORS_API_KEY
 
 const METTNAU_CENTER: L.LatLngTuple = [47.728558, 9.000175]
 const METTNAU_DEFAULT_ZOOM = 14
