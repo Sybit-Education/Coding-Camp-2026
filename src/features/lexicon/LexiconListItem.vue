@@ -35,7 +35,7 @@
         <div class="flex min-w-0 items-start justify-between gap-2">
           <div class="min-w-0">
             <div class="flex flex-wrap items-center gap-2">
-              <h2 class="break-words">{{ entry.name }}</h2>
+              <h2 class="wrap-break-word">{{ entry.name }}</h2>
 
               <MettnauHighlightBadge v-if="entry.isProtected" />
               <span

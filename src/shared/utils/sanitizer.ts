@@ -1,4 +1,4 @@
-export function sanatizeTextLength(text: string, maxLength: number): string {
+export function sanitizeTextLength(text: string, maxLength: number): string {
   if (text.length <= maxLength) {
     return text
   }
