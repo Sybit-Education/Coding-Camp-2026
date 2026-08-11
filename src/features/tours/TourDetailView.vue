@@ -47,14 +47,14 @@
         </header>
 
         <section class="p-4 sm:p-6">
-          <h1 class="mb-6 break-words">{{ tour.title }}</h1>
+          <h1 class="mb-6 wrap-break-word">{{ tour.title }}</h1>
 
           <dl class="space-y-4">
             <div class="flex items-start gap-3">
               <MapPin :size="20" class="mt-1 shrink-0 text-primary" aria-hidden="true" />
               <div>
                 <dt class="text-sm font-medium text-text/60">Treffpunkt</dt>
-                <dd class="break-words font-semibold text-text">{{ tour.location }}</dd>
+                <dd class="wrap-break-word font-semibold text-text">{{ tour.location }}</dd>
               </div>
             </div>
 
@@ -62,7 +62,7 @@
               <MapPinned :size="20" class="mt-1 shrink-0 text-primary" aria-hidden="true" />
               <div>
                 <dt class="text-sm font-medium text-text/60">Adresse</dt>
-                <dd class="break-words text-text">{{ addressLabel }}</dd>
+                <dd class="wrap-break-word text-text">{{ addressLabel }}</dd>
               </div>
             </div>
 
@@ -70,7 +70,7 @@
               <Building2 :size="20" class="mt-1 shrink-0 text-primary" aria-hidden="true" />
               <div>
                 <dt class="text-sm font-medium text-text/60">Veranstalter</dt>
-                <dd class="break-words text-text">{{ tour.source }}</dd>
+                <dd class="wrap-break-word text-text">{{ tour.source }}</dd>
               </div>
             </div>
           </dl>

@@ -5,7 +5,7 @@ import {
 } from '@/shared/types/lexicon.types'
 import { searchLexiconEntries } from '@/features/lexicon/search/lexicon-search-index'
 import type { PocketBaseService } from './pocket-base.service'
-import { sanatizeTextLength } from '@/shared/utils/sanitizer'
+import { sanitizeTextLength } from '@/shared/utils/sanitizer'
 import { useLabelsStore } from '@/stores/labels.store'
 import { useToxicityStore } from '@/stores/toxicity.store'
 
@@ -26,7 +26,7 @@ export class LexiconService {
         name: entry.name,
         reference: entry.reference,
         label: await this.resolveLabelName(entry.label),
-        description: sanatizeTextLength(entry.description, 100),
+        description: sanitizeTextLength(entry.description, 100),
         imageUrl: entry.media ? await this.resolveImageUrl(entry, entry.media) : undefined,
         latinName: entry.latinName,
         isProtected: entry.isProtected,

@@ -20,8 +20,8 @@
       <div class="min-w-0 flex-1 p-4 sm:p-5">
         <div class="flex min-w-0 items-start justify-between gap-3">
           <div class="min-w-0">
-            <h2 class="mb-1 break-words text-xl text-heading">{{ tour.title }}</h2>
-            <p class="flex items-start gap-2 break-words text-sm text-text">
+            <h2 class="mb-1 wrap-break-word text-xl text-heading">{{ tour.title }}</h2>
+            <p class="flex items-start gap-2 wrap-break-word text-sm text-text">
               <MapPin :size="16" class="mt-1 shrink-0 text-primary" aria-hidden="true" />
               <span>
                 <span class="font-medium">{{ tour.location }}</span>
