@@ -316,7 +316,7 @@ npm run build-only
 
 Expected: PASS.
 
-- [ ] **Step 5: Manually smoke-test the filter in dev mode**
+- [x] **Step 5: Manually smoke-test the filter in dev mode**
 
 Run:
 
@@ -333,6 +333,16 @@ Open the Vite URL and test on the Lexikon page:
 - With a combination that matches nothing, "Keine Einträge gefunden." appears.
 
 Expected: all checks pass without console errors.
+
+**Smoke-test evidence (2026-08-10, agent-browser + Chromium against live PocketBase):**
+- Chip "Mettnau-Highlights" renders on `/lexicon`; green leaf badges visible on protected entries.
+- Chip active → exactly the 6 `isProtected` entries remain (Bodensee-Vergissmeinnicht, Europäischer Strandling, Lungen-Enzian, Mehl-Primel, Sibirische Schwertlilie, Ufer-Hahnenfuß).
+- Chip inactive → full list (86 entries) returns.
+- Chip + search "Mehl" → only Mehl-Primel (AND).
+- Chip + search "Amsel" → "Keine Einträge gefunden." (empty state).
+- Chip + label "Vogel" → "Keine Einträge gefunden." (AND; all protected entries are plants).
+- Chip + label "Pflanze" → all 6 protected entries (AND).
+- No console errors observed.
 
 - [ ] **Step 6: Commit verification fixes if any were required**
 
