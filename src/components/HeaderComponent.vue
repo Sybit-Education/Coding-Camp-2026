@@ -15,7 +15,7 @@ defineProps<{
     }"
   >
     <div class="header-content flex flex-col items-center font-head">
-      <span class="header-title text-3xl font-bold text-primary2">Mettnau</span>
+      <span class="header-title text-3xl font-bold text-primary2"><RouterLink to="/">Mettnau</RouterLink></span>
       <div class="header-motto flex gap-1">
         <span class="text-primary1 font-bold">Entdecken.</span>
         <span class="text-accent1 font-bold">Schützen.</span>
