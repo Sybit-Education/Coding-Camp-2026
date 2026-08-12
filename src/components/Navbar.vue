@@ -50,7 +50,7 @@ onBeforeUnmount(() => {
 
     <!-- Guided tours -->
     <RouterLink to="/tours">
-      <button class="btn btn-primary"><RouteIcon/></button>
+      <button class="btn btn-primary"  type="button" aria-label="Führungen anzeigen"><RouteIcon/></button>
     </RouterLink>
 
     <!-- Dropdown -->
