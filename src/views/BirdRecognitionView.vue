@@ -1,14 +1,14 @@
 <template>
-  <div class="page-view flex flex-col items-center gap-8 pb-24">
-    <div class="w-full max-w-2xl">
-      <h1 class="text-center text-3xl font-bold">Vogel Erkennung</h1>
-      <p class="mt-2 text-center text-base-content/70">
+  <main class="flex flex-col items-center gap-8 pb-24">
+    <header>
+      <h1>Vogel Erkennung</h1>
+      <p>
         Nimm eine Vogelstimme auf und lasse sie analysieren.
       </p>
-    </div>
+    </header>
 
-    <div v-if="isLoadingMeta" class="flex items-center gap-2">
-      <span class="loading loading-spinner loading-sm"></span>
+    <div v-if="isLoadingMeta" class="flex items-center gap-2" aria-live="polite">
+      <LoaderCircleIcon class="size-4 animate-spin text-primary" aria-hidden="true" />
       <span>Erkennungsservice wird vorbereitet …</span>
     </div>
 
@@ -95,7 +95,7 @@
         </ul>
       </section>
     </template>
-  </div>
+  </main>
 </template>
 
 <script setup lang="ts">
