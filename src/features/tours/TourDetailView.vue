@@ -1,6 +1,5 @@
 <template>
-  <div class="page-view">
-    <div class="mx-auto w-full max-w-4xl">
+  <main>
       <RouterLink
         to="/tours"
         class="mb-4 inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary-hover"
@@ -99,8 +98,7 @@
         </p>
         <RouterLink to="/tours" class="btn btn-primary mt-6"> Zu den Führungen </RouterLink>
       </section>
-    </div>
-  </div>
+  </main>
 </template>
 
 <script setup lang="ts">

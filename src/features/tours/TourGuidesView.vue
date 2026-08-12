@@ -1,6 +1,5 @@
 <template>
-  <div class="page-view">
-    <section class="mx-auto w-full max-w-4xl">
+  <main>
       <header class="mb-6">
         <h1 class="mb-2">Führungen auf der Mettnau</h1>
         <p class="max-w-2xl text-text">
@@ -42,8 +41,7 @@
       <section v-else class="space-y-4" aria-label="Verfügbare Führungen">
         <TourListItem v-for="tour in tours" :key="getTourKey(tour)" :tour="tour" />
       </section>
-    </section>
-  </div>
+  </main>
 </template>
 
 <script setup lang="ts">

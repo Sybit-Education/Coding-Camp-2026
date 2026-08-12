@@ -60,10 +60,7 @@
   }
 
   main {
-    @apply pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)];
-    @apply px-[env(safe-area-inset-left)] pr-[env(safe-area-inset-right)];
-    @apply mx-auto;
-    @apply container;
+    @apply mx-auto max-w-screen-xl px-4 pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)];
   }
 
   main.app-content {
@@ -224,13 +221,6 @@ body,
   max-width: 100%;
 }
 
-main:not(.app-content),
-.page-view {
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
-  padding: 1rem;
-}
 
 body {
   min-height: 100%;
