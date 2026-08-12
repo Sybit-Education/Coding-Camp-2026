@@ -4,14 +4,6 @@
     <div ref="mapContainer" class="map-container h-dvh bg-black"></div>
 
     <div class="absolute top-4 right-4 z-1000 flex gap-2">
-      <RouterLink
-        to="/tours"
-        class="cursor-pointer rounded-lg bg-white px-3.5 py-2.5 font-semibold text-gray-800 shadow-md hover:bg-gray-100 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-        aria-label="Touren entdecken"
-        title="Touren entdecken"
-      >
-        Touren entdecken
-      </RouterLink>
 
       <button
         type="button"

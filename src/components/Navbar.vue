@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref } from 'vue'
-import { MapIcon, InfoIcon, BookOpenTextIcon, MenuIcon, MicIcon, HouseIcon } from '@lucide/vue'
+import { MapIcon,  RouteIcon, BookOpenTextIcon, MenuIcon, MicIcon, HouseIcon } from '@lucide/vue'
 import { RouterLink } from 'vue-router'
 const open = ref(false)
 const menuRef = ref<HTMLElement | null>(null)
@@ -47,6 +47,10 @@ onBeforeUnmount(() => {
     <RouterLink to="/lexicon">
       <button class="btn btn-primary"><BookOpenTextIcon /></button>
     </RouterLink>
+
+          <RouterLink to="/tours">
+        <button class="btn btn-primary"><RouteIcon/></button>
+      </RouterLink>
 
     <!-- Dropdown -->
     <div ref="menuRef" class="relative">
