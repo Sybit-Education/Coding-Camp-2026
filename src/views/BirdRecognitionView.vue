@@ -7,8 +7,8 @@
       </p>
     </header>
 
-    <div v-if="isLoadingMeta" class="flex items-center gap-2">
-      <span class="loading loading-spinner loading-sm"></span>
+    <div v-if="isLoadingMeta" class="flex items-center gap-2" aria-live="polite">
+      <LoaderCircleIcon class="size-4 animate-spin text-primary" aria-hidden="true" />
       <span>Erkennungsservice wird vorbereitet …</span>
     </div>
 
