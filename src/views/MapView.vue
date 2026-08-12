@@ -1,27 +1,58 @@
+<!-- MapView.vue -->
 <template>
-  <div class="relative h-dvh">
-    <div ref="mapContainer" class="z-0 h-full min-h-100 w-full"></div>
+  <div class="relative h-dvh w-full bg-black">
+    <div ref="mapContainer" class="map-container h-dvh bg-black"></div>
 
-    <RouterLink
-      to="/tours"
-      type="button"
-      class="absolute top-4 right-4 z-1000 cursor-pointer rounded-md bg-white px-3.5 py-2.5 font-semibold text-gray-800 shadow-md hover:bg-gray-100 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-      aria-label="Touren entdecken"
-      title="Touren entdecken"
-    >
-      Touren entdecken
-    </RouterLink>
+    <div class="absolute top-4 right-4 z-1000 flex gap-2">
+      <RouterLink
+        to="/tours"
+        class="cursor-pointer rounded-lg bg-white px-3.5 py-2.5 font-semibold text-gray-800 shadow-md hover:bg-gray-100 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+        aria-label="Touren entdecken"
+        title="Touren entdecken"
+      >
+        Touren entdecken
+      </RouterLink>
+
+      <button
+        type="button"
+        class="rounded-lg bg-white px-4 py-2 font-semibold text-black shadow-md transition-colors duration-200 hover:bg-gray-100 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+        @click="toggleRoute"
+      >
+        {{ showRoute ? 'Route ausblenden' : 'Route anzeigen' }}
+      </button>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, inject, onMounted, onUnmounted } from 'vue'
+import type L from 'leaflet'
+import { inject, onMounted, onUnmounted, ref } from 'vue'
 import type { MapService } from '@/services/map.service'
 
 const mapService = inject('mapService') as MapService
 const mapContainer = ref<HTMLDivElement | null>(null)
+const showRoute = ref(false)
 
-onMounted(async () => {
+const routeWaypoints: L.LatLngExpression[] = [
+  [47.7321318891516, 8.985194406835003],
+  [47.731143669968596, 8.991063792852087],
+  [47.73624028369614, 8.986056096357004],
+  [47.72974636221454, 8.988998804754845],
+  [47.725592257543816, 8.999595821648448],
+  [47.72166443267375, 9.015671974922551],
+]
+
+function toggleRoute() {
+  showRoute.value = !showRoute.value
+
+  if (showRoute.value) {
+    void mapService.addRoute(routeWaypoints)
+  } else {
+    mapService.removeRoute()
+  }
+}
+
+onMounted(() => {
   if (mapContainer.value) {
     mapService.initialize(mapContainer.value)
   }
@@ -32,14 +63,10 @@ onUnmounted(() => {
 })
 </script>
 
-<style lang="postcss">
-.map {
+<style scoped lang="postcss">
+.map-container {
   width: 100%;
-  height: 100%;
-}
-
-.map:focus-visible {
-  @apply outline-3 outline-offset-[-3px];
-  outline-color: var(--color-primary);
+  min-height: 400px;
+  z-index: 0;
 }
 </style>
