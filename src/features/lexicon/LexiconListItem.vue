@@ -34,8 +34,8 @@
       <div class="min-w-0 flex-1 p-2 sm:p-3">
         <div class="flex min-w-0 items-start justify-between gap-2">
           <div class="min-w-0">
-            <div class="flex flex-wrap items-center gap-2">
-              <h2 class="wrap-break-word">{{ entry.name }}</h2>
+            <div class="flex flex-wrap items-center gap-2 border">
+              <h2 class="wrap-break-word border">{{ entry.name }}</h2>
 
               <MettnauHighlightBadge v-if="entry.isProtected" />
               <span
@@ -57,7 +57,6 @@
             {{ recognitionConfidence }} %
           </span>
         </div>
-        <p class="mt-1 wrap-break-word text-text">{{ entry.description }}</p>
       </div>
     </section>
   </RouterLink>

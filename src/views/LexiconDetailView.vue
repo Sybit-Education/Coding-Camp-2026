@@ -42,15 +42,20 @@
         <h1>{{ entry.name }}</h1>
         <div class="mt-2 flex flex-wrap gap-2">
           <MettnauHighlightBadge v-if="entry.isProtected" showTextInBadge/>
-          <span
-            v-if="toxicityReference"
-            class="flex w-fit items-center gap-1 rounded-full bg-red-600 px-2 py-1 text-xs text-white"
-            :aria-label="`Giftigkeit: ${toxicityReference.description}`"
-            :title="toxicityReference.description"
-          >
-            <SkullIcon :size="14" aria-hidden="true" />
-            {{ toxicityReference.type }}
-          </span>
+          <RouterLink to="/dangerguide">
+            <button class="cursor-pointer flex">
+            <span
+              v-if="toxicityReference"
+              class="flex w-fit items-center gap-1 rounded-full bg-red-600 px-2 py-1 text-xs text-white"
+              :aria-label="`Giftigkeit: ${toxicityReference.description}`"
+              :title="toxicityReference.description">
+
+              <SkullIcon :size="14" aria-hidden="true" />
+              {{ toxicityReference.type }}
+
+            </span>
+          </button>
+          </RouterLink>
         </div>
 
         <p v-if="toxicityReference" class="mt-2 text-sm text-text">

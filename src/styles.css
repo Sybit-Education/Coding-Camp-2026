@@ -86,7 +86,7 @@
   }
 
   h2 {
-    @apply font-semibold text-secondary mb-4 items-center;
+    @apply font-semibold text-secondary items-center;
     font-size: calc(var(--font-size-body-md) * 1.75);
   }
 
