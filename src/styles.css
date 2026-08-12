@@ -63,9 +63,9 @@
     @apply mx-auto max-w-screen-xl px-4 pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)];
   }
 
-  main.app-content {
-    padding: 0;
-  }
+main.app-content {
+  @apply p-0;
+}
 
   /* Typography */
   h1,
@@ -212,7 +212,7 @@ body,
   max-width: 100%;
   min-width: 0;
   margin: 0;
-  padding: 0;
+  @apply p-0;
   overflow: hidden;
 }
 
@@ -223,13 +223,10 @@ body,
 
 
 body {
-  min-height: 100%;
-  color: var(--color-text);
-  background: var(--color-background);
+  @apply min-h-full bg-background text-text leading-relaxed;
   transition:
     color 0.5s,
     background-color 0.5s;
-  line-height: 1.6;
   font-family:
     Inter,
     -apple-system,
