@@ -19,14 +19,16 @@ const TILE_LAYER_MIN_ZOOM = 10
 const LOCATIONS_GEOJSON_URL = '/map/mettnau-locations.geojson'
 
 interface LocationProperties {
-  category: 'train' | 'bus' | 'destination' | 'parking' | 'leisure' | 'nature' | 'closure' | 'bathing_place'
+  category: 'train' | 'bus' | 'destination' | 'parking' | 'leisure' | 'nature' | 'closure' | 'bathing_place' | 'irish_pub'
   name: string
   number?: number
   start?: string
   end?: string
 }
 
-const CATEGORY_COLORS: Record<LocationProperties['category'], string> = {
+type LocationCategory = LocationProperties['category']
+
+const CATEGORY_COLORS: Record<LocationCategory, string> = {
   train: '#e63946',
   bus: '#1d3557',
   destination: '#2a9d8f',
@@ -35,9 +37,10 @@ const CATEGORY_COLORS: Record<LocationProperties['category'], string> = {
   nature: '#2b9348',
   closure: '#d90429',
   bathing_place: '#07737a',
+  irish_pub: '#a56b2b',
 }
 
-const CATEGORY_LABELS: Record<LocationProperties['category'], string> = {
+const CATEGORY_LABELS: Record<LocationCategory, string> = {
   train: '🚆',
   bus: '🚌',
   destination: '📍',
@@ -46,12 +49,20 @@ const CATEGORY_LABELS: Record<LocationProperties['category'], string> = {
   nature: '🌿',
   closure: '🚧',
   bathing_place: '🏖️',
+  irish_pub: '🍺'
+
 }
+
+const ALL_CATEGORIES = Object.keys(CATEGORY_COLORS) as LocationCategory[]
 
 export class MapService {
   private map: L.Map | null = null
-  private locationsLayer: L.GeoJSON | null = null
   private loadLocationsRequestId = 0
+
+  // Statt eines einzelnen Layers: eine LayerGroup pro Kategorie,
+  // damit sich einzelne Kategorien unabhängig ein-/ausblenden lassen.
+  private categoryLayers = new Map<LocationCategory, L.LayerGroup>()
+  private activeCategories = new Set<LocationCategory>(ALL_CATEGORIES)
 
   initialize(container: HTMLElement): void {
     const requestId = ++this.loadLocationsRequestId
@@ -70,7 +81,8 @@ export class MapService {
 
   destroy(): void {
     this.loadLocationsRequestId += 1
-    this.locationsLayer = null
+    this.categoryLayers.forEach((group) => group.remove())
+    this.categoryLayers.clear()
     this.map?.remove()
     this.map = null
   }
@@ -91,26 +103,104 @@ export class MapService {
         return
       }
 
-      this.locationsLayer = L.geoJSON(data, {
+      // Vorherige Gruppen entfernen, falls loadLocations erneut aufgerufen wird
+      this.categoryLayers.forEach((group) => group.remove())
+      this.categoryLayers.clear()
+
+      L.geoJSON(data, {
         pointToLayer: (feature, latlng) => this.createLocationMarker(feature, latlng),
         style: (feature) => this.styleLocationFeature(feature),
-        onEachFeature: (feature, layer) => this.bindLocationPopup(feature, layer),
-      }).addTo(this.map)
+        onEachFeature: (feature, layer) => {
+          this.bindLocationPopup(feature, layer)
+          this.addToCategoryLayer(feature, layer)
+        },
+      })
 
-      this.locationsLayer.eachLayer((layer) => {
+      // Alle Gruppen kurz mounten, damit die SVG-Pfade für addTextAlongPath existieren
+      this.categoryLayers.forEach((group) => group.addTo(this.map as L.Map))
+
+      this.categoryLayers.get('closure')?.eachLayer((layer) => {
         if (!(layer instanceof L.Polyline)) {
           return
         }
-
         const properties = (layer.feature?.properties ?? {}) as LocationProperties
-        if (properties.category === 'closure') {
-          this.addTextAlongPath(layer, this.createClosureLabel(properties))
-        }
+        this.addTextAlongPath(layer, this.createClosureLabel(properties))
       })
+
+      // Aktuellen Filterzustand anwenden
+      this.applyCategoryFilter()
     } catch (error) {
       console.error('Standorte konnten nicht geladen werden.', error)
     }
   }
+
+  // --- Kategorie-Filter API ---
+
+  /** Setzt den Filter auf eine bestimmte Menge an Kategorien, oder 'all' für alle. */
+  setCategoryFilter(categories: LocationCategory[] | 'all'): void {
+    this.activeCategories = categories === 'all' ? new Set(ALL_CATEGORIES) : new Set(categories)
+    this.applyCategoryFilter()
+  }
+
+  /** Schaltet eine einzelne Kategorie an/aus. */
+  toggleCategory(category: LocationCategory): void {
+    if (this.activeCategories.has(category)) {
+      this.activeCategories.delete(category)
+    } else {
+      this.activeCategories.add(category)
+    }
+    this.applyCategoryFilter()
+  }
+
+  /** Prüft, ob eine Kategorie aktuell sichtbar ist. */
+  isCategoryActive(category: LocationCategory): boolean {
+    return this.activeCategories.has(category)
+  }
+
+  /** Alle möglichen Kategorien inkl. Farbe/Icon, z.B. für eine Filter-UI. */
+  getAvailableCategories(): { category: LocationCategory; color: string; label: string }[] {
+    return ALL_CATEGORIES.map((category) => ({
+      category,
+      color: CATEGORY_COLORS[category],
+      label: CATEGORY_LABELS[category],
+    }))
+  }
+
+  /** Aktuell aktive Kategorien. */
+  getActiveCategories(): LocationCategory[] {
+    return Array.from(this.activeCategories)
+  }
+
+  private applyCategoryFilter(): void {
+    if (!this.map) {
+      return
+    }
+    this.categoryLayers.forEach((group, category) => {
+      const shouldShow = this.activeCategories.has(category)
+      const isOnMap = this.map!.hasLayer(group)
+      if (shouldShow && !isOnMap) {
+        group.addTo(this.map as L.Map)
+      }
+      if (!shouldShow && isOnMap) {
+        group.remove()
+      }
+    })
+  }
+
+  private addToCategoryLayer(
+    feature: Feature<Geometry, LocationProperties>,
+    layer: L.Layer,
+  ): void {
+    const category = feature.properties.category
+    let group = this.categoryLayers.get(category)
+    if (!group) {
+      group = L.layerGroup()
+      this.categoryLayers.set(category, group)
+    }
+    group.addLayer(layer)
+  }
+
+  // --- Marker- und Feature-Aufbau ---
 
   private createLocationMarker(
     feature: Feature<Geometry, LocationProperties>,
@@ -211,18 +301,6 @@ export class MapService {
     }
     return `${day}.${month}.`
   }
-
-  // fitToConfiguredBounds(): void {
-  //   const map = this.requireMap()
-  //   const bounds = L.latLngBounds(MAP_BOUNDS.southWest, MAP_BOUNDS.northEast)
-  //   map.fitBounds(bounds, { padding: [24, 24] })
-  // }
-
-  // setAllowedBounds(bounds: L.LatLngBoundsExpression): void {
-  //   const map = this.requireMap()
-  //   map.setMaxBounds(bounds)
-  //   map.panInsideBounds(bounds, { animate: true })
-  // }
 
   private addTileLayer(): void {
     if (!this.map) return

@@ -95,7 +95,13 @@
       "type": "Feature",
       "geometry": { "type": "Point", "coordinates": [8.993236661954336,  47.72940910595648] },
       "properties": { "category": "bathing_place", "name": "Strandbad Mettnau" }
-    },     
+    },    
+               {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [8.970216,  47.738063] },
+      "properties": { "category": "irish_pub", "name": "The Irish Exit" }
+    }, 
+
     {
       "type": "Feature",
       "geometry": {
