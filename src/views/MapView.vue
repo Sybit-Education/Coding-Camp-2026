@@ -6,32 +6,22 @@
       <RouterLink
         to="/tours"
         type="button"
-        class="cursor-pointer rounded-md bg-white px-3.5 py-2.5 font-semibold text-gray-800 shadow-md hover:bg-gray-100 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+        class="cursor-pointer flex-sm items-center rounded-md bg-white px-3.5 py-2.5 font-semibold text-gray-800 shadow-md hover:bg-gray-100 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
         aria-label="Touren entdecken"
         title="Touren entdecken"
       >
+        <FootprintsIcon class="size-4" />
         Touren entdecken
       </RouterLink>
 
       <div class="relative" ref="menuRoot">
         <button
-          class="flex cursor-pointer items-center justify-center gap-2 rounded-md bg-white px-3.5 py-2.5 font-semibold text-gray-800 shadow-md hover:bg-gray-100 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+          class="flex-sm cursor-pointer items-center justify-center rounded-md bg-white px-3.5 py-2.5 font-semibold text-gray-800 shadow-md hover:bg-gray-100 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
           aria-haspopup="true"
           :aria-expanded="isMenuOpen"
           @click="isMenuOpen = !isMenuOpen"
         >
-          <svg
-            class="h-4 w-4 text-gray-400"
-            aria-hidden="true"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
-          </svg>
+          <FunnelIcon class="size-4" />
           <span>{{ filterLabel }}</span>
         </button>
 
@@ -77,6 +67,7 @@
 <script setup lang="ts">
 import { ref, inject, onMounted, onUnmounted } from 'vue'
 import type { MapService } from '@/services/map.service'
+import { FootprintsIcon, FunnelIcon } from '@lucide/vue'
 
 const mapService = inject('mapService') as MapService
 const mapContainer = ref<HTMLDivElement | null>(null)
