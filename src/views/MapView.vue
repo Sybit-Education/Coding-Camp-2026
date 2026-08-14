@@ -97,7 +97,7 @@ const categoryNames: Record<string, string> = {
   nature: 'Natur',
   closure: 'Sperrung',
   bathing_place: 'Badestelle',
-  irish_pub: 'Irish Pub',
+  restaurant: 'Restaurant',
 }
 
 function updateFilterLabel(): void {
