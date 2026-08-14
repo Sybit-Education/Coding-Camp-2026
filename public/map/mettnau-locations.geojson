@@ -83,11 +83,6 @@
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [8.9930082, 47.72896] },
-      "properties": { "category": "leisure", "name": "Strandbad Mettnau" }
-    },
-    {
-      "type": "Feature",
       "geometry": { "type": "Point", "coordinates": [ 8.982142771703106, 47.73383732151947] },
       "properties": { "category": "leisure", "name": "Alte Konzertmuschel" }
     },
@@ -103,7 +98,7 @@
     },
     {
       "type": "Feature",
-      "geometry": { "type": "Point", "coordinates": [8.993236661954336, 47.72940910595648] },
+      "geometry": { "type": "Point", "coordinates": [8.99330107518029, 47.72912915172497] },
       "properties": { "category": "bathing_place", "name": "Strandbad Mettnau" }
     },
     {
