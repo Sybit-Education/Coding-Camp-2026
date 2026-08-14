@@ -56,6 +56,11 @@
     },
     {
       "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [8.980095755278517, 47.737968016870276] },
+      "properties": { "category": "parking", "name": "Wohnmobilstellplatz Mettnau" }
+    },
+    {
+      "type": "Feature",
       "geometry": { "type": "Point", "coordinates": [8.986044, 47.736264] },
       "properties": {
         "category": "destination",
@@ -83,6 +88,11 @@
     },
     {
       "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [ 8.982142771703106, 47.73383732151947] },
+      "properties": { "category": "leisure", "name": "Alte Konzertmuschel" }
+    },
+    {
+      "type": "Feature",
       "geometry": { "type": "Point", "coordinates": [9.0045686, 47.721815] },
       "properties": { "category": "bathing_place", "name": "Liebesinsel" }
     },
@@ -101,7 +111,16 @@
       "geometry": { "type": "Point", "coordinates": [8.970216, 47.738063] },
       "properties": { "category": "restaurant", "name": "The Irish Exit" }
     },
-
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [8.994525983339889, 47.729625864479644] },
+      "properties": { "category": "restaurant", "name": "Delizio TC Restaurant Mettnau Radolfzell" }
+    },
+    {
+      "type": "Feature",
+      "geometry": { "type": "Point", "coordinates": [8.994427313388975, 47.727458179334626] },
+      "properties": { "category": "restaurant", "name": "Restaurant Strandcafé Mettnau" }
+    },
     {
       "type": "Feature",
       "geometry": {
