@@ -19,15 +19,12 @@
         class="list-item-image min-h-full w-28 sm:w-40 self-stretch"
         @error="hasImageError = true"
       />
-      <div
-        v-else
-        class="flex min-h-full w-28 sm:w-40 self-stretch"
-      >
+      <div v-else class="flex min-h-full w-28 sm:w-40 self-stretch">
         <img
           :src="fallbackImage"
           :aria-label="`${entry.name}: kein Bild verfügbar`"
           :alt="`${entry.name}: kein Bild verfügbar`"
-          class="list-item-image min-h-full "
+          class="list-item-image min-h-full"
         />
       </div>
 
@@ -67,7 +64,7 @@ import fallbackImage from '/img/mettnau-logo.svg'
 import type { LexiconListEntry } from '@/shared/types/lexicon.types'
 import { LeafIcon, SkullIcon } from '@lucide/vue'
 import { ref } from 'vue'
-import MettnauHighlightBadge from './MettnauHighlightBadge.vue';
+import MettnauHighlightBadge from './MettnauHighlightBadge.vue'
 
 defineProps<{
   entry: LexiconListEntry

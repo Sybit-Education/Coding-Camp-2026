@@ -24,7 +24,7 @@
           v-if="entry.imageUrl && !hasImageError"
           :src="entry.imageUrl"
           :alt="entry.name"
-          class="max-h-[min(70vh,32rem)] w-full bg-background-mute  object-cover"
+          class="max-h-[min(70vh,32rem)] w-full bg-background-mute object-cover"
           @error="hasImageError = true"
         />
         <div
@@ -41,21 +41,8 @@
       <section class="p-4 sm:p-6">
         <h1>{{ entry.name }}</h1>
         <div class="mt-2 flex flex-wrap gap-2">
-          <MettnauHighlightBadge v-if="entry.isProtected" showTextInBadge/>
-          <RouterLink to="/dangerguide">
-            <button class="cursor-pointer flex">
-            <span
-              v-if="toxicityReference"
-              class="flex w-fit items-center gap-1 rounded-full bg-red-600 px-2 py-1 text-xs text-white"
-              :aria-label="`Giftigkeit: ${toxicityReference.description}`"
-              :title="toxicityReference.description">
-
-              <SkullIcon :size="14" aria-hidden="true" />
-              {{ toxicityReference.type }}
-
-            </span>
-          </button>
-          </RouterLink>
+          <MettnauHighlightBadge v-if="entry.isProtected" showTextInBadge />
+          <ToxityBadge v-if="toxicityReference" :toxicity-reference="toxicityReference" />
         </div>
 
         <p v-if="toxicityReference" class="mt-2 text-sm text-text">
@@ -100,10 +87,11 @@ import type { AudioService } from '@/services/audio.service'
 import type { LexiconService } from '@/services/lexicon.service'
 import type { AnimalAudioListEntry } from '@/shared/types/audio.types'
 import type { LexiconEntry } from '@/shared/types/lexicon.types'
-import { CopyrightIcon, ExternalLinkIcon, LeafIcon, SkullIcon } from '@lucide/vue'
+import { CopyrightIcon, ExternalLinkIcon } from '@lucide/vue'
 import { computed, inject, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import MettnauHighlightBadge from '@/features/lexicon/MettnauHighlightBadge.vue'
+import ToxityBadge from '@/components/ToxityBadge.vue'
 
 const lexiconService = inject('lexiconService') as LexiconService
 const audioService = inject('audioService') as AudioService
