@@ -19,7 +19,16 @@ const TILE_LAYER_MIN_ZOOM = 10
 const LOCATIONS_GEOJSON_URL = '/map/mettnau-locations.geojson'
 
 interface LocationProperties {
-  category: 'train' | 'bus' | 'destination' | 'parking' | 'leisure' | 'nature' | 'closure' | 'bathing_place' | 'irish_pub'
+  category:
+    | 'train'
+    | 'bus'
+    | 'destination'
+    | 'parking'
+    | 'leisure'
+    | 'nature'
+    | 'closure'
+    | 'bathing_place'
+    | 'restaurant'
   name: string
   number?: number
   start?: string
@@ -37,7 +46,7 @@ const CATEGORY_COLORS: Record<LocationCategory, string> = {
   nature: '#2b9348',
   closure: '#d90429',
   bathing_place: '#07737a',
-  irish_pub: '#a56b2b',
+  restaurant: '#a56b2b',
 }
 
 const CATEGORY_LABELS: Record<LocationCategory, string> = {
@@ -49,8 +58,7 @@ const CATEGORY_LABELS: Record<LocationCategory, string> = {
   nature: '🌿',
   closure: '🚧',
   bathing_place: '🏖️',
-  irish_pub: '🍺'
-
+  restaurant: '🍽️',
 }
 
 const ALL_CATEGORIES = Object.keys(CATEGORY_COLORS) as LocationCategory[]
@@ -187,10 +195,7 @@ export class MapService {
     })
   }
 
-  private addToCategoryLayer(
-    feature: Feature<Geometry, LocationProperties>,
-    layer: L.Layer,
-  ): void {
+  private addToCategoryLayer(feature: Feature<Geometry, LocationProperties>, layer: L.Layer): void {
     const category = feature.properties.category
     let group = this.categoryLayers.get(category)
     if (!group) {
