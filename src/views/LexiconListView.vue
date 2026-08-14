@@ -7,7 +7,7 @@
         <div
           class="flex min-w-0 flex-1 items-center rounded-md border border-border bg-white px-2 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20"
         >
-          <Search class="m-1 shrink-0 text-gray-400" aria-hidden="true" />
+          <SearchIcon class="m-1 shrink-0 text-gray-400" aria-hidden="true" />
           <input
             v-model="searchQuery"
             type="search"
@@ -22,7 +22,7 @@
               class="flex w-full items-center justify-center gap-2 rounded-md border border-border bg-gray-50 px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 sm:w-auto"
               @click="isMenuOpen = !isMenuOpen"
             >
-              <ListFilter class="h-4 w-4 text-gray-400" aria-hidden="true" />
+              <ListFilterIcon class="h-4 w-4 text-gray-400" aria-hidden="true" />
               <span>{{ selectedLabel ? `Label: ${selectedLabel}` : 'Alle Labels' }}</span>
             </button>
 
@@ -141,7 +141,7 @@ import { LexiconService } from '@/services/lexicon.service'
 import { useLabelsStore } from '@/stores/labels.store'
 import { useToxicityStore } from '@/stores/toxicity.store'
 import type { LexiconListEntry } from '@/shared/types/lexicon.types'
-import { LeafIcon, ListFilter, Search } from '@lucide/vue'
+import { LeafIcon, ListFilterIcon, SearchIcon } from '@lucide/vue'
 import { computed, inject, onBeforeUnmount, onMounted, ref } from 'vue'
 
 defineOptions({
@@ -182,10 +182,13 @@ const filteredEntries = computed(() => {
 })
 
 const hasActiveFilters = computed(
-  () => searchQuery.value.trim().length > 0 || Boolean(selectedLabel.value) || showHighlightsOnly.value,
+  () =>
+    searchQuery.value.trim().length > 0 || Boolean(selectedLabel.value) || showHighlightsOnly.value,
 )
 
-const resultSummary = computed(() => `${filteredEntries.value.length} von ${entries.value.length} Einträgen`)
+const resultSummary = computed(
+  () => `${filteredEntries.value.length} von ${entries.value.length} Einträgen`,
+)
 
 const toxicityReferences = computed(() => toxicityStore.getAllToxicityLevels)
 
