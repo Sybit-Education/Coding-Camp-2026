@@ -4,9 +4,28 @@ import { MapIcon, RouteIcon, BookOpenTextIcon, MenuIcon, MicIcon, HouseIcon } fr
 import { RouterLink } from 'vue-router'
 const open = ref(false)
 const menuRef = ref<HTMLElement | null>(null)
+const menuButtonRef = ref<HTMLButtonElement | null>(null)
 
-function closeMenu(): void {
+const internalMenuItems = [
+  { to: '/about', label: 'About Us' },
+  { to: '/dangerguide', label: 'Gefahrenanleitung' },
+  { to: '/bathing-spots', label: 'Wo darf man baden?' },
+  { to: '/privacy-policy', label: 'Datenschutz' },
+]
+
+const externalMenuItems = [
+  {
+    href: 'https://www.sybit.com/de/impressum',
+    label: 'Impressum',
+  },
+]
+
+function closeMenu(options: { restoreFocus?: boolean } = {}): void {
   open.value = false
+
+  if (options.restoreFocus) {
+    menuButtonRef.value?.focus()
+  }
 }
 
 function closeMenuOnOutsideClick(event: PointerEvent): void {
@@ -15,37 +34,43 @@ function closeMenuOnOutsideClick(event: PointerEvent): void {
   }
 }
 
+function closeMenuOnEscape(event: KeyboardEvent): void {
+  if (event.key === 'Escape' && open.value) {
+    closeMenu({ restoreFocus: true })
+  }
+}
+
 onMounted(() => {
   document.addEventListener('pointerdown', closeMenuOnOutsideClick)
+  document.addEventListener('keydown', closeMenuOnEscape)
 })
 
 onBeforeUnmount(() => {
   document.removeEventListener('pointerdown', closeMenuOnOutsideClick)
+  document.removeEventListener('keydown', closeMenuOnEscape)
 })
 </script>
 
 <template>
-  <nav
-    class="fixed bottom-0 left-1/2 z-1000 flex -translate-x-1/2 justify-evenly gap-3 rounded-2xl bg-secondary/33 mb-5 p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))]"
-  >
+  <nav class="navbar" aria-label="Hauptnavigation">
     <!-- Home page -->
     <RouterLink to="/">
-      <button class="btn btn-primary"><HouseIcon /></button>
+      <button class="btn btn-primary" type="button" aria-label="Startseite öffnen"><HouseIcon /></button>
     </RouterLink>
 
     <!-- Map -->
     <RouterLink to="/map">
-      <button class="btn btn-primary"><MapIcon /></button>
+      <button class="btn btn-primary" type="button" aria-label="Karte öffnen"><MapIcon /></button>
     </RouterLink>
 
     <!-- Bird recognition -->
     <RouterLink to="/bird-recognition">
-      <button class="btn btn-primary"><MicIcon /></button>
+      <button class="btn btn-primary" type="button" aria-label="Vogelerkennung öffnen"><MicIcon /></button>
     </RouterLink>
 
     <!-- Lexicon -->
     <RouterLink to="/lexicon">
-      <button class="btn btn-primary"><BookOpenTextIcon /></button>
+      <button class="btn btn-primary" type="button" aria-label="Lexikon öffnen"><BookOpenTextIcon /></button>
     </RouterLink>
 
     <!-- Guided tours -->
@@ -56,41 +81,55 @@ onBeforeUnmount(() => {
     <!-- Dropdown -->
     <div ref="menuRef" class="relative">
       <!-- Hamburger trigger -->
-      <button class="btn btn-primary" @click="open = !open">
+      <button
+        ref="menuButtonRef"
+        class="btn btn-primary"
+        type="button"
+        aria-label="Weitere Navigation öffnen"
+        :aria-expanded="open"
+        aria-controls="navbar-overflow-menu"
+        @click="open = !open"
+      >
         <MenuIcon />
       </button>
 
       <!-- Dropdown menu -->
       <div
         v-if="open"
-        class="absolute bottom-[calc(100%+0.5rem+4px)] right-0 z-1001 flex max-h-[calc(100dvh-6rem)] w-[min(14rem,calc(100vw-1rem))] max-w-[calc(100vw-1rem)] flex-col gap-2 overflow-y-auto rounded-t-2xl bg-secondary/33 p-2 shadow-xl"
+        id="navbar-overflow-menu"
+        class="navbar-popover"
+        role="menu"
+        aria-labelledby="navbar-overflow-label"
       >
-        <!-- About us -->
-        <RouterLink to="/about" @click="closeMenu">
-          <button class="btn btn-primary w-full">About Us</button>
-        </RouterLink>
+        <div id="navbar-overflow-label" class="navbar-popover-label">
+          Mehr
+        </div>
 
-        <RouterLink to="/dangerguide" @click="closeMenu">
-          <button class="btn btn-primary w-full whitespace-normal text-center">
-            Gefahrenanleitung
-          </button>
-        </RouterLink>
+        <div class="navbar-popover-list">
+          <RouterLink
+            v-for="item in internalMenuItems"
+            :key="item.to"
+            :to="item.to"
+            class="navbar-popover-link"
+            role="menuitem"
+            @click="closeMenu()"
+          >
+            {{ item.label }}
+          </RouterLink>
 
-        <!-- bathing spots -->
-        <RouterLink to="/bathing-spots" @click="closeMenu">
-          <button class="btn btn-primary w-full">Wo darf man baden?</button>
-        </RouterLink>
-
-        <!-- Impressum -->
-        <a href="https://www.sybit.com/de/impressum" target="_blank" rel="noopener noreferrer">
-          <button class="btn btn-primary w-full">Impressum</button>
-        </a>
-
-
-        <!-- Data-protection -->
-        <RouterLink to="/privacy-policy" @click="closeMenu">
-          <button class="btn btn-primary w-full">Datenschutz</button>
-        </RouterLink>
+          <a
+            v-for="item in externalMenuItems"
+            :key="item.href"
+            :href="item.href"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="navbar-popover-link"
+            role="menuitem"
+            @click="closeMenu()"
+          >
+            {{ item.label }}
+          </a>
+        </div>
       </div>
     </div>
   </nav>
