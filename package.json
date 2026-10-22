@@ -23,7 +23,7 @@
     "dompurify": "^3.4.16",
     "leaflet": "^1.9.4",
     "minisearch": "^7.2.0",
-    "marked": "^18.1.0",
+    "marked": "^18.1.1",
     "pinia": "^4.0.3",
     "pocketbase": "^0.28.1",
     "postcss": "^8.5.30",
